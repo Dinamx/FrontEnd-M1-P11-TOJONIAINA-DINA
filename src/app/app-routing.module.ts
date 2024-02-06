@@ -15,6 +15,7 @@ const routes: Routes = [
     component : AppSideLoginComponent,
     pathMatch: 'full',
   },
+  //Client
   {
     path: '',
     component: FullComponent,

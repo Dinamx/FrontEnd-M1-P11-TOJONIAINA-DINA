@@ -48,9 +48,9 @@ export class AppSideLoginComponent implements OnInit {
       case '1':
         return 'Log in as Client';
       case '2':
-        return 'Log in as Admin';
+        return 'Log in as Employe';
       case '3':
-        return 'Log in as Employee';
+        return 'Log in as Admin';
       default:
         return 'Log in';
     }
@@ -76,9 +76,17 @@ export class AppSideLoginComponent implements OnInit {
   async logIn(){
     console.log('user + ' + this.userEmail);
     console.log('psswd + ' + this.userPsswd);
+    // Simuler une connexion réussie
+    const user = {
+      name: 'John Doe',
+      typeUser: 'client'
+    };
 
+    // Stocker les informations de l'utilisateur dans le localStorage
+    localStorage.setItem('name', user.name);
+    localStorage.setItem('typeUser', user.typeUser);
 
-  this.router.navigateByUrl('/client')
+  this.router.navigateByUrl('/dashboard/rendezVous')
 
 
     // try {
@@ -98,6 +106,8 @@ export class AppSideLoginComponent implements OnInit {
 
 
   }
+
+
 
 
 }
