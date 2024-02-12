@@ -1,18 +1,12 @@
-import {
-  Component,
-  Output,
-  EventEmitter,
-  Input,
-  ViewEncapsulation,
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  encapsulation: ViewEncapsulation.None,
+  selector: 'app-footer',
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.scss']
 })
-export class HeaderComponent {
+export class FooterComponent {
   @Input() showToggle = true;
   @Input() toggleChecked = false;
   @Output() toggleMobileNav = new EventEmitter<void>();

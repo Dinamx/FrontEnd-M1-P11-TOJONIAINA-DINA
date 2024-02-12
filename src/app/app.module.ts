@@ -25,7 +25,7 @@ import { HeaderComponent } from './layouts/full/header/header.component';
 import { BrandingComponent } from './layouts/full/sidebar/branding.component';
 import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.component';
 import {MatSelectModule} from "@angular/material/select";
-import {MatOptionModule} from "@angular/material/core";
+import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {FormRendezVousComponent} from "./pages/client/form-rendez-vous/form-rendez-vous.component";
 
 @NgModule({
@@ -41,6 +41,7 @@ import {FormRendezVousComponent} from "./pages/client/form-rendez-vous/form-rend
   ],
   imports: [
     BrowserModule,
+    MatNativeDateModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,

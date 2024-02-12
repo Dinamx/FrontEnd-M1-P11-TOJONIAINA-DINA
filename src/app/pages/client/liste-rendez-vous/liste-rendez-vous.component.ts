@@ -24,6 +24,13 @@ import {
   NgApexchartsModule,
 } from 'ng-apexcharts';
 
+import {AsyncPipe} from '@angular/common';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {map, Observable, startWith} from "rxjs";
+import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
+
 interface month {
   value: string;
   viewValue: string;
@@ -83,6 +90,7 @@ export interface productsData {
   hourRate: number;
   classes: number;
   priority: string;
+  prix: string;
 }
 
 // ecommerce card
@@ -103,6 +111,7 @@ const ELEMENT_DATA: productsData[] = [
     hourRate: 150,
     classes: 53,
     priority: 'Available',
+    prix: '600'
   },
   {
     id: 2,
@@ -112,25 +121,8 @@ const ELEMENT_DATA: productsData[] = [
     hourRate: 150,
     classes: 68,
     priority: 'In Class',
-  },
-  {
-    id: 3,
-    imagePath: 'assets/images/profile/user-3.jpg',
-    uname: 'Christopher Jamil',
-    position: 'Project Manager',
-    hourRate: 150,
-    classes: 94,
-    priority: 'Absent',
-  },
-  {
-    id: 4,
-    imagePath: 'assets/images/profile/user-4.jpg',
-    uname: 'Nirav Joshi',
-    position: 'Frontend Engineer',
-    hourRate: 150,
-    classes: 27,
-    priority: 'On Leave',
-  },
+    prix: 'In Class',
+  }
 ];
 
 @Component({
@@ -148,17 +140,41 @@ const ELEMENT_DATA: productsData[] = [
     NgApexchartsModule,
     MatTableModule,
     CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    AsyncPipe,
   ],
 })
 
 export class ListeRendezVousComponent {
+  myControl = new FormControl('');
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]> | undefined;
+
+  ngOnInit() {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
+
   @ViewChild('chart') chart: ChartComponent = Object.create(null);
 
   public profitExpanceChart!: Partial<profitExpanceChart> | any;
   public trafficChart!: Partial<trafficChart> | any;
   public salesChart!: Partial<salesChart> | any;
 
-  displayedColumns: string[] = ['profile', 'hrate', 'exclasses', 'status'];
+  displayedColumns: string[] = ['profile', 'hrate', 'exclasses', 'status','prix'];
   dataSource = ELEMENT_DATA;
 
   months: month[] = [
