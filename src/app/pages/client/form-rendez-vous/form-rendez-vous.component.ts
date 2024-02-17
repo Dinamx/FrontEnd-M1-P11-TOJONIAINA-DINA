@@ -12,8 +12,9 @@ import {AsyncPipe, CommonModule} from "@angular/common";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+// import {MatDatepickerModule} from "@angular/material/datepicker";
+// import {MatDatetimepickerModule} from "@mat-datetimepicker/core";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'form-rendez-vous',
@@ -36,14 +37,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     ReactiveFormsModule,
     AsyncPipe,
-  ],
-  exports: [
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDatetimepickerModule,
-    MatMomentDatetimeModule,
   ],
 })
 export class FormRendezVousComponent {

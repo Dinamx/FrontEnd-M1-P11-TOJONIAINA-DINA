@@ -4,6 +4,7 @@ import {FormRendezVousComponent} from "./client/form-rendez-vous/form-rendez-vou
 import {ListeRendezVousComponent} from "./client/liste-rendez-vous/liste-rendez-vous.component";
 import {FormServiceComponent} from "./manager/form-service/form-service.component";
 import {ListeServiceComponent} from "./manager/liste-service/liste-service.component";
+import {FormEmployeComponent} from "./manager/form-employe/form-employe.component";
 
 export const PagesRoutes: Routes = [
   {
@@ -52,7 +53,15 @@ export const PagesRoutes: Routes = [
     path: 'listeemploye',
     component: ListeServiceComponent,
     data: {
-      title: 'Liste des service',
+      title: 'Liste des employés',
+    },
+  },
+  //Nouvel Employe pour MANAGER
+  {
+    path: 'formemploye',
+    component: FormEmployeComponent,
+    data: {
+      title: 'Nouvel Employé ',
     },
   },
 
