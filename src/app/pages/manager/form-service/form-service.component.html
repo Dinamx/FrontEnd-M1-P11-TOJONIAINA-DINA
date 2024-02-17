@@ -1,1 +1,63 @@
-<p>form-service works!</p>
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Service</mat-card-title>
+    <mat-card-subtitle class="mat-body-1">New Kind of Service</mat-card-subtitle>
+
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block" >Service</mat-label>
+        <input matInput formControlName="nom" />
+        <mat-error *ngIf="f.nom.invalid && (f.nom.dirty || f.nom.touched)">
+        Name invalid
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block" >Prix</mat-label>
+        <input matInput formControlName="prix" />
+        <mat-error *ngIf="f.prix.invalid && (f.prix.dirty || f.prix.touched)">
+        Invalid price
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block" >Durée</mat-label>
+        <input matInput formControlName="duree" />
+        <mat-error *ngIf="f.duree.invalid && (f.duree.dirty || f.duree.touched)">
+        invalid duration
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block" >Comission (%)</mat-label>
+        <input matInput formControlName="commission" />
+        <mat-error *ngIf="f.commission.invalid && (f.commission.dirty || f.commission.touched)">
+          invalid comission
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <button type="submit"  mat-flat-button color="primary" class="w-50">
+          Confirm
+        </button>
+      </mat-form-field>
+
+<!--      <div class="mat-form-field-outline">-->
+
+<!--      </div>-->
+
+
+
+
+
+    </form>
+
+  </mat-card-content>
+
+
+
+</mat-card>
+

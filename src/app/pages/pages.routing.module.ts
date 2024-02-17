@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { AppDashboardComponent } from './dashboard/dashboard.component';
 import {FormRendezVousComponent} from "./client/form-rendez-vous/form-rendez-vous.component";
 import {ListeRendezVousComponent} from "./client/liste-rendez-vous/liste-rendez-vous.component";
+import {FormServiceComponent} from "./manager/form-service/form-service.component";
+import {ListeServiceComponent} from "./manager/liste-service/liste-service.component";
 
 export const PagesRoutes: Routes = [
   {
@@ -27,4 +29,32 @@ export const PagesRoutes: Routes = [
       title: 'Prise de rendez Vous',
     },
   },
+  //  MANAGER
+
+  //Ajout service pour MANAGER
+  {
+    path: 'formservice',
+    component: FormServiceComponent,
+    data: {
+      title: 'Creation de service',
+    },
+  },
+  //Liste service pour MANAGER
+  {
+    path: 'listeservice',
+    component: ListeServiceComponent,
+    data: {
+      title: 'Liste des service',
+    },
+  },
+  //Liste Employe pour MANAGER
+  {
+    path: 'listeemploye',
+    component: ListeServiceComponent,
+    data: {
+      title: 'Liste des service',
+    },
+  },
+
+
 ];

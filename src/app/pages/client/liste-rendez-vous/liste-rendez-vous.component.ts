@@ -168,7 +168,7 @@ export class ListeRendezVousComponent {
   }
 
 
-  @ViewChild('chart') chart: ChartComponent = Object.create(null);
+  // @ViewChild('chart') chart: ChartComponent = Object.create(null);
 
   public profitExpanceChart!: Partial<profitExpanceChart> | any;
   public trafficChart!: Partial<trafficChart> | any;

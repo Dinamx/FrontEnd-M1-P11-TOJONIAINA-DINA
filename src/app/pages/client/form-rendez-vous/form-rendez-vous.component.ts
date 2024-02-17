@@ -37,6 +37,14 @@ import { MatNativeDateModule } from '@angular/material/core';
     ReactiveFormsModule,
     AsyncPipe,
   ],
+  exports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatetimepickerModule,
+    MatMomentDatetimeModule,
+  ],
 })
 export class FormRendezVousComponent {
   constructor(private router: Router) {}

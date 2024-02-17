@@ -27,18 +27,20 @@ import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.co
 import {MatSelectModule} from "@angular/material/select";
 import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {FormRendezVousComponent} from "./pages/client/form-rendez-vous/form-rendez-vous.component";
+import {FooterComponent} from "./layouts/full/footer/footer.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FullComponent,
-    BlankComponent,
-    SidebarComponent,
-    HeaderComponent,
-    BrandingComponent,
-    AppNavItemComponent,
-  //
-  ],
+    declarations: [
+        AppComponent,
+        FullComponent,
+        BlankComponent,
+        SidebarComponent,
+        HeaderComponent,
+        BrandingComponent,
+        AppNavItemComponent,
+        FooterComponent,
+        //
+    ],
   imports: [
     BrowserModule,
     MatNativeDateModule,

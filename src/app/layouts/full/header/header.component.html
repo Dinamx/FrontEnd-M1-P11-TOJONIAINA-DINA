@@ -4,14 +4,13 @@
     <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
   </button>
   <!-- --------------------------------------------------------------- -->
-
   <!-- --------------------------------------------------------------- -->
   <!-- Notification Dropdown -->
   <!-- --------------------------------------------------------------- -->
 
-  <button mat-icon-button aria-label="Notifications">
-    <i-tabler class="d-flex" name="bell" matBadge="9" matBadgeColor="primary"></i-tabler>
-  </button>
+<!--  <button mat-icon-button aria-label="Notifications">-->
+<!--    <i-tabler class="d-flex" name="bell" matBadge="9" matBadgeColor="primary"></i-tabler>-->
+<!--  </button>-->
 
   <span class="flex-1-auto"></span>
 
@@ -26,6 +25,13 @@
 <!--    class="d-flex justify-content-center"-->
 <!--  >-->
 <!--  </a>-->
+
+  <div>
+    <span class="flex-1-auto">
+        Bienvenue
+    </span>
+  </div>
+
   <button
     mat-icon-button
     [matMenuTriggerFor]="profilemenu"
@@ -58,13 +64,12 @@
     </button>
 
     <div class="p-x-12 m-t-12">
-      <a
-        [routerLink]="['/authentication/login']"
-        mat-flat-button
-        color="primary"
-        class="w-100"
-        >Logout</a
-      >
+      <button (click)="disconnect()"
+              mat-flat-button
+              color="primary"
+              class="w-100" >
+        Logout
+      </button>
     </div>
   </mat-menu>
 </mat-toolbar>

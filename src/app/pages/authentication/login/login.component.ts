@@ -10,10 +10,16 @@ import axios from "axios";
 export class AppSideLoginComponent implements OnInit {
   userType: string = '1';
 
+  errorMessage!: string;
 
   constructor(private route: ActivatedRoute, private router  : Router ) {}
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe(params => {
+      this.errorMessage = params['error'];
+    });
+
     this.route.params.subscribe(params => {
       this.userType = params['userType'] || '1';
 
@@ -85,8 +91,19 @@ export class AppSideLoginComponent implements OnInit {
     // Stocker les informations de l'utilisateur dans le localStorage
     localStorage.setItem('name', user.name);
     localStorage.setItem('typeUser', user.typeUser);
+    // localStorage.setItem('typeUser', '');
 
-  this.router.navigateByUrl('/dashboard/rendezVous')
+    if (user.typeUser == 'client'){
+  this.router.navigateByUrl('/dashboard/rendezVous');
+  // this.router.navigateByUrl('/dashboard/rendezVous');
+      }
+    else if (user.typeUser == 'admin'){
+      this.router.navigateByUrl('/dashboard/rendezVous')
+    }
+    else if (user.typeUser == 'emp'){
+      this.router.navigateByUrl('/dashboard/rendezVous')
+    }
+
 
 
     // try {
