@@ -20,7 +20,7 @@ export const PagesRoutes: Routes = [
   },
   //Prise de rendez Vous pour client
   {
-    path: 'formrendezVous',
+    path: 'rendezVous',
     component: FormRendezVousComponent,
     data: {
       title: 'Prise de rendez Vous',
