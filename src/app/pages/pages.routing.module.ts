@@ -5,6 +5,10 @@ import {ListeRendezVousComponent} from "./client/liste-rendez-vous/liste-rendez-
 import {FormServiceComponent} from "./manager/form-service/form-service.component";
 import {ListeServiceComponent} from "./manager/liste-service/liste-service.component";
 import {FormEmployeComponent} from "./manager/form-employe/form-employe.component";
+import {FormCompteComponent} from "./client/form-compte/form-compte.component";
+import {FormHoraireTravailComponent} from "./employe/form-horaire-travail/form-horaire-travail.component";
+import {ListeRendezVousEmployeComponent} from "./employe/liste-rendez-vous-employe/liste-rendez-vous-employe.component";
+import {ListeRendezVousDuJourEmployeComponent} from "./employe/liste-rendez-vous-du-jour-employe/liste-rendez-vous-du-jour-employe.component";
 
 export const PagesRoutes: Routes = [
   {
@@ -24,7 +28,7 @@ export const PagesRoutes: Routes = [
   },
   //Liste de rendez Vous pour client
   {
-    path: 'rendezVous',
+    path: 'listerendezVous',
     component: ListeRendezVousComponent,
     data: {
       title: 'Prise de rendez Vous',
@@ -64,6 +68,37 @@ export const PagesRoutes: Routes = [
       title: 'Nouvel Employé ',
     },
   },
+  //OK
+  {
+    path: 'formcompte',
+    component: FormCompteComponent,
+    data: {
+      title: 'Nouveau rechargement de solde ',
+    },
+  },
 
+
+//  EMPLOYE
+  {
+    path: 'formHoraireTravail',
+    component: FormHoraireTravailComponent,
+    data: {
+      title: 'formHoraireTravail Employe ',
+    },
+  },
+  {
+    path: 'listeRendezVousEmp',
+    component: ListeRendezVousEmployeComponent,
+    data: {
+      title: 'liste RDV Employe ',
+    },
+  },
+  {
+    path: 'listeRendezVousDuJourEmp',
+    component: ListeRendezVousDuJourEmployeComponent,
+    data: {
+      title: 'liste RDV du jour Employe ',
+    },
+  },
 
 ];

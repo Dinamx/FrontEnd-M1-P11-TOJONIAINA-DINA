@@ -13,18 +13,73 @@ export const navItems: NavItem[] = [
   {
     displayName: 'My Appointments',
     iconName: 'layout-dashboard',
-    route: '/dashboard/rendezVous',
+    route: '/dashboard/listerendezVous',
   },
 
-  //Payement
-  // {
-  //   navCap: 'My Account',
-  // },
-  // {
-  //   displayName: 'Charge my account',
-  //   iconName: 'layout-dashboard',
-  //   route: '/dashboard/formAccount',
-  // },
+  // Payement
+  {
+    navCap: 'My Account',
+  },
+  {
+    displayName: 'Charge my account',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/formcompte',
+  },
+
+  //Manager
+  {
+    navCap: 'MANAGER',
+  },
+  {
+    displayName: 'form employe',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/formemploye',
+  },
+  {
+    displayName: 'liste employe',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/listeemploye',
+  },
+  {
+    displayName: 'form service',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/formservice',
+  },
+  {
+    displayName: 'liste service',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/listeservice',
+  },
+
+  //Manager
+  {
+    navCap: 'EMPLOYE',
+  },
+  {
+    displayName: 'form horaire travail employe',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/formHoraireTravail',
+  },
+  {
+    displayName: 'listeRendezVousEmp',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/listeRendezVousEmp',
+  },
+  {
+    displayName: 'listeRendezVousDuJourEmp',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/listeRendezVousDuJourEmp',
+  },
+
+
+  {
+    navCap: 'My Account',
+  },
+  {
+    displayName: 'Charge my account',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/formcompte',
+  },
   {
     navCap: 'Ui Components',
   },
