@@ -41,12 +41,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 export class FormServiceComponent {
   constructor(private router: Router) {}
 
-  // form = new FormGroup({
-  //   nom: new FormControl('', [Validators.required, Validators.minLength(6)]),
-  //   prix: new FormControl('', [Validators.required, this.positiveNumberValidator]),
-  //   duree: new FormControl('', [Validators.required, this.isNumberValidator]),
-  //   commission: new FormControl('', [Validators.required, this.percentageValidator]),
-  // });
+
 
   form = new FormGroup({
     nom: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -63,7 +58,7 @@ export class FormServiceComponent {
     if (this.form.valid) {
       console.log('Form submitted successfully');
       // Ajoutez ici la logique pour envoyer les données au serveur ou effectuer d'autres actions nécessaires
-      this.router.navigate(['/dashboard']);
+      this.router.navigate([self]);
     } else {
       console.log('Form submission failed');
     }

@@ -38,12 +38,24 @@
 
       <mat-form-field appearance="outline" color="primary" class=" col-12 mat-form-field-outline">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block" >Service</mat-label>
-        <input  matInput class="mat-input-element" >
+<!--        <input  matInput  >-->
+        <mat-select  class="mat-input-element" [(value)]="selected">
+          <mat-option class="mat-input-element">None</mat-option>
+          <mat-option class="mat-input-element" value="option1">Ongles</mat-option>
+          <mat-option class="mat-input-element" value="option2">Cheveux</mat-option>
+          <mat-option class="mat-input-element" value="option3">Ongles</mat-option>
+        </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline" color="primary" class=" col-12 mat-form-field-outline">
-        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block" >Durée</mat-label>
-        <input matInput type="number" min="0" class="mat-input-element" >
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block"  >Prix (Ariary)</mat-label>
+        <input matInput readonly min="0" class="mat-input-element" >
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" color="primary" class=" col-12 mat-form-field-outline">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block" >Durée (Minutes)</mat-label>
+        <input matInput readonly type="number" min="0" class="mat-input-element" >
       </mat-form-field>
 
       <mat-form-field appearance="outline" color="primary" class=" col-12 mat-form-field-outline">

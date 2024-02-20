@@ -12,9 +12,8 @@ import {AsyncPipe, CommonModule} from "@angular/common";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-// import {MatDatepickerModule} from "@angular/material/datepicker";
-// import {MatDatetimepickerModule} from "@mat-datetimepicker/core";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatSelectModule} from "@angular/material/select";
 
 @Component({
   selector: 'form-rendez-vous',
@@ -37,10 +36,15 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     MatDatepickerModule,
     ReactiveFormsModule,
     AsyncPipe,
+    MatSelectModule,
   ],
 })
 export class FormRendezVousComponent {
   constructor(private router: Router) {}
+
+
+  selected = 'option2';
+
 
   form = new FormGroup({
     uname: new FormControl('', [Validators.required, Validators.minLength(6)]),

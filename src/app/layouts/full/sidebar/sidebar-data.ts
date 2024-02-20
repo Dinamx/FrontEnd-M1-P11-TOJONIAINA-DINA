@@ -8,7 +8,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'New Appointment',
     iconName: 'layout-dashboard',
-    route: '/dashboard/formrendezVous',
+    route: '/dashboard/rendezVous',
   },
   {
     displayName: 'My Appointments',
