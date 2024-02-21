@@ -6,11 +6,7 @@ import { Injectable } from '@angular/core';
 export class ConstantsService {
   constructor() { }
 
-
-
   link = 'localhost:8080/';
-
-
 
   months = [
     { name: 'Janvier', value: '01' },
