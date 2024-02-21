@@ -2,21 +2,21 @@
   <mat-card class="cardWithShadow">
     <mat-card-content class="p-5">
       <!--      Code recherche-->
-      <form class="example-form">
-        <mat-form-field class="col-12">
-          <mat-label>Number</mat-label>
-          <input type="text"
-                 placeholder="Pick one"
-                 aria-label="Number"
-                 matInput
-                 [formControl]="myControl"
-                 [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async track option" [value]="option">{{option}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
+<!--      <form class="example-form">-->
+<!--        <mat-form-field class="col-12">-->
+<!--          <mat-label>Number</mat-label>-->
+<!--          <input type="text"-->
+<!--                 placeholder="Pick one"-->
+<!--                 aria-label="Number"-->
+<!--                 matInput-->
+<!--                 [formControl]="myControl"-->
+<!--                 [matAutocomplete]="auto">-->
+<!--          <mat-autocomplete #auto="matAutocomplete">-->
+<!--            <mat-option *ngFor="let option of filteredOptions | async track option" [value]="option">{{option}}-->
+<!--            </mat-option>-->
+<!--          </mat-autocomplete>-->
+<!--        </mat-form-field>-->
+<!--      </form>-->
       <!--      Fin recherche-->
     </mat-card-content>
   </mat-card>
@@ -27,7 +27,8 @@
       <div class="table-responsive m-t-16">
         <table mat-table [dataSource]="dataSource" class="w-100 table-borderless">
           <!-- Position Column -->
-          <ng-container matColumnDef="profile">
+          <!-- Position Column -->
+          <ng-container matColumnDef="nom">
             <th
               mat-header-cell
               *matHeaderCellDef
@@ -35,18 +36,9 @@
             >
               Date
             </th>
-            <td mat-cell *matCellDef="let element">
+            <td mat-cell *matCellDef="let element ">
               <div class="d-flex align-items-center">
-                <!--                <img-->
-                <!--                  [src]="element.imagePath"-->
-                <!--                  alt="users"-->
-                <!--                  width="50"-->
-                <!--                  class="rounded-circle"-->
-                <!--                />-->
                 <div class="m-l-16">
-                  <!--                  <h6 class="mat-subtitle-1 f-s-14 f-w-700">-->
-                  <!--                    {{ element.uname }}-->
-                  <!--                  </h6>-->
                   <span class="mat-body-1 f-s-14">
                       Prof. {{ element.nom }}
                     </span>
@@ -56,7 +48,7 @@
           </ng-container>
 
           <!-- Name Column -->
-          <ng-container matColumnDef="hrate">
+          <ng-container matColumnDef="prenom">
             <th
               mat-header-cell
               *matHeaderCellDef
@@ -70,7 +62,7 @@
           </ng-container>
 
           <!-- Weight Column -->
-          <ng-container matColumnDef="exclasses">
+          <ng-container matColumnDef="email">
             <th
               mat-header-cell
               *matHeaderCellDef
@@ -88,7 +80,7 @@
           </ng-container>
 
           <!-- Symbol Column -->
-          <ng-container matColumnDef="status">
+          <ng-container matColumnDef="psswd">
             <th
               mat-header-cell
               *matHeaderCellDef
@@ -131,26 +123,41 @@
           </ng-container>
 
 
-          <ng-container matColumnDef="prix">
+          <ng-container matColumnDef="numero">
             <th
               mat-header-cell
               *matHeaderCellDef
               class="f-w-600 mat-subtitle-1 f-s-14"
             >
-              prix
+              numero
             </th>
             <td mat-cell *matCellDef="let element">
                                <span
                                  class="bg-light-warning text-warning rounded f-w-600 p-y-6 p-x-16 f-s-14"
                                >
-                    {{ element.prix | titlecase }}
+                    {{ element.numero | titlecase }}
                   </span>
             </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
         </table>
+
+
+
+
+
+
+        <mat-paginator [length]="100"
+                       [pageSize]="10"
+                       [pageSizeOptions]="[1, 10, 25, 100]"
+                       aria-label="Select page">
+        </mat-paginator>
+
+
+
       </div>
     </mat-card-content>
   </mat-card>

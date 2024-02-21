@@ -11,6 +11,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [],
@@ -27,7 +28,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     MatAutocompleteModule,
     MatDatepickerModule,
     MatTableModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    MatSelectModule
   ],
   exports: [
     CommonModule,

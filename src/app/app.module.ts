@@ -28,6 +28,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {FormRendezVousComponent} from "./pages/client/form-rendez-vous/form-rendez-vous.component";
 import {FooterComponent} from "./layouts/full/footer/footer.component";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {NgApexchartsModule} from "ng-apexcharts";
 
 @NgModule({
     declarations: [
@@ -54,7 +56,9 @@ import {FooterComponent} from "./layouts/full/footer/footer.component";
     MatOptionModule,
     TablerIconsModule.pick(TablerIcons),
     NgScrollbarModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatPaginatorModule,
+    NgApexchartsModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

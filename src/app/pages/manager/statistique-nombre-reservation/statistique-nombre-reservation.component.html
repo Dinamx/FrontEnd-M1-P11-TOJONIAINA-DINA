@@ -1,0 +1,33 @@
+<div class="col-lg-12">
+  <mat-card class="cardWithShadow">
+
+
+    <header>
+      <mat-form-field appearance="outline" color="primary" style="padding: 1rem" class=" col-3 mat-form-field-outline">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Mois</mat-label>
+        <mat-select class="mat-input-element">
+          <mat-option *ngFor="let month of months" [value]="month.value">{{ month.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </header>
+
+
+<div style="padding: 1rem;" id="chart">
+
+
+
+
+  <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [dataLabels]="chartOptions.dataLabels"
+    [plotOptions]="chartOptions.plotOptions"
+    [yaxis]="chartOptions.yaxis"
+    [xaxis]="chartOptions.xaxis"
+    [fill]="chartOptions.fill"
+    [title]="chartOptions.title"
+  ></apx-chart>
+</div>
+
+  </mat-card>
+</div>

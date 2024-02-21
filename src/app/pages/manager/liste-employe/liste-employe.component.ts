@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
 import {MatButtonModule} from "@angular/material/button";
@@ -7,11 +7,12 @@ import {MatIconModule} from "@angular/material/icon";
 import {TablerIconsModule} from "angular-tabler-icons";
 import {MatCardModule} from "@angular/material/card";
 import {NgApexchartsModule} from "ng-apexcharts";
-import {MatTableModule} from "@angular/material/table";
+import {MatTableDataSource, MatTableModule} from "@angular/material/table";
 import {AsyncPipe, CommonModule} from "@angular/common";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 
 
 export interface productsData {
@@ -63,6 +64,7 @@ const ELEMENT_DATA: productsData[] = [
     MatAutocompleteModule,
     ReactiveFormsModule,
     AsyncPipe,
+    MatPaginatorModule,
   ],
 })
 export class ListeEmployeComponent {
@@ -70,11 +72,28 @@ export class ListeEmployeComponent {
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]> | undefined;
 
+
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+
+
+  ngAfterViewInit() {
+    if (this.paginator){
+
+    this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
+    this.dataSource.paginator = this.paginator;
+
+    }
+
+
+  }
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
     );
+
+
+    console.log(this.dataSource );
   }
 
   private _filter(value: string): string[] {
@@ -87,7 +106,10 @@ export class ListeEmployeComponent {
   // @ViewChild('chart') chart: ChartComponent = Object.create(null);
 
 
-  displayedColumns: string[] = ['Nom', 'Prenom', 'Email', 'psswd','numero'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['nom', 'prenom', 'email', 'psswd','numero'];
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+
+  // dataSource = ELEMENT_DATA;
+
 
 }

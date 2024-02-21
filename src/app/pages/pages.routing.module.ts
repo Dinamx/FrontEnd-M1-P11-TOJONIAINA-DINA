@@ -9,6 +9,8 @@ import {FormCompteComponent} from "./client/form-compte/form-compte.component";
 import {FormHoraireTravailComponent} from "./employe/form-horaire-travail/form-horaire-travail.component";
 import {ListeRendezVousEmployeComponent} from "./employe/liste-rendez-vous-employe/liste-rendez-vous-employe.component";
 import {ListeRendezVousDuJourEmployeComponent} from "./employe/liste-rendez-vous-du-jour-employe/liste-rendez-vous-du-jour-employe.component";
+import {ListeEmployeComponent} from "./manager/liste-employe/liste-employe.component";
+import {StatistiqueNombreReservationComponent} from "./manager/statistique-nombre-reservation/statistique-nombre-reservation.component";
 
 export const PagesRoutes: Routes = [
   {
@@ -55,7 +57,7 @@ export const PagesRoutes: Routes = [
   //Liste Employe pour MANAGER
   {
     path: 'listeemploye',
-    component: ListeServiceComponent,
+    component: ListeEmployeComponent,
     data: {
       title: 'Liste des employés',
     },
@@ -66,6 +68,13 @@ export const PagesRoutes: Routes = [
     component: FormEmployeComponent,
     data: {
       title: 'Nouvel Employé ',
+    },
+  },
+  {
+    path: 'statistiqueNombreReservation',
+    component: StatistiqueNombreReservationComponent,
+    data: {
+      title: 'Nombre réservation ',
     },
   },
   //OK
