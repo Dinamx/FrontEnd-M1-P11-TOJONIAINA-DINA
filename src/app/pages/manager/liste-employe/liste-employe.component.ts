@@ -1,5 +1,5 @@
 import {Component, ViewChild, ViewEncapsulation} from '@angular/core';
-import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
@@ -73,6 +73,9 @@ export class ListeEmployeComponent {
   filteredOptions: Observable<string[]> | undefined;
 
 
+  searchForm: FormGroup;
+
+
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
 
@@ -82,16 +85,27 @@ export class ListeEmployeComponent {
     this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
     this.dataSource.paginator = this.paginator;
 
+
+      // this.searchForm.valueChanges.subscribe(val => {
+      //   this.filterData(val);
+      // });
+
     }
 
 
   }
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+  constructor(private fb: FormBuilder) {
+    this.searchForm = this.fb.group({
+      nom: [''],
+      prenom: [''],
+      email: [''],
+    });
 
+
+    // this.filteredOptions = this.myControl.valueChanges.pipe(
+    //   startWith(''),
+    //   map(value => this._filter(value || '')),
+    // );
 
     console.log(this.dataSource );
   }
@@ -106,10 +120,55 @@ export class ListeEmployeComponent {
   // @ViewChild('chart') chart: ChartComponent = Object.create(null);
 
 
-  displayedColumns: string[] = ['nom', 'prenom', 'email', 'psswd','numero'];
+  displayedColumns: string[] = ['nom', 'prenom', 'email', 'psswd','numero' , 'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   // dataSource = ELEMENT_DATA;
+
+
+
+//  Advanced search
+
+
+
+
+  filterData(filterValue: any) {
+    const filteredData = ELEMENT_DATA.filter(item => {
+      const nom = item.nom.toLowerCase();
+      const prenom = item.prenom.toLowerCase();
+      const email = item.email.toLowerCase();
+
+      const searchNom = filterValue.nom.toLowerCase();
+      const searchPrenom = filterValue.prenom.toLowerCase();
+      const searchEmail = filterValue.email.toLowerCase();
+
+      return (
+        (searchNom === '' || nom.includes(searchNom)) &&
+        (searchPrenom === '' || prenom.includes(searchPrenom)) &&
+        (searchEmail === '' || email.includes(searchEmail))
+        // Ajoutez d'autres conditions de filtrage si nécessaire
+      );
+    });
+    this.dataSource.data = filteredData;
+  }
+
+
+  ismodif = false;
+  isdelete = false;
+  update(element  :any){
+      this.ismodif = true;
+  }
+
+  delete(element  :any){
+      this.isdelete = true;
+  }
+
+
+
+
+
+
+
 
 
 }

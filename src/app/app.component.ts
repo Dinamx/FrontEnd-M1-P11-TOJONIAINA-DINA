@@ -11,9 +11,16 @@ export class AppComponent implements OnInit{
   title = 'Salon de beauté';
 
 
+  isload : boolean = false;
 
 
   ngOnInit(): void {
+
+
+
+
+
+
 
   }
 }
