@@ -1,1 +1,199 @@
-<p>liste-rendez-vous-employe works!</p>
+<div class="col-lg-12">
+  <mat-card class="mat-card cardWithShadow">
+    <form [formGroup]="searchForm" (submit)="filterData(searchForm.value)">
+      <mat-card-content class="mat-mdc-card-content">
+        <div class="row justify-content-evenly"
+             style="display: flex; align-items: center; justify-content: space-evenly">
+          <div class="col-3 m-0 p-0">
+            <mat-form-field appearance="outline" class="form-field-class col-12">
+              <mat-label class="mat-label-class">id</mat-label>
+              <input formControlName="id" class="mat-input-class" matInput placeholder="Entrez le id...">
+            </mat-form-field>
+          </div>
+          <br>
+          <div class="col-3 m-0 p-0">
+            <mat-form-field appearance="outline" class="form-field-class col-12">
+              <mat-label class="mat-label-class">date_heure</mat-label>
+              <input formControlName="date_heure" class="mat-input-class" matInput
+                     placeholder="Entrez le date_heure..."></mat-form-field>
+          </div>
+          <br>
+          <div class="col-3 m-0 p-0">
+            <mat-form-field appearance="outline" class="form-field-class col-12">
+              <mat-label class="mat-label-class">service</mat-label>
+              <input formControlName="service" class="mat-input-class" matInput placeholder="Entrez le service...">
+            </mat-form-field>
+          </div>
+          <br>
+          <div class="col-3 m-0 p-0">
+            <mat-form-field appearance="outline" class="form-field-class col-12">
+              <mat-label class="mat-label-class">client</mat-label>
+              <input formControlName="client" class="mat-input-class" matInput placeholder="Entrez le client...">
+            </mat-form-field>
+          </div>
+          <br>
+          <div class="col-3 m-0 p-0">
+            <mat-form-field appearance="outline" class="form-field-class col-12">
+              <mat-label class="mat-label-class">employe</mat-label>
+              <input formControlName="employe" class="mat-input-class" matInput placeholder="Entrez le employe...">
+            </mat-form-field>
+          </div>
+          <br>
+          <div class="col-3 m-0 p-0">
+            <mat-form-field appearance="outline" class="form-field-class col-12">
+              <mat-label class="mat-label-class">prixpaye</mat-label>
+              <input formControlName="prixpaye" class="mat-input-class" matInput placeholder="Entrez le prixpaye...">
+            </mat-form-field>
+          </div>
+          <br>
+          <div class="col-3 m-0 p-0">
+            <mat-form-field appearance="outline" class="form-field-class col-12">
+              <mat-label class="mat-label-class">comissionemploye</mat-label>
+              <input formControlName="comissionemploye" class="mat-input-class" matInput
+                     placeholder="Entrez le comissionemploye..."></mat-form-field>
+          </div>
+          <br>
+          <div class="col-3 m-0 p-0">
+            <mat-form-field appearance="outline" class="form-field-class col-12">
+              <mat-label class="mat-label-class">duree</mat-label>
+              <input formControlName="duree" class="mat-input-class" matInput placeholder="Entrez le duree...">
+            </mat-form-field>
+          </div>
+          <br>
+          <div class="col-3 m-0 p-0">
+            <mat-form-field appearance="outline" class="form-field-class col-12">
+              <mat-label class="mat-label-class">comission</mat-label>
+              <input formControlName="comission" class="mat-input-class" matInput placeholder="Entrez le comission...">
+            </mat-form-field>
+          </div>
+          <br>
+          <div class="col-3 m-0 p-0">
+            <mat-form-field appearance="outline" class="form-field-class col-12">
+              <mat-label class="mat-label-class">etat_rdv</mat-label>
+              <input formControlName="etat_rdv" class="mat-input-class" matInput placeholder="Entrez le etat_rdv...">
+            </mat-form-field>
+          </div>
+          <br>
+          <div class="col-sm-4 text-end d-flex align-items-center justify-content-end"><br>
+            <button mat-flat-button color="primary" class="add-contact-button-class col-12"> Rechercher</button>
+          </div>
+        </div>
+      </mat-card-content>
+    </form>
+  </mat-card>
+  <mat-card class="cardWithShadow">
+    <mat-card-content class="p-24">
+      <mat-card-title>Take a new Appointment</mat-card-title>
+      <div class="table-responsive m-t-16">
+        <table mat-table [dataSource]="dataSource" class="w-100 table-borderless">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> id</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.id }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="date_heure">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> date_heure</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.date_heure }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="service">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> service</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.service }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="client">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> client</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.client }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="employe">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> employe</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.employe }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="prixpaye">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> prixpaye</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.prixpaye }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="comissionemploye">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> comissionemploye</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.comissionemploye }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="duree">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> duree</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.duree }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="comission">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> comission</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.comission }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="etat_rdv">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> etat_rdv</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.etat_rdv }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> action</th>
+            <td style="display: flex ; align-items: center ; gap: 10px; " mat-cell *matCellDef="let element">
+              <svg (click)="update(element)" xmlns="http://www.w3.org/2000/svg"
+                   class="icon icon-tabler icon-tabler-edit-circle" width="24" height="24" viewBox="0 0 24 24"
+                   stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M12 15l8.385 -8.415a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3z"/>
+                <path d="M16 5l3 3"/>
+                <path d="M9 7.07a7 7 0 0 0 1 13.93a7 7 0 0 0 6.929 -6"/>
+              </svg>
+              <svg (click)="delete(element)" xmlns="http://www.w3.org/2000/svg"
+                   class="icon icon-tabler icon-tabler-square-rounded-x-filled" width="24" height="24"
+                   viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                   stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path
+                  d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm-1.489 7.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z"
+                  fill="currentColor" stroke-width="0"/>
+              </svg>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+                       aria-label="Select page"></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

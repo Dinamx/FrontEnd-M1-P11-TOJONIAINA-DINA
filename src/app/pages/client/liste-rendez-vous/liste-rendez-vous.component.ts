@@ -1,68 +1,45 @@
-import { CommonModule } from '@angular/common';
-import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTableModule } from '@angular/material/table';
-import { TablerIconsModule } from 'angular-tabler-icons';
-import {
-  ApexChart,
-  ChartComponent,
-  ApexDataLabels,
-  ApexLegend,
-  ApexStroke,
-  ApexTooltip,
-  ApexAxisChartSeries,
-  ApexXAxis,
-  ApexYAxis,
-  ApexGrid,
-  ApexPlotOptions,
-  ApexFill,
-  ApexMarkers,
-  ApexResponsive,
-  NgApexchartsModule,
-} from 'ng-apexcharts';
-
-import {AsyncPipe} from '@angular/common';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {Component, ViewChild, ViewEncapsulation} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
-import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatIconModule} from "@angular/material/icon";
+import {TablerIconsModule} from "angular-tabler-icons";
+import {MatCardModule} from "@angular/material/card";
+import {NgApexchartsModule} from "ng-apexcharts";
+import {MatTableDataSource, MatTableModule} from "@angular/material/table";
+import {AsyncPipe, CommonModule} from "@angular/common";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
+import {MatDialog} from "@angular/material/dialog";
+import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
+import {Rendezvous} from "../../../models/interfaces";
+import {UpdateComponent} from "../../manager/liste-employe/update/update.component";
 
-export interface productsData {
-  id: number;
-  imagePath: string;
-  uname: string;
-  position: string;
-  hourRate: number;
-  classes: number;
-  priority: string;
-  prix: string;
-}
-
-
-const ELEMENT_DATA: productsData[] = [
+const ELEMENT_DATA: Rendezvous[] = [
   {
-    id: 1,
-    imagePath: 'assets/images/profile/user-1.jpg',
-    uname: 'Mark J. Freeman',
-    position: 'Counter One',
-    hourRate: 150,
-    classes: 53,
-    priority: 'Available',
-    prix: '600'
+    date_heure: '2024-02-22T09:00:00',
+    service: 'Service 1',
+    client: 'Mark J. Freeman',
+    employe: 'Employee 1',
+    prixpaye: '50',
+    comissionemploye: '10',
+    duree: '60',
+    comission: '15',
+    etat_rdv: '1',
   },
   {
-    id: 2,
-    imagePath: 'assets/images/profile/user-2.jpg',
-    uname: 'Andrew McDownland',
-    position: 'Project Manager',
-    hourRate: 150,
-    classes: 68,
-    priority: 'In Class',
-    prix: '780',
+    date_heure: '2024-02-22T10:30:00',
+    service: 'Service 2',
+    client: 'Andrew McDownland',
+    employe: 'Employee 2',
+    prixpaye: '75',
+    comissionemploye: '15',
+    duree: '45',
+    comission: '20',
+    etat_rdv: '1',
   }
 ];
 
@@ -72,47 +49,74 @@ const ELEMENT_DATA: productsData[] = [
   styleUrls: ['./liste-rendez-vous.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
-    TablerIconsModule,
-    MatCardModule,
-    NgApexchartsModule,
-    MatTableModule,
-    CommonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    ReactiveFormsModule,
-    AsyncPipe,
-  ],
+  imports: [MatButtonModule, MatMenuModule, MatIconModule, TablerIconsModule, MatCardModule, NgApexchartsModule, MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule,],
 })
-
 export class ListeRendezVousComponent {
   myControl = new FormControl('');
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]> | undefined;
+  searchForm: FormGroup;
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+  ngAfterViewInit() {
+    if (this.paginator) {
+      this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
+      this.dataSource.paginator = this.paginator;
+    }
+  }
+
+  constructor(private fb: FormBuilder, private dialog: MatDialog) {
+    this.searchForm = this.fb.group({date_heure: [''], service: [''], employe: [''], duree: [''], prixpaye: [''],});
+    console.log(this.dataSource);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
+  displayedColumns: string[] = ['date_heure', 'service', 'employe', 'duree', 'prixpaye', 'action'];
+  dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
-  // @ViewChild('chart') chart: ChartComponent = Object.create(null);
+  filterData(filterValue: any) {
+    const filteredData = ELEMENT_DATA.filter(item => {
+      const date_heure = item.date_heure.toLowerCase();
+      const service = item.service.toLowerCase();
+      const employe = item.employe.toLowerCase();
+      const duree = item.duree.toLowerCase();
+      const prixpaye = item.prixpaye.toLowerCase();
+      const searchDate_heure = filterValue.date_heure.toLowerCase();
+      const searchService = filterValue.service.toLowerCase();
+      const searchEmploye = filterValue.employe.toLowerCase();
+      const searchDuree = filterValue.duree.toLowerCase();
+      const searchPrixpaye = filterValue.prixpaye.toLowerCase();
+      return ((searchDate_heure === '' || date_heure.includes(searchDate_heure)) && (searchService === '' || service.includes(searchService)) && (searchEmploye === '' || employe.includes(searchEmploye)) && (searchDuree === '' || duree.includes(searchDuree)) && (searchPrixpaye === '' || prixpaye.includes(searchPrixpaye)) );
+    });
+    this.dataSource.data = filteredData;
+  }
+
+  ismodif = false;
+  isdelete = false;
+
+  update(element: any) {
+    this.ismodif = true;
+    const dialogRef = this.dialog.open(UpdateComponent, {width: '400px', data: element});
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+      }
+    });
+  }
+
+  delete(element: any) {
+    this.isdelete = true;
+  }
 
 
-  displayedColumns: string[] = ['profile', 'hrate', 'exclasses', 'status','prix'];
-  dataSource = ELEMENT_DATA;
+  formatDate(dateString: string): string {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    return new Date(dateString).toLocaleDateString();
+  }
+
 
 }
+

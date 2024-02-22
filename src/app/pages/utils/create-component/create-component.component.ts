@@ -8,20 +8,26 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class CreateComponentComponent implements OnInit {
 
+
+
+
   // Déclare une variable de type string
-  titre: string = "service";
+  titre: string = "rendezvous";
 
   // Déclare un tableau à deux dimensions pour les attributs avec leurs types
   attributs: any[][] = [
-    ['id', 'string'],
+    ['date_heure', 'string'],
     ['service', 'string'],
-    ['prix', 'number'],
-    ['comission', 'number'],
+    ['employe', 'string'],
+    ['duree', 'string'],
+    ['prixpaye', 'string'],
   ];
 
   // Chaîne résultante des attributs
   listeHtml: string = '';
   listeTs: string = '';
+  formHtml: string = '';
+  formTs: string = '';
 
 
 
@@ -37,6 +43,11 @@ export class CreateComponentComponent implements OnInit {
     this.listeHtml = this.getRechercheAvancee() +`                             \n                ` + this.getListe();
 
     this.listeTs = this.getListeTs();
+
+
+    this.formHtml = this.getFormHtml();
+
+    this.formTs = this.getFormTs();
 
   }
 
@@ -220,11 +231,7 @@ export class Liste${capitalizeFirstLetter(this.titre)}Component {
     this.dataSource.paginator = this.paginator;
 
 
-      // this.searchForm.valueChanges.subscribe(val => {
-      //   this.filterData(val);
-      // });
-
-    }
+   }
 
 
   }
@@ -240,10 +247,6 @@ export class Liste${capitalizeFirstLetter(this.titre)}Component {
     }
     retour += `});
 
-    // this.filteredOptions = this.myControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => this._filter(value || '')),
-    // );
 
     console.log(this.dataSource );
   }
@@ -310,8 +313,6 @@ export class Liste${capitalizeFirstLetter(this.titre)}Component {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Mettez à jour l'élément avec les nouvelles données
-        // Vous pouvez utiliser le résultat pour mettre à jour votre source de données
       }
     });
   }
@@ -319,11 +320,6 @@ export class Liste${capitalizeFirstLetter(this.titre)}Component {
   delete(element  :any){
       this.isdelete = true;
   }
-
-
-
-
-
 }
 
 
@@ -336,7 +332,135 @@ export class Liste${capitalizeFirstLetter(this.titre)}Component {
   }
 
 
+
+
+
+
+
+// FORMULAIRE INSERTION
+ getFormHtml() : string{
+   let retour = `<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>${capitalizeFirstLetter(this.titre)}</mat-card-title>
+    <mat-card-subtitle class="mat-body-1">New ${capitalizeFirstLetter(this.titre)}</mat-card-subtitle>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+`;
+   for (const attribut of this.attributs) {
+     const attributeName = attribut[0];
+     const attributeType = attribut[1];
+
+     retour += `
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block" >${attributeName}</mat-label>
+        <input matInput class="mat-input-element" formControlName="${attributeName}"  />
+        <mat-error *ngIf="f.${attributeName}.invalid ">
+          ${attributeName} invalid
+        </mat-error>
+      </mat-form-field>
+             `;
+   }
+
+   retour += `
+         <div appearance="outline" class="w-100" color="primary">
+        <button type="submit"  mat-flat-button color="primary" class="w-50">
+          Confirm
+        </button>
+      </div>
+       </form>
+  </mat-card-content>
+</mat-card>
+   `;
+
+  return retour;
 }
+
+ getFormTs() : string{
+  let retour = `
+
+  import {Component, ViewEncapsulation} from '@angular/core';
+import {Router} from "@angular/router";
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatIconModule} from "@angular/material/icon";
+import {TablerIconsModule} from "angular-tabler-icons";
+import {MatCardModule} from "@angular/material/card";
+import {NgApexchartsModule} from "ng-apexcharts";
+import {MatTableModule} from "@angular/material/table";
+import {AsyncPipe, CommonModule} from "@angular/common";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+@Component({
+  selector: 'app-form-${this.titre}',
+  templateUrl: './form-${this.titre}.component.html',
+  styleUrls: ['./form-${this.titre}.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    TablerIconsModule,
+    MatCardModule,
+    NgApexchartsModule,
+    MatTableModule,
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
+    AsyncPipe,
+  ],
+})
+export class Form${capitalizeFirstLetter(this.titre)}Component {
+  constructor(private router: Router) {}
+  form = new FormGroup({
+
+
+  `;
+   for (const attribut of this.attributs) {
+     const attributeName = attribut[0];
+     const attributeType = attribut[1];
+
+     retour += `
+        ${attributeName}: new FormControl('', [Validators.required]),
+             `;
+   }
+   retour += `
+   });
+
+     get f() {
+    return this.form.controls;
+  }
+
+  submit() {
+    if (this.form.valid) {
+      console.log('Form submitted successfully');
+      console.log('Form value:', this.form.value);
+
+      alert('Insertion dans service effectuée');
+      this.router.navigate([self]);
+
+
+
+    } else {
+      alert('Erreur')
+      console.log('Form submission failed');
+    }
+  }
+}
+
+   `;
+
+  return retour;
+}
+
+}
+
 function capitalizeFirstLetter(word: string): string {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }

@@ -17,18 +17,13 @@ import {MatDialog} from "@angular/material/dialog";
 import {UpdateComponent} from "./update/update.component";
 import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
 import {WebservicesService} from "../../../services/webservice/webservices.service";
+import {Employe} from "../../../models/interfaces";
 
 
-export interface productsData {
-  id: number;
-  nom: string;
-  prenom: string;
-  email: string;
-  number: number;
-}
 
 
-const ELEMENT_DATA: productsData[] = [
+
+const ELEMENT_DATA: Employe[] = [
   {
     id: 1,
     nom: 'Mark J. ',
