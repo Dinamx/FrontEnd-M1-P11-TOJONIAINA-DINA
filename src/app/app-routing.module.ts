@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import {AppSideLoginComponent} from "./pages/authentication/login/login.component";
+import {CreateComponentComponent} from "./pages/utils/create-component/create-component.component";
 
 const routes: Routes = [
   {
@@ -51,6 +52,11 @@ const routes: Routes = [
           ),
       },
     ],
+  },
+  {
+    path: 'create',
+    component : CreateComponentComponent,
+    pathMatch: 'full',
   },
 ];
 

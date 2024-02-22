@@ -14,7 +14,25 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {map, Observable, startWith} from "rxjs";
 import {productsData} from "../../client/liste-rendez-vous/liste-rendez-vous.component";
+import {Service} from "../../../models/interfaces";
 
+
+const services: Service[] = [
+  {
+    id: 'service1',
+    description: 'Description du service  1',
+    prix:  100,
+    duree: '1 heure',
+    comission:  10
+  },
+  {
+    id: 'service2',
+    description: 'Description du service  2',
+    prix:  200,
+    duree: '2 heures',
+    comission:  20
+  }
+];
 
 const ELEMENT_DATA: productsData[] = [
   {

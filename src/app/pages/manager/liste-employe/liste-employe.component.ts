@@ -13,6 +13,10 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
+import {MatDialog} from "@angular/material/dialog";
+import {UpdateComponent} from "./update/update.component";
+import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
+import {WebservicesService} from "../../../services/webservice/webservices.service";
 
 
 export interface productsData {
@@ -27,16 +31,16 @@ export interface productsData {
 const ELEMENT_DATA: productsData[] = [
   {
     id: 1,
-    nom: 'Mark J. Freeman',
-    prenom: 'Counter One',
-    email: 'email',
-    number: 53,
+    nom: 'Mark J. ',
+    prenom: 'Freeman',
+    email: 'mark@gmail.com',
+    number: 3202,
   },
   {
     id: 2,
-    nom: 'assets/images/profile/user-2.jpg',
-    prenom: 'Andrew McDownland',
-    email: 'Project Manager',
+    nom: 'Andrew',
+    prenom: 'McDownland',
+    email: 'andre@gmail.com',
     number: 150,
   }
 ];
@@ -64,6 +68,7 @@ const ELEMENT_DATA: productsData[] = [
     MatAutocompleteModule,
     ReactiveFormsModule,
     AsyncPipe,
+    MatGridListModule,
     MatPaginatorModule,
   ],
 })
@@ -94,11 +99,12 @@ export class ListeEmployeComponent {
 
 
   }
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog , private webService: WebservicesService) {
     this.searchForm = this.fb.group({
       nom: [''],
       prenom: [''],
       email: [''],
+      number: [''],
     });
 
 
@@ -116,11 +122,10 @@ export class ListeEmployeComponent {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-
-  // @ViewChild('chart') chart: ChartComponent = Object.create(null);
-
-
-  displayedColumns: string[] = ['nom', 'prenom', 'email', 'psswd','numero' , 'action'];
+  displayedColumns: string[] = [
+    'nom',
+    'prenom', 'email', 'number' ,
+    'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   // dataSource = ELEMENT_DATA;
@@ -137,16 +142,22 @@ export class ListeEmployeComponent {
       const nom = item.nom.toLowerCase();
       const prenom = item.prenom.toLowerCase();
       const email = item.email.toLowerCase();
+      // const number = item.number.toString().toLowerCase(); // Convertir le numéro en chaîne pour le filtrage
+      const number = item.number ? item.number.toString().toLowerCase() : '';
+
 
       const searchNom = filterValue.nom.toLowerCase();
       const searchPrenom = filterValue.prenom.toLowerCase();
       const searchEmail = filterValue.email.toLowerCase();
+      // const searchNumber = filterValue.number.toString().toLowerCase(); // Convertir le numéro de recherche en chaîne
+      const searchNumber = filterValue.number ? filterValue.number.toString().toLowerCase() : '';
+
 
       return (
         (searchNom === '' || nom.includes(searchNom)) &&
         (searchPrenom === '' || prenom.includes(searchPrenom)) &&
-        (searchEmail === '' || email.includes(searchEmail))
-        // Ajoutez d'autres conditions de filtrage si nécessaire
+        (searchEmail === '' || email.includes(searchEmail)) &&
+        (searchNumber === '' || number.includes(searchNumber)) // Ajout de la condition de filtrage pour le numéro
       );
     });
     this.dataSource.data = filteredData;
@@ -155,10 +166,29 @@ export class ListeEmployeComponent {
 
   ismodif = false;
   isdelete = false;
-  update(element  :any){
-      this.ismodif = true;
+
+  update(element: any) {
+    this.ismodif = true;
+    const dialogRef = this.dialog.open(UpdateComponent, {
+      width: '400px',
+      data: element
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Mettez à jour l'élément avec les nouvelles données
+        // Vous pouvez utiliser le résultat pour mettre à jour votre source de données
+      }
+    });
   }
 
+  updateList() {
+    this.webService.getData('/service').then(data => {
+      this.dataSource.data = data; // Mettez à jour votre source de données avec les nouvelles données
+    }).catch(error => {
+      console.error('Une erreur s\'est produite lors de la récupération des données :', error);
+    });
+  }
   delete(element  :any){
       this.isdelete = true;
   }

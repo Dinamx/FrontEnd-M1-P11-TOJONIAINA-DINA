@@ -1,6 +1,6 @@
 
-<div style="position: fixed; width: 100vw; height: 100vh; display: flex ; justify-content: center; align-items: center; background: white; top: 0; left: 0 " >
+<div *ngIf="!isload" style="position: fixed; width: 100vw; height: 100vh; display: flex ; justify-content: center; align-items: center; background: white; top: 0; left: 0 " >
   <img src="../assets/icons/loading.gif" width="5%">
 </div>
 
-<router-outlet (load)="isload=false"></router-outlet>
+<router-outlet (load)="isload=true"></router-outlet>
