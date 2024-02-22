@@ -4,11 +4,6 @@
     <mat-card-subtitle class="mat-body-1">New Employe</mat-card-subtitle>
     <form [formGroup]="form" (ngSubmit)="submit()">
       <mat-form-field appearance="outline" class="w-100" color="primary">
-        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">id</mat-label>
-        <input matInput class="mat-input-element" formControlName="id"/>
-        <mat-error *ngIf="f.id.invalid "> id invalid</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="w-100" color="primary">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">nom</mat-label>
         <input matInput class="mat-input-element" formControlName="nom"/>
         <mat-error *ngIf="f.nom.invalid "> nom invalid</mat-error>
