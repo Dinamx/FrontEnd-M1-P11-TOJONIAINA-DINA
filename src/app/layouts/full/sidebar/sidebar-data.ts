@@ -46,10 +46,32 @@ export const navItems: NavItem[] = [
     route: '/dashboard/formservice',
   },
   {
-    displayName: 'liste service',
+    displayName: 'Nombre de réservation',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/statistiqueNombreReservation',
+  },
+  {
+    displayName: 'Temps de travail moyen',
     iconName: 'layout-dashboard',
     route: '/dashboard/listeservice',
   },
+  {
+    displayName: 'Temps travail Moyen',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/statistiqueTempsTravailMoyen',
+  },
+  {
+    displayName: 'Nombre de Reservation',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/statistiqueNombreReservationComponent',
+  },
+
+  {
+    displayName: 'Bénéfices mensuels',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/statistiqueBeneficeMensuel',
+  },
+
 
   //Manager
   {

@@ -10,6 +10,7 @@ import {
   ApexXAxis,
   ApexFill, NgApexchartsModule
 } from "ng-apexcharts";
+
 import {basicImportsModule} from "../../../basicImports.module";
 import {MatSelectModule} from "@angular/material/select";
 import {ConstantsService} from "../../../services/const/constants.service";
@@ -76,6 +77,10 @@ export class StatistiqueNombreReservationComponent {
       },
 
       xaxis: {
+
+
+
+
         categories: [
           "Jan",
           "Feb",

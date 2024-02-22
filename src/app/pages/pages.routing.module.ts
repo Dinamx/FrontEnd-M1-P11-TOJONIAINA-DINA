@@ -11,6 +11,8 @@ import {ListeRendezVousEmployeComponent} from "./employe/liste-rendez-vous-emplo
 import {ListeRendezVousDuJourEmployeComponent} from "./employe/liste-rendez-vous-du-jour-employe/liste-rendez-vous-du-jour-employe.component";
 import {ListeEmployeComponent} from "./manager/liste-employe/liste-employe.component";
 import {StatistiqueNombreReservationComponent} from "./manager/statistique-nombre-reservation/statistique-nombre-reservation.component";
+import {StatistiqueTempsTravailMoyenComponent} from "./manager/statistique-temps-travail-moyen/statistique-temps-travail-moyen.component";
+import {StatistiqueBeneficeMensuelComponent} from "./manager/statistique-benefice-mensuel/statistique-benefice-mensuel.component";
 
 export const PagesRoutes: Routes = [
   {
@@ -75,6 +77,29 @@ export const PagesRoutes: Routes = [
     component: StatistiqueNombreReservationComponent,
     data: {
       title: 'Nombre réservation ',
+    },
+  },
+
+  {
+    path: 'statistiqueTempsTravailMoyen',
+    component: StatistiqueTempsTravailMoyenComponent,
+    data: {
+      title: 'Temps travail moyen par employe ',
+    },
+  },
+
+  {
+    path: 'statistiqueNombreReservationComponent',
+    component: StatistiqueNombreReservationComponent,
+    data: {
+      title: 'Nombre de reservation ',
+    },
+  },
+  {
+    path: 'statistiqueBeneficeMensuel',
+    component: StatistiqueBeneficeMensuelComponent,
+    data: {
+      title: 'Bénéfice mensuel',
     },
   },
   //OK
