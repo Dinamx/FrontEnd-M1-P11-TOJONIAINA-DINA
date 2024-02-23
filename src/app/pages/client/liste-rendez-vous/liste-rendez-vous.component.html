@@ -5,18 +5,53 @@
         <div class="row justify-content-evenly"
              style="display: flex; align-items: center; justify-content: space-evenly">
           <div class="col-3 m-0 p-0">
+<!--            <mat-form-field appearance="outline" class="form-field-class col-12">-->
+<!--              <mat-label class="mat-label-class">date_heure</mat-label>-->
+<!--              <input formControlName="date_heure" class="mat-input-class" matInput-->
+<!--                     placeholder="Entrez le date_heure...">-->
+<!--            </mat-form-field>-->
+
             <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">date_heure</mat-label>
-              <input formControlName="date_heure" class="mat-input-class" matInput
-                     placeholder="Entrez le date_heure..."></mat-form-field>
+              <mat-label class="mat-label-class">Une intervalle de recherche </mat-label>
+              <mat-date-range-input [formGroup]="searchForm" [rangePicker]="picker">
+                <input class="mat-input-class" matStartDate formControlName="start" placeholder="Start date">
+                <input class="mat-input-class" matEndDate formControlName="end" placeholder="End date">
+              </mat-date-range-input>
+              <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+
+
+
+<!--              @if (range.controls.start.hasError('matStartDateInvalid')) {-->
+<!--              <mat-error>Invalid start date</mat-error>-->
+<!--              }-->
+<!--              @if (range.controls.end.hasError('matEndDateInvalid')) {-->
+<!--              <mat-error>Invalid end date</mat-error>-->
+<!--              }-->
+            </mat-form-field>
+<!--            <p>Selected range: {{searchForm.value.start +   searchForm.value.end  | json}}</p>-->
+
+
+
           </div>
           <br>
+
           <div class="col-3 m-0 p-0">
-            <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">service</mat-label>
-              <input formControlName="service" class="mat-input-class" matInput placeholder="Entrez le service...">
-            </mat-form-field>
+          <mat-form-field appearance="outline" class="form-field-class col-12">
+            <mat-label class="mat-label-class">Service</mat-label>
+            <mat-select formControlName="service" class="mat-input-class" matInput>
+              <mat-option *ngFor="let serv of services" [value]="serv.value">{{serv.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
           </div>
+
+<!--          <div class="col-3 m-0 p-0">-->
+<!--            <mat-form-field appearance="outline" class="form-field-class col-12">-->
+<!--              <mat-label class="mat-label-class">service</mat-label>-->
+<!--              <input formControlName="service" class="mat-input-class" matInput placeholder="Entrez le service...">-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
           <br>
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">

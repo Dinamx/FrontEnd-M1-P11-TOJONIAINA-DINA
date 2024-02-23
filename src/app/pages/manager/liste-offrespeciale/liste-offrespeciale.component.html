@@ -9,13 +9,30 @@
               <mat-label class="mat-label-class">date_heure_envoi</mat-label>
               <input formControlName="date_heure_envoi" class="mat-input-class" matInput
                      placeholder="Entrez le date_heure_envoi..."></mat-form-field>
+
+
+
+
+
+            
+
+
+
           </div>
           <br>
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">service</mat-label>
-              <input formControlName="service" class="mat-input-class" matInput placeholder="Entrez le service...">
+              <mat-label class="mat-label-class">Service</mat-label>
+              <mat-select formControlName="service" class="mat-input-class" matInput>
+<!--                <mat-option *ngFor="let serv of services" [value]="serv.value">{{serv.viewValue}}</mat-option>-->
+                <mat-option  [value]="'service1'">Service1</mat-option>
+                <mat-option  [value]="'service1'">Service1</mat-option>
+              </mat-select>
             </mat-form-field>
+<!--            <mat-form-field appearance="outline" class="form-field-class col-12">-->
+<!--              <mat-label class="mat-label-class">service</mat-label>-->
+<!--              <input formControlName="service" class="mat-input-class" matInput placeholder="Entrez le service...">-->
+<!--            </mat-form-field>-->
           </div>
           <br>
           <div class="col-3 m-0 p-0">

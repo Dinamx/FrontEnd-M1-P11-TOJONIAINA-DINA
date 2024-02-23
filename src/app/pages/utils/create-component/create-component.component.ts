@@ -12,15 +12,14 @@ export class CreateComponentComponent implements OnInit {
 
 
   // Déclare une variable de type string
-  titre: string = "offrespeciale";
+  titre: string = "Service";
 
   // Déclare un tableau à deux dimensions pour les attributs avec leurs types
   attributs: any[][] = [
-    ['date_heure_envoi', 'string'],
     ['service', 'string'],
-    ['date_fin', 'string'],
-    ['description', 'string'],
-    ['client', 'string'],
+    ['prix', 'string'],
+    ['duree', 'string'],
+    ['comission', 'string'],
   ];
 
   // Chaîne résultante des attributs
@@ -50,6 +49,8 @@ export class CreateComponentComponent implements OnInit {
     this.formHtml = this.getFormHtml();
 
     this.formTs = this.getFormTs();
+    this.updateHtml = this.getUpdateHtml();
+    this.updateTs = this.getUpdateTs();
 
   }
 
@@ -458,12 +459,45 @@ export class Form${capitalizeFirstLetter(this.titre)}Component {
 
    `;
 
+
   return retour;
 }
 
 
   getUpdateHtml() : string{
-    let retour = '';
+    let retour = `
+    <mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>${this.titre}</mat-card-title>
+    <mat-card-subtitle class="mat-body-1">Modifier ${this.titre}</mat-card-subtitle>
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+
+    `;
+
+    for (const attribut of this.attributs) {
+      const attributeName = attribut[0];
+      const attributeType = attribut[1];
+
+      retour += `
+       <mat-form-field appearance="outline" color="primary" class="form-field-class">
+    <mat-label class="mat-label-class">${attributeName}</mat-label>
+    <input class="mat-input-class" matInput formControlName="${attributeName}">
+  </mat-form-field>
+             `;
+    }
+
+    retour += `
+
+   <div appearance="outline" color="primary" class="form-field-class">
+  <button mat-raised-button color="primary" type="submit">Mettre à jour</button>
+      </div>
+
+
+   </form>
+  </mat-card-content>
+</mat-card>
+
+   `;
 
 
     return retour;
@@ -471,7 +505,67 @@ export class Form${capitalizeFirstLetter(this.titre)}Component {
   }
 
   getUpdateTs() : string{
-    let retour = '';
+    let retour = `
+
+    import { Component, Inject } from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, Validators} from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import {ReactiveFormsModule} from '@angular/forms';
+import {basicImportsModule} from "../../../../basicImports.module";
+import {WebservicesService} from "../../../../services/webservice/webservices.service";
+
+
+@Component({
+  selector: 'app-update',
+  templateUrl: './update.component.html',
+  styleUrls: ['./update.component.scss'],
+  standalone: true,
+  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule,
+    ReactiveFormsModule , basicImportsModule],
+})
+export class UpdateComponent {
+
+  updateForm: FormGroup;
+
+      constructor(
+    private fb: FormBuilder,
+    public dialogRef: MatDialogRef<UpdateComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private  webService : WebservicesService
+  ) {
+    this.updateForm = this.fb.group({
+    `;
+
+
+    for (const attribut of this.attributs) {
+      const attributeName = attribut[0];
+      const attributeType = attribut[1];
+
+      retour += `
+      ${attributeName}: [data.${attributeName}, Validators.required],
+             `;
+    }
+
+    retour += `
+
+    });
+  }
+
+  onSubmit() {
+    if (this.updateForm.valid) {
+          this.webService.updateData('' , this.updateForm.value);
+      this.data.updateList();
+      this.dialogRef.close();
+    }
+    else {
+      alert('Valeur fausse')
+    }
+  }
+  }
+    `;
 
 
     return retour;

@@ -1,0 +1,23 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Service</mat-card-title>
+    <mat-card-subtitle class="mat-body-1">Modifier Service</mat-card-subtitle>
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" color="primary" class="form-field-class">
+        <mat-label class="mat-label-class">service</mat-label>
+        <input class="mat-input-class" matInput formControlName="service"></mat-form-field>
+      <mat-form-field appearance="outline" color="primary" class="form-field-class">
+        <mat-label class="mat-label-class">prix</mat-label>
+        <input class="mat-input-class" matInput formControlName="prix"></mat-form-field>
+      <mat-form-field appearance="outline" color="primary" class="form-field-class">
+        <mat-label class="mat-label-class">duree</mat-label>
+        <input class="mat-input-class" matInput formControlName="duree"></mat-form-field>
+      <mat-form-field appearance="outline" color="primary" class="form-field-class">
+        <mat-label class="mat-label-class">comission</mat-label>
+        <input class="mat-input-class" matInput formControlName="comission"></mat-form-field>
+      <div appearance="outline" color="primary" class="form-field-class">
+        <button mat-raised-button color="primary" type="submit">Mettre à jour</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

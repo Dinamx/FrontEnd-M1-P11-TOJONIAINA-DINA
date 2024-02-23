@@ -17,6 +17,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
 import {Rendezvous} from "../../../models/interfaces";
 import {UpdateComponent} from "../../manager/liste-employe/update/update.component";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatSelectModule} from "@angular/material/select";
 
 const ELEMENT_DATA: Rendezvous[] = [
   {
@@ -49,7 +51,14 @@ const ELEMENT_DATA: Rendezvous[] = [
   styleUrls: ['./liste-rendez-vous.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatIconModule, TablerIconsModule, MatCardModule, NgApexchartsModule, MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule,],
+  imports: [MatButtonModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatIconModule, TablerIconsModule
+    , MatSelectModule
+    , MatCardModule,
+    NgApexchartsModule,
+    MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule,],
 })
 export class ListeRendezVousComponent {
   myControl = new FormControl('');
@@ -58,6 +67,14 @@ export class ListeRendezVousComponent {
   searchForm: FormGroup;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
+
+  // TY GETTENA VIA WS
+  services = [
+    {value: 'service 1', viewValue: 'Service  1'},
+    {value: 'service 2', viewValue: 'Service  2'},
+    {value: 'service 3', viewValue: 'Service  3'},
+  ];
+
   ngAfterViewInit() {
     if (this.paginator) {
       this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
@@ -65,8 +82,21 @@ export class ListeRendezVousComponent {
     }
   }
 
+  // range = new FormGroup({
+  //   start: new FormControl<Date | null>(null),
+  //   end: new FormControl<Date | null>(null),
+  // });
+
   constructor(private fb: FormBuilder, private dialog: MatDialog) {
-    this.searchForm = this.fb.group({date_heure: [''], service: [''], employe: [''], duree: [''], prixpaye: [''],});
+
+    this.searchForm = this.fb.group(
+      {
+        start: new FormControl<Date | null>(null),
+        end: new FormControl<Date | null>(null),
+        date_heure: [''],
+        service: new FormControl(this.services[0]),
+        employe: [''], duree: [''], prixpaye: [''],
+      });
     console.log(this.dataSource);
   }
 
@@ -80,17 +110,36 @@ export class ListeRendezVousComponent {
 
   filterData(filterValue: any) {
     const filteredData = ELEMENT_DATA.filter(item => {
-      const date_heure = item.date_heure.toLowerCase();
-      const service = item.service.toLowerCase();
-      const employe = item.employe.toLowerCase();
-      const duree = item.duree.toLowerCase();
-      const prixpaye = item.prixpaye.toLowerCase();
+      const itemDate = new Date(item.date_heure);
+      const startDate = filterValue.start ? new Date(filterValue.start) : null;
+      let endDate = filterValue.end ? new Date(filterValue.end) : null;
+
+
+      if (endDate) {
+        endDate.setDate(endDate.getDate() + 1);
+      }
+
+
+      // Vérifie si la date de l'élément est dans l'intervalle spécifié
+      const isDateInRange = (startDate && endDate) ? itemDate >= startDate && itemDate <= endDate : true;
+
+      // Vérifie si les autres champs correspondent aux valeurs de recherche
       const searchDate_heure = filterValue.date_heure.toLowerCase();
       const searchService = filterValue.service.toLowerCase();
       const searchEmploye = filterValue.employe.toLowerCase();
       const searchDuree = filterValue.duree.toLowerCase();
       const searchPrixpaye = filterValue.prixpaye.toLowerCase();
-      return ((searchDate_heure === '' || date_heure.includes(searchDate_heure)) && (searchService === '' || service.includes(searchService)) && (searchEmploye === '' || employe.includes(searchEmploye)) && (searchDuree === '' || duree.includes(searchDuree)) && (searchPrixpaye === '' || prixpaye.includes(searchPrixpaye)) );
+      const itemService = item.service.toLowerCase();
+      const itemEmploye = item.employe.toLowerCase();
+      const itemDuree = item.duree.toLowerCase();
+      const itemPrixpaye = item.prixpaye.toLowerCase();
+
+      return isDateInRange &&
+        (searchDate_heure === '' || itemService.includes(searchDate_heure)) &&
+        (searchService === '' || itemService.includes(searchService)) &&
+        (searchEmploye === '' || itemEmploye.includes(searchEmploye)) &&
+        (searchDuree === '' || itemDuree.includes(searchDuree)) &&
+        (searchPrixpaye === '' || itemPrixpaye.includes(searchPrixpaye));
     });
     this.dataSource.data = filteredData;
   }
@@ -113,7 +162,7 @@ export class ListeRendezVousComponent {
 
 
   formatDate(dateString: string): string {
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    const options = {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
     return new Date(dateString).toLocaleDateString();
   }
 

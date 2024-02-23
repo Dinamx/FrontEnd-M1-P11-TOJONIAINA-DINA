@@ -14,9 +14,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
-// import {UpdateComponent} from "./update/update.component";
+import {UpdateComponent} from "./update/update.component";
 import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
-import {UpdateComponent} from "../liste-employe/update/update.component";
 import {Service} from "../../../models/interfaces";
 
 

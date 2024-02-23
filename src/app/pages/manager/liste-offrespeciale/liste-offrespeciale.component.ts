@@ -17,6 +17,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
 import { Offrespeciale} from "../../../models/interfaces";
 import {UpdateComponent} from "../liste-employe/update/update.component";
+import {MatSelectModule} from "@angular/material/select";
 
 
 
@@ -46,7 +47,9 @@ const ELEMENT_DATA: Offrespeciale[] = [
   styleUrls: ['./liste-offrespeciale.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatIconModule, TablerIconsModule, MatCardModule, NgApexchartsModule, MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule,],
+  imports: [MatButtonModule,
+    MatSelectModule,
+    MatMenuModule, MatIconModule, TablerIconsModule, MatCardModule, NgApexchartsModule, MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule,],
 })
 export class ListeOffrespecialeComponent {
   myControl = new FormControl('');
