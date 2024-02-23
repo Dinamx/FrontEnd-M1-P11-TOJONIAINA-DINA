@@ -13,6 +13,8 @@ import {ListeEmployeComponent} from "./manager/liste-employe/liste-employe.compo
 import {StatistiqueNombreReservationComponent} from "./manager/statistique-nombre-reservation/statistique-nombre-reservation.component";
 import {StatistiqueTempsTravailMoyenComponent} from "./manager/statistique-temps-travail-moyen/statistique-temps-travail-moyen.component";
 import {StatistiqueBeneficeMensuelComponent} from "./manager/statistique-benefice-mensuel/statistique-benefice-mensuel.component";
+import {FormOffrespecialeComponent} from "./manager/form-offrespeciale/form-offrespeciale.component";
+import {ListeOffrespecialeComponent} from "./manager/liste-offrespeciale/liste-offrespeciale.component";
 
 export const PagesRoutes: Routes = [
   {
@@ -100,6 +102,20 @@ export const PagesRoutes: Routes = [
     component: StatistiqueBeneficeMensuelComponent,
     data: {
       title: 'Bénéfice mensuel',
+    },
+  },
+  {
+    path: 'listeOffrespeciale',
+    component: ListeOffrespecialeComponent,
+    data: {
+      title: 'Liste Offre speciale',
+    },
+  },
+  {
+    path: 'formOffrespeciale',
+    component: FormOffrespecialeComponent,
+    data: {
+      title: 'Form Offre speciale',
     },
   },
   //OK

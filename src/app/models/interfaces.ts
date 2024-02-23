@@ -28,3 +28,13 @@ export interface Rendezvous {
   comission: string;
   etat_rdv: string;
 }
+
+
+export interface Offrespeciale{
+  date_heure_envoi: string;
+  service: string;
+  date_fin : string;
+  description : string | 'Promotion';
+  client : string;
+}
+

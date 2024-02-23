@@ -14,30 +14,26 @@ import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
-// import {UpdateComponent} from "./update/update.component";
 import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
+import { Offrespeciale} from "../../../models/interfaces";
 import {UpdateComponent} from "../liste-employe/update/update.component";
-import {Service} from "../../../models/interfaces";
 
 
 
-
-
-
-const ELEMENT_DATA: Service[] = [
+const ELEMENT_DATA: Offrespeciale[] = [
   {
-    id: 'service1',
-    service: 'Description du service  1',
-    prix: 100,
-    duree: '1 heure',
-    comission: 10
+    date_heure_envoi: '2024-02-23 09:00',
+    service: 'Service A',
+    date_fin: '2024-03-15',
+    description: 'Promotion',
+    client: 'Mark J. Freeman'
   },
   {
-    id: 'service2',
-    service: 'Description du service  2',
-    prix: 200,
-    duree: '2 heures',
-    comission: 20
+    date_heure_envoi: '2024-02-23 10:30',
+    service: 'Service B',
+    date_fin: '2024-03-10',
+    description: 'Offre spéciale',
+    client: 'Andrew McDownland'
   }
 ];
 
@@ -45,14 +41,14 @@ const ELEMENT_DATA: Service[] = [
 
 
 @Component({
-  selector: 'app-liste-service',
-  templateUrl: './liste-service.component.html',
-  styleUrls: ['./liste-service.component.scss'],
+  selector: 'app-liste-offrespeciale',
+  templateUrl: './liste-offrespeciale.component.html',
+  styleUrls: ['./liste-offrespeciale.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [MatButtonModule, MatMenuModule, MatIconModule, TablerIconsModule, MatCardModule, NgApexchartsModule, MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule,],
 })
-export class ListeServiceComponent {
+export class ListeOffrespecialeComponent {
   myControl = new FormControl('');
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]> | undefined;
@@ -67,12 +63,13 @@ export class ListeServiceComponent {
   }
 
   constructor(private fb: FormBuilder, private dialog: MatDialog) {
-    this.searchForm = this.fb.group(
-      {
-        service: [''],
-        duree: [''],
-        prix: [''],
-        comission: [''],});
+    this.searchForm = this.fb.group({
+      date_heure_envoi: [''],
+      service: [''],
+      date_fin: [''],
+      description: [''],
+      client: [''],
+    });
     console.log(this.dataSource);
   }
 
@@ -81,26 +78,22 @@ export class ListeServiceComponent {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  displayedColumns: string[] = [ 'service', 'duree', 'prix', 'comission', 'action'];
+  displayedColumns: string[] = ['date_heure_envoi', 'service', 'date_fin', 'description', 'client', 'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   filterData(filterValue: any) {
     const filteredData = ELEMENT_DATA.filter(item => {
-      const id = item.id.toLowerCase();
+      const date_heure_envoi = item.date_heure_envoi.toLowerCase();
       const service = item.service.toLowerCase();
-      const duree = item.duree.toLowerCase();
-      const prix = item.prix.toString().toLowerCase();
-      const comission = item.comission.toString().toLowerCase();
-      const searchId = filterValue.id.toLowerCase();
+      const date_fin = item.date_fin.toLowerCase();
+      const description = item.description.toLowerCase();
+      const client = item.client.toLowerCase();
+      const searchDate_heure_envoi = filterValue.date_heure_envoi.toLowerCase();
       const searchService = filterValue.service.toLowerCase();
-      const searchDuree = filterValue.duree.toLowerCase();
-      const searchPrix = filterValue.prix.toLowerCase();
-      const searchComission = filterValue.comission.toLowerCase();
-      return ((searchId === '' || id.includes(searchId)) &&
-        (searchService === '' || service.includes(searchService)) &&
-        (searchDuree === '' || duree.includes(searchDuree)) &&
-        (searchPrix === '' || prix.includes(searchPrix)) &&
-        (searchComission === '' || comission.includes(searchComission)));
+      const searchDate_fin = filterValue.date_fin.toLowerCase();
+      const searchDescription = filterValue.description.toLowerCase();
+      const searchClient = filterValue.client.toLowerCase();
+      return ((searchDate_heure_envoi === '' || date_heure_envoi.includes(searchDate_heure_envoi)) && (searchService === '' || service.includes(searchService)) && (searchDate_fin === '' || date_fin.includes(searchDate_fin)) && (searchDescription === '' || description.includes(searchDescription)) && (searchClient === '' || client.includes(searchClient)) );
     });
     this.dataSource.data = filteredData;
   }

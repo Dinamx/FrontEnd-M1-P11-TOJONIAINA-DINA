@@ -12,15 +12,15 @@ export class CreateComponentComponent implements OnInit {
 
 
   // Déclare une variable de type string
-  titre: string = "rendezvous";
+  titre: string = "offrespeciale";
 
   // Déclare un tableau à deux dimensions pour les attributs avec leurs types
   attributs: any[][] = [
-    ['date_heure', 'string'],
+    ['date_heure_envoi', 'string'],
     ['service', 'string'],
-    ['employe', 'string'],
-    ['duree', 'string'],
-    ['prixpaye', 'string'],
+    ['date_fin', 'string'],
+    ['description', 'string'],
+    ['client', 'string'],
   ];
 
   // Chaîne résultante des attributs
