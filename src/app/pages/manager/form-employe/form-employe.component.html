@@ -18,11 +18,29 @@
         <input matInput class="mat-input-element" formControlName="email"/>
         <mat-error *ngIf="f.email.invalid "> email invalid</mat-error>
       </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">password</mat-label>
+        <input matInput class="mat-input-element" formControlName="password"/>
+        <mat-error *ngIf="f.password.invalid "> password invalid</mat-error>
+      </mat-form-field>
+
       <mat-form-field appearance="outline" class="w-100" color="primary">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">number</mat-label>
         <input matInput class="mat-input-element" formControlName="number"/>
         <mat-error *ngIf="f.number.invalid "> number invalid</mat-error>
       </mat-form-field>
+
+
+      <mat-radio-group role="radiogroup" aria-label="Select an option" class="example-radio-group">
+        <mat-radio-button value="service1" color="primary" class="example-radio-button">
+          <div class="example-radio-label">Service 1</div>
+        </mat-radio-button>
+        <mat-radio-button value="Service2" color="primary" class="example-radio-button">
+          <div class="example-radio-label">Service 1</div>
+        </mat-radio-button>
+      </mat-radio-group>
+
       <div appearance="outline" class="w-100" color="primary">
         <button type="submit" mat-flat-button color="primary" class="w-50"> Confirm</button>
       </div>

@@ -35,6 +35,11 @@ export interface Offrespeciale{
   service: string;
   date_fin : string;
   description : string | 'Promotion';
-  client : string;
+  client : any;
 }
+
+
+
+
+
 

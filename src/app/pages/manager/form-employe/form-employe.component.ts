@@ -13,6 +13,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatRadioModule} from "@angular/material/radio";
 
 @Component({
   selector: 'app-form-employe',
@@ -20,16 +21,36 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
   styleUrls: ['./form-employe.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatIconModule, TablerIconsModule, MatCardModule, NgApexchartsModule, MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatDatepickerModule, ReactiveFormsModule, AsyncPipe,],
+  imports: [MatButtonModule,
+    MatRadioModule,
+    MatMenuModule,
+    MatIconModule,
+    TablerIconsModule,
+    MatCardModule,
+    NgApexchartsModule,
+    MatTableModule,
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
+    AsyncPipe]
 })
 export class FormEmployeComponent {
   constructor(private router: Router) {
   }
 
+
+  selectedServices: string[] = [];
+
+
   form = new FormGroup({
     nom: new FormControl('', [Validators.required]),
     prenom: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
     number: new FormControl('', [Validators.required]),
   });
 

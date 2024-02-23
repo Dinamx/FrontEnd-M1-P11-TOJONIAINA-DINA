@@ -94,7 +94,7 @@ export class ListeRendezVousComponent {
         start: new FormControl<Date | null>(null),
         end: new FormControl<Date | null>(null),
         date_heure: [''],
-        service: new FormControl(this.services[0]),
+        service: new FormControl(null),
         employe: [''], duree: [''], prixpaye: [''],
       });
     console.log(this.dataSource);
