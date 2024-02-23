@@ -45,7 +45,7 @@ export class FormOffrespecialeComponent {
       console.log('Form submitted successfully');
       console.log('Form value:', this.form.value);
       alert('Insertion dans service effectuée');
-      
+
       this.router.navigate([self]);
     } else {
       alert('Erreur')

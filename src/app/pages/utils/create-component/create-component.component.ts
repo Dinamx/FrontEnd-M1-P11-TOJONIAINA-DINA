@@ -27,7 +27,9 @@ export class CreateComponentComponent implements OnInit {
   listeHtml: string = '';
   listeTs: string = '';
   formHtml: string = '';
-  formTs: string = '';
+  formTs : string = '';
+  updateHtml : string = '';
+  updateTs : string = '';
 
 
 
@@ -458,6 +460,26 @@ export class Form${capitalizeFirstLetter(this.titre)}Component {
 
   return retour;
 }
+
+
+  getUpdateHtml() : string{
+    let retour = '';
+
+
+    return retour;
+
+  }
+
+  getUpdateTs() : string{
+    let retour = '';
+
+
+    return retour;
+
+  }
+
+
+
 
 }
 
