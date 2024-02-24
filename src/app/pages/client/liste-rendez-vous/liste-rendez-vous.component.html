@@ -41,6 +41,7 @@
           <mat-form-field appearance="outline" class="form-field-class col-12">
             <mat-label class="mat-label-class">Service</mat-label>
             <mat-select formControlName="service" class="mat-input-class" matInput>
+              <mat-option class="mat-input-element">None</mat-option>
               <mat-option *ngFor="let serv of services" [value]="serv.value">{{serv.value}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -53,12 +54,25 @@
 <!--            </mat-form-field>-->
 <!--          </div>-->
           <br>
+<!--          <div class="col-3 m-0 p-0">-->
+<!--            <mat-form-field appearance="outline" class="form-field-class col-12">-->
+<!--              <mat-label class="mat-label-class">employe</mat-label>-->
+<!--              <input formControlName="employe" class="mat-input-class" matInput placeholder="Entrez le employe...">-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">
               <mat-label class="mat-label-class">employe</mat-label>
-              <input formControlName="employe" class="mat-input-class" matInput placeholder="Entrez le employe...">
+              <mat-option class="mat-input-element">None</mat-option>
+              <mat-select formControlName="employe" class="mat-input-class" matInput>
+                <mat-option *ngFor="let serv of services" [value]="serv.value">{{serv.value}}</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
+
+
+
           <br>
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">

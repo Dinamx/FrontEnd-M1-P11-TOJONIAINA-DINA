@@ -43,7 +43,7 @@ export class FormRendezVousComponent {
   constructor(private router: Router) {}
 
 
-  selected = 'option2';
+  selected = '';
 
 
   form = new FormGroup({

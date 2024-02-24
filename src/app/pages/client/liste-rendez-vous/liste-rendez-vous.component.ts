@@ -19,6 +19,7 @@ import {Rendezvous} from "../../../models/interfaces";
 import {UpdateComponent} from "../../manager/liste-employe/update/update.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatSelectModule} from "@angular/material/select";
+import {WebservicesService} from "../../../services/webservice/webservices.service";
 
 const ELEMENT_DATA: Rendezvous[] = [
   {
@@ -68,6 +69,8 @@ export class ListeRendezVousComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
 
+  ELEMENT_DATA1: Rendezvous[] ;
+
   // TY GETTENA VIA WS
   services = [
     {value: 'service 1', viewValue: 'Service  1'},
@@ -75,6 +78,11 @@ export class ListeRendezVousComponent {
     {value: 'service 3', viewValue: 'Service  3'},
   ];
 
+  async ngOnInit(){
+    this.ELEMENT_DATA1 = await this.webservicesService.getData('rendezvous');
+    // Si vous souhaitez également mettre à jour le tableau de données de la table, faites-le  ici
+    this.dataSource.data = this.ELEMENT_DATA1;
+  }
   ngAfterViewInit() {
     if (this.paginator) {
       this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
@@ -87,7 +95,8 @@ export class ListeRendezVousComponent {
   //   end: new FormControl<Date | null>(null),
   // });
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog , private webservicesService: WebservicesService) {
+    this.ELEMENT_DATA1 = [];
 
     this.searchForm = this.fb.group(
       {
@@ -114,19 +123,17 @@ export class ListeRendezVousComponent {
       const startDate = filterValue.start ? new Date(filterValue.start) : null;
       let endDate = filterValue.end ? new Date(filterValue.end) : null;
 
-
       if (endDate) {
-        endDate.setDate(endDate.getDate() + 1);
+        endDate.setDate(endDate.getDate() +   1);
       }
-
 
       // Vérifie si la date de l'élément est dans l'intervalle spécifié
       const isDateInRange = (startDate && endDate) ? itemDate >= startDate && itemDate <= endDate : true;
 
       // Vérifie si les autres champs correspondent aux valeurs de recherche
       const searchDate_heure = filterValue.date_heure.toLowerCase();
-      const searchService = filterValue.service.toLowerCase();
-      const searchEmploye = filterValue.employe.toLowerCase();
+      const searchService = filterValue.service ? filterValue.service.toLowerCase() : '';
+      const searchEmploye = filterValue.employe ? filterValue.employe.toLowerCase() : '';
       const searchDuree = filterValue.duree.toLowerCase();
       const searchPrixpaye = filterValue.prixpaye.toLowerCase();
       const itemService = item.service.toLowerCase();
@@ -134,10 +141,14 @@ export class ListeRendezVousComponent {
       const itemDuree = item.duree.toLowerCase();
       const itemPrixpaye = item.prixpaye.toLowerCase();
 
+      // Si aucun service ou employé n'est sélectionné, inclure tous les éléments dans les résultats filtrés
+      const isServiceMatch = filterValue.service ? itemService.includes(searchService) : true;
+      const isEmployeMatch = filterValue.employe ? itemEmploye.includes(searchEmploye) : true;
+
       return isDateInRange &&
         (searchDate_heure === '' || itemService.includes(searchDate_heure)) &&
-        (searchService === '' || itemService.includes(searchService)) &&
-        (searchEmploye === '' || itemEmploye.includes(searchEmploye)) &&
+        isServiceMatch &&
+        isEmployeMatch &&
         (searchDuree === '' || itemDuree.includes(searchDuree)) &&
         (searchPrixpaye === '' || itemPrixpaye.includes(searchPrixpaye));
     });

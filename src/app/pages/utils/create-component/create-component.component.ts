@@ -32,6 +32,8 @@ export class CreateComponentComponent implements OnInit {
 
 
 
+  hardi : string = 'Texte kely maivana';
+
 
 
   constructor() { }
