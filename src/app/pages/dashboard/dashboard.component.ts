@@ -150,7 +150,7 @@ const ELEMENT_DATA: productsData[] = [
   ],
 })
 export class AppDashboardComponent {
-  @ViewChild('chart') chart: ChartComponent = Object.create(null);
+  @ViewChild(`chart`) chart: ChartComponent = Object.create(null);
 
   public profitExpanceChart!: Partial<profitExpanceChart> | any;
   public trafficChart!: Partial<trafficChart> | any;
@@ -325,7 +325,8 @@ export class AppDashboardComponent {
         },
         height: 160,
       },
-      colors: ['#e7ecf0', '#fb977d', '#0085db'],
+      // colors: ['#e7ecf0', '#fb977d', '#0085db'],
+      colors: ['#e7ecf0', '#fb977d', '#e84393'],
       plotOptions: {
         pie: {
           donut: {

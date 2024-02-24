@@ -52,7 +52,7 @@ export class AppSideLoginComponent implements OnInit {
   getLoginHeaderText(): string {
     switch (this.userType) {
       case '1':
-        return 'Log in as Client';
+        return 'Log in as a Client';
       case '2':
         return 'Log in as Employe';
       case '3':

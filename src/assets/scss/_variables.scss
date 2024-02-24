@@ -39,6 +39,7 @@ $borderColor: #e5eaef;
 $borderformColor: #dfe5ef;
 
 // custom
+//$primary: #e84393;
 $primary: #0085db;
 $accent: #707a82;
 $warning: #f8c076;
@@ -57,6 +58,13 @@ $light-warning: #fff6ea;
 $light-error: #ffede9;
 $light-success: #dffff3;
 $light-info: #e1f5fa;
+
+//$light-primary: #D7A1F0;
+//$light-accent: lighten($light-primary,  10%); // Augmente la luminosité
+//$light-warning: darken($light-primary,  15%); // Diminue la luminosité
+//$light-error: saturate($light-primary,  20%); // Augmente la saturation
+//$light-success: desaturate($light-primary,  15%); // Diminue la saturation
+//$light-info: mix($light-primary, white,  20%); // Mélange avec du blanc
 
 // layout
 $boxedWidth: 1200px;

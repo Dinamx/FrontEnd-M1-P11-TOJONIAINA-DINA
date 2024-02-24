@@ -14,6 +14,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatRadioModule} from "@angular/material/radio";
+import {FileHandle} from "../../../services/dragDrop.directive";
 
 @Component({
   selector: 'app-form-employe',
@@ -52,10 +53,53 @@ export class FormEmployeComponent {
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     number: new FormControl('', [Validators.required]),
+    image: new FormControl('', [Validators.required]),
   });
 
   get f() {
     return this.form.controls;
+  }
+
+  files: FileHandle[] = [];
+
+  filesDropped(files: FileHandle[]): void {
+    this.files = files;
+  }
+
+  dragOver(event: DragEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+    const target = event.currentTarget as HTMLElement; // Assertion de type
+    target.classList.add('dragover');
+  }
+
+  drop(event: DragEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+    const target = event.currentTarget as HTMLElement; // Assertion de type
+    target.classList.remove('dragover');
+    const dataTransfer = event.dataTransfer;
+    if (dataTransfer && dataTransfer.files.length >  0) {
+      this.onFileSelected(dataTransfer.files[0]);
+    }
+  }
+
+  onFileSelected(event: Event | File) {
+    let file: File | null = null;
+    if (event instanceof Event) {
+      const input = event.target as HTMLInputElement;
+      if (input.files && input.files.length >  0) {
+        file = input.files[0];
+      }
+    } else {
+      file = event;
+    }
+    if (file) {
+      console.log(file);
+      // Traitez le fichier sélectionné   ici
+    } else {
+      console.log('Aucun fichier sélectionné');
+    }
   }
 
   submit() {

@@ -32,6 +32,32 @@
       </mat-form-field>
 
 
+<!--      <div *ngIf="!files.length" class="col-12 rmpm dropzone" appDrag (files)="filesDropped($event)">-->
+<!--        <div class="text-wrapper">-->
+<!--          <div class="centered">Drop your file here!</div>-->
+<!--        </div>-->
+<!--      </div>-->
+      <!--droped image preview-->
+      <div *ngFor="let file of files">
+        <img *ngIf="file" [src]="file.url" width="100px" height="100px">
+      </div>
+
+
+      <div class="profile-upload-container d-flex align-items-center m-b-16"
+           draggable="true"
+           (dragover)="dragOver($event)"
+           (drop)="drop($event)">
+
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Drag your image here</mat-label>
+        <label for="file-upload" class="upload-button-container m-l-16">
+          <input type="file" id="no_file-upload" class="file-upload-input"
+                 (change)="onFileSelected($event)"
+                 (dragover)="dragOver($event)"
+                 (drop)="drop($event)">
+        </label>
+      </div>
+
+
       <mat-radio-group role="radiogroup" aria-label="Select an option" class="example-radio-group">
         <mat-radio-button value="service1" color="primary" class="example-radio-button">
           <div class="example-radio-label">Service 1</div>
@@ -42,7 +68,7 @@
       </mat-radio-group>
 
       <div appearance="outline" class="w-100" color="primary">
-        <button type="submit" mat-flat-button color="primary" class="w-50"> Confirm</button>
+        <button  type="submit" mat-flat-button color="primary" class="w-50"> Confirm</button>
       </div>
     </form>
   </mat-card-content>

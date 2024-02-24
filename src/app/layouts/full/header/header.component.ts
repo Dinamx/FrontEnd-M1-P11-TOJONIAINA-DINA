@@ -25,13 +25,25 @@ export class HeaderComponent {
 
   nom: string | null;
 
+
+  solde : string | null;
+
+  soldeChiffre : number | '';
+
+
   showFiller = false;
 
   constructor(public dialog: MatDialog , private router  : Router) {
+    // Acces base solde client
+
+    this.soldeChiffre = 0;
+
     if (!localStorage.getItem("nom")){
-      this.nom = 'Sample';
+      this.nom = 'Nom Fictif';
+      this.solde = 'Votre solde :' + this.soldeChiffre  + 'ar';
     }
     else {
+      this.solde = '0';
       this.nom = localStorage.getItem("nom");
       this.router.navigateByUrl('/');
     }
