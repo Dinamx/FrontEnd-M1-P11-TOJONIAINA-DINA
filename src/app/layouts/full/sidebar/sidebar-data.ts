@@ -7,7 +7,7 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'New Appointment',
-    iconName: 'layout-dashboard',
+    iconName: 'calendar-clock',
     route: '/dashboard/rendezVous',
 
   },

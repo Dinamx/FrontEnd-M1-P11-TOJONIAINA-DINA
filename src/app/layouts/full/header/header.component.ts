@@ -35,8 +35,10 @@ export class HeaderComponent {
 
   constructor(public dialog: MatDialog , private router  : Router) {
     // Acces base solde client
-
     this.soldeChiffre = 0;
+
+
+
 
     if (!localStorage.getItem("nom")){
       this.nom = 'Nom Fictif';

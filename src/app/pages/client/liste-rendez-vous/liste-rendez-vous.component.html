@@ -64,8 +64,8 @@
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">
               <mat-label class="mat-label-class">employe</mat-label>
-              <mat-option class="mat-input-element">None</mat-option>
               <mat-select formControlName="employe" class="mat-input-class" matInput>
+                <mat-option class="mat-input-element">None</mat-option>
                 <mat-option *ngFor="let serv of services" [value]="serv.value">{{serv.value}}</mat-option>
               </mat-select>
             </mat-form-field>
