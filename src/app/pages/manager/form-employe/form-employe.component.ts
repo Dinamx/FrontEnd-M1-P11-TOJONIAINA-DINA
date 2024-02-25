@@ -15,6 +15,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatRadioModule} from "@angular/material/radio";
 import {FileHandle} from "../../../services/dragDrop.directive";
+import Compressor from 'compressorjs';
 
 @Component({
   selector: 'app-form-employe',
@@ -60,45 +61,6 @@ export class FormEmployeComponent {
     return this.form.controls;
   }
 
-  // files: FileHandle[] = [];
-
-  // filesDropped(files: FileHandle[]): void {
-  //   this.files = files;
-  // }
-
-
-
-  // onFileSelected(event: Event & { target: HTMLInputElement }) {
-  //   const files = event.target.files;
-  //   if (files && files.length >  0) {
-  //     const file = files[0];
-  //     const reader = new FileReader();
-  //     reader.onload = (e: any) => {
-  //       // e.target.result contient le contenu en base64 de l'image
-  //       console.log(e.target.result);
-  //       // Ici, tu peux stocker le contenu en base64 dans une variable ou le traiter comme nécessaire
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // }
-
-  // onFileSelected(event: Event | File) {
-  //   let file: File | null = null;
-  //   if (event instanceof Event) {
-  //     const input = event.target as HTMLInputElement;
-  //     if (input.files && input.files.length >  0) {
-  //       file = input.files[0];
-  //     }
-  //   } else {
-  //     file = event;
-  //   }
-  //   if (file) {
-  //     console.log(file);
-  //     // Traitez le fichier sélectionné   ici
-  //   } else {
-  //     console.log('Aucun fichier sélectionné');
-  //   }
-  // }
 
   submit() {
     if (this.form.valid) {
@@ -112,7 +74,29 @@ export class FormEmployeComponent {
     }
   }
 
-  onFileChange(event: any) {
+  onFileChangeCompress(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      new Compressor(file, {
+        quality:  0.2, // Qualité de compression (0 à  1)
+        success: (result) => {
+          // result est l'image compressée
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64String = reader.result as string;
+            console.log(base64String);
+            // Ici, tu peux traiter la chaîne base64 de l'image compressée
+          };
+          reader.readAsDataURL(result);
+        },
+        error: (err) => {
+          console.error('Erreur de compression :', err.message);
+        },
+      });
+    }
+  }
+
+  onFileChangeNO(event: any) {
     const file = event.target.files[0];
     const reader = new FileReader();
 
@@ -124,4 +108,60 @@ export class FormEmployeComponent {
       reader.readAsDataURL(file);
     }
   }
+
+
+
+
+
+
+
+  onFileChange(event: any) {
+    this.handleFile(event.target.files[0]);
+  }
+
+  onDragOver(event: DragEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+  onDragLeave(event: DragEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+  onDrop(event: DragEvent) {
+    event.stopPropagation();
+    event.preventDefault();
+    if (event.dataTransfer && event.dataTransfer.files.length >  0) {
+      const files = event.dataTransfer.files;
+      this.handleFile(files[0]);
+    }
+  }
+
+  handleFile(file: File) {
+    if (file) {
+      new Compressor(file, {
+        quality:  0.6,
+        success: (result) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64String = reader.result as string;
+            console.log(base64String);
+            // Traiter la chaîne base64 de l'image compressée
+          };
+          reader.readAsDataURL(result);
+        },
+        error: (err) => {
+          console.error('Erreur de compression :', err.message);
+        },
+      });
+    }
+  }
 }
+
+
+
+
+
+
+

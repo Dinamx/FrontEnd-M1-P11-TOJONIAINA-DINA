@@ -36,10 +36,9 @@
 
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Drag your image here</mat-label>
-        <textarea readonly matInput rows="5" formControlName="password"></textarea>
-        <input type="file" (change)="onFileChange($event)" accept="image/*">
+        <textarea readonly matInput rows="5" formControlName="password" ></textarea>
+        <input  type="file" (change)="onFileChange($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" accept="image/*">
       </mat-form-field>
-
 <!--      <div *ngIf="!files.length" class="col-12 rmpm dropzone" appDrag (files)="filesDropped($event)">-->
 <!--        <div class="text-wrapper">-->
 <!--          <div class="centered">Drop your file here!</div>-->
