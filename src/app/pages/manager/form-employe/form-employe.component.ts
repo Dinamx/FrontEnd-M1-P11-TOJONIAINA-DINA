@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Router} from "@angular/router";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
@@ -41,11 +41,16 @@ import Compressor from 'compressorjs';
     AsyncPipe]
 })
 export class FormEmployeComponent {
-  constructor(private router: Router) {
+
+  constructor(private router: Router , private cd: ChangeDetectorRef) {
+
   }
 
 
   selectedServices: string[] = [];
+
+
+  imageToShow : string = '/assets/images/profile/user-1.jpg';
 
 
   form = new FormGroup({
@@ -74,49 +79,10 @@ export class FormEmployeComponent {
     }
   }
 
-  onFileChangeCompress(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      new Compressor(file, {
-        quality:  0.2, // Qualité de compression (0 à  1)
-        success: (result) => {
-          // result est l'image compressée
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const base64String = reader.result as string;
-            console.log(base64String);
-            // Ici, tu peux traiter la chaîne base64 de l'image compressée
-          };
-          reader.readAsDataURL(result);
-        },
-        error: (err) => {
-          console.error('Erreur de compression :', err.message);
-        },
-      });
-    }
-  }
-
-  onFileChangeNO(event: any) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      const base64String = reader.result as string ;
-      console.log(base64String);
-    };
-    if (file){
-      reader.readAsDataURL(file);
-    }
-  }
-
-
-
-
-
-
 
   onFileChange(event: any) {
     this.handleFile(event.target.files[0]);
+
   }
 
   onDragOver(event: DragEvent) {
@@ -147,6 +113,13 @@ export class FormEmployeComponent {
           reader.onloadend = () => {
             const base64String = reader.result as string;
             console.log(base64String);
+            // alert('ONLOADEND')
+            console.log(base64String);
+            this.imageToShow = base64String;
+            // alert('Bonjour');
+            // alert(this.imageToShow);
+            console.log('IMAGE TO SHOW');
+            this.cd.detectChanges();
             // Traiter la chaîne base64 de l'image compressée
           };
           reader.readAsDataURL(result);
@@ -155,6 +128,15 @@ export class FormEmployeComponent {
           console.error('Erreur de compression :', err.message);
         },
       });
+    }
+  }
+
+  openFileDialog() {
+    console.log('CLICKED')
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    if (fileInput) {
+      console.log('CLICKED OK ')
+      fileInput.click();
     }
   }
 }
