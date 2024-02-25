@@ -60,47 +60,45 @@ export class FormEmployeComponent {
     return this.form.controls;
   }
 
-  files: FileHandle[] = [];
+  // files: FileHandle[] = [];
 
-  filesDropped(files: FileHandle[]): void {
-    this.files = files;
-  }
+  // filesDropped(files: FileHandle[]): void {
+  //   this.files = files;
+  // }
 
-  dragOver(event: DragEvent) {
-    event.stopPropagation();
-    event.preventDefault();
-    const target = event.currentTarget as HTMLElement; // Assertion de type
-    target.classList.add('dragover');
-  }
 
-  drop(event: DragEvent) {
-    event.stopPropagation();
-    event.preventDefault();
-    const target = event.currentTarget as HTMLElement; // Assertion de type
-    target.classList.remove('dragover');
-    const dataTransfer = event.dataTransfer;
-    if (dataTransfer && dataTransfer.files.length >  0) {
-      this.onFileSelected(dataTransfer.files[0]);
-    }
-  }
 
-  onFileSelected(event: Event | File) {
-    let file: File | null = null;
-    if (event instanceof Event) {
-      const input = event.target as HTMLInputElement;
-      if (input.files && input.files.length >  0) {
-        file = input.files[0];
-      }
-    } else {
-      file = event;
-    }
-    if (file) {
-      console.log(file);
-      // Traitez le fichier sélectionné   ici
-    } else {
-      console.log('Aucun fichier sélectionné');
-    }
-  }
+  // onFileSelected(event: Event & { target: HTMLInputElement }) {
+  //   const files = event.target.files;
+  //   if (files && files.length >  0) {
+  //     const file = files[0];
+  //     const reader = new FileReader();
+  //     reader.onload = (e: any) => {
+  //       // e.target.result contient le contenu en base64 de l'image
+  //       console.log(e.target.result);
+  //       // Ici, tu peux stocker le contenu en base64 dans une variable ou le traiter comme nécessaire
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // }
+
+  // onFileSelected(event: Event | File) {
+  //   let file: File | null = null;
+  //   if (event instanceof Event) {
+  //     const input = event.target as HTMLInputElement;
+  //     if (input.files && input.files.length >  0) {
+  //       file = input.files[0];
+  //     }
+  //   } else {
+  //     file = event;
+  //   }
+  //   if (file) {
+  //     console.log(file);
+  //     // Traitez le fichier sélectionné   ici
+  //   } else {
+  //     console.log('Aucun fichier sélectionné');
+  //   }
+  // }
 
   submit() {
     if (this.form.valid) {
@@ -111,6 +109,19 @@ export class FormEmployeComponent {
     } else {
       alert('Erreur')
       console.log('Form submission failed');
+    }
+  }
+
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64String = reader.result as string ;
+      console.log(base64String);
+    };
+    if (file){
+      reader.readAsDataURL(file);
     }
   }
 }
