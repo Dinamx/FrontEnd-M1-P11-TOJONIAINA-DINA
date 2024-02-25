@@ -1,0 +1,34 @@
+
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Choisir les client a qui envoyer le mail</mat-card-title>
+    <mat-card-subtitle class="mat-body-1">Liste client</mat-card-subtitle>
+
+      <div *ngFor="let client of clients">
+        <mat-checkbox (change)="selectClient(client.value)" [checked]="selectedClients.includes(client.value)">
+          {{client.value}}
+        </mat-checkbox>
+      </div>
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>Ajouter un nouveau client</mat-label>
+      <input matInput [(ngModel)]="newClient" placeholder="Nom du client">
+    </mat-form-field>
+    <button mat-button (click)="addNewClient()">Ajouter</button>
+
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()" color="danger" >Annuler</button>
+      <button mat-button [mat-dialog-close]="selectedClients" color="primary" cdkFocusInitial>Sélectionner</button>
+    </div>
+
+
+
+
+
+
+  </mat-card-content>
+</mat-card>
+
+
+

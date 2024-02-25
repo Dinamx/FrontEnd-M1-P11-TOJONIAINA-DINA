@@ -14,7 +14,6 @@ export class WebservicesService {
   async getData(api : string){
     try {
       const response = await axios.get(`${url}${api}` );
-      // Gérer les données de la réponse ici
       console.log(response.data);
       return response.data;
     } catch (error) {

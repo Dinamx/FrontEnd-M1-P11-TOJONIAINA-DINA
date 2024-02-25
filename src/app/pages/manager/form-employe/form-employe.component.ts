@@ -14,7 +14,6 @@ import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatRadioModule} from "@angular/material/radio";
-import {FileHandle} from "../../../services/dragDrop.directive";
 import Compressor from 'compressorjs';
 
 @Component({
@@ -116,6 +115,10 @@ export class FormEmployeComponent {
             // alert('ONLOADEND')
             console.log(base64String);
             this.imageToShow = base64String;
+            const imageControl = this.form.get('image');
+            if (imageControl) {
+              imageControl.setValue(base64String);
+            }
             // alert('Bonjour');
             // alert(this.imageToShow);
             console.log('IMAGE TO SHOW');

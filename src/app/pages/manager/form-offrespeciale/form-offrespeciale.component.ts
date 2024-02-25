@@ -13,6 +13,9 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatSelectModule} from "@angular/material/select";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {ChoixClientComponent} from "./choix-client/choix-client.component";
 
 @Component({
   selector: 'app-form-offrespeciale',
@@ -20,19 +23,55 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
   styleUrls: ['./form-offrespeciale.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatIconModule, TablerIconsModule, MatCardModule, NgApexchartsModule, MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatDatepickerModule, ReactiveFormsModule, AsyncPipe,],
-})
+  imports: [MatButtonModule,MatSelectModule,MatMenuModule,MatIconModule,TablerIconsModule,MatCardModule,NgApexchartsModule,MatTableModule,CommonModule,FormsModule, MatFormFieldModule,MatInputModule,MatAutocompleteModule,MatDatepickerModule,ReactiveFormsModule,MatDialogModule,AsyncPipe]})
+
+
 export class FormOffrespecialeComponent {
-  constructor(private router: Router) {
+  constructor(private router: Router  , private dialog: MatDialog) {
   }
+
+
+  selected = '';
+
+
+
+  clients = [
+    {value: 'client1', viewValue: 'Client  1'},
+    {value: 'client2', viewValue: 'Client  2'},
+    {value: 'client3', viewValue: 'Client  3'}
+  ];
+
+
+  service = [
+    {value: 'service1', viewValue: 'Service  1'},
+    {value: 'service2', viewValue: 'Service  2'},
+    {value: 'service3', viewValue: 'Service  3'}
+  ];
+
 
   form = new FormGroup({
     date_heure_envoi: new FormControl('', [Validators.required]),
     service: new FormControl('', [Validators.required]),
     date_fin: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    client: new FormControl('', [Validators.required]),
+    client: new FormControl([]),
   });
+
+  openClientSelectionDialog(): void {
+    const dialogRef = this.dialog.open(ChoixClientComponent, {
+      width: '250px',
+      data: {} // Vous pouvez passer des données au dialogue si nécessaire
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // Vérifie si le contrôle de formulaire 'client' existe avant d'appeler setValue
+      const clientControl = this.form.get('client');
+      if (clientControl && result && result.length >  0) {
+        clientControl.setValue(result);
+      }
+    });
+  }
+
 
   get f() {
     return this.form.controls;
@@ -45,6 +84,10 @@ export class FormOffrespecialeComponent {
       console.log('Form submitted successfully');
       console.log('Form value:', this.form.value);
       alert('Insertion dans service effectuée');
+      //Insert
+
+
+
 
       this.router.navigate([self]);
     } else {

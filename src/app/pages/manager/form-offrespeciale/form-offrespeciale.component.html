@@ -5,17 +5,24 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
       <mat-form-field appearance="outline" class="w-100" color="primary">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">date_heure_envoi</mat-label>
-        <input matInput class="mat-input-element" formControlName="date_heure_envoi"/>
+        <input type="date" matInput class="mat-input-element" formControlName="date_heure_envoi"/>
         <mat-error *ngIf="f.date_heure_envoi.invalid "> date_heure_envoi invalid</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline" class="w-100" color="primary">
-        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">service</mat-label>
-        <input matInput class="mat-input-element" formControlName="service"/>
-        <mat-error *ngIf="f.service.invalid "> service invalid</mat-error>
+      <mat-form-field appearance="outline" color="primary" class=" w-100">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block" >Service</mat-label>
+        <!--        <input  matInput  >-->
+        <mat-select  class="mat-input-element" [(value)]="selected">
+          <mat-option class="mat-input-element">None</mat-option>
+          <mat-option class="mat-input-element" value="option1">Ongles</mat-option>
+          <mat-option class="mat-input-element" value="option2">Cheveux</mat-option>
+          <mat-option class="mat-input-element" value="option3">Ongles</mat-option>
+        </mat-select>
       </mat-form-field>
+
+
       <mat-form-field appearance="outline" class="w-100" color="primary">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">date_fin</mat-label>
-        <input matInput class="mat-input-element" formControlName="date_fin"/>
+        <input type="date" matInput class="mat-input-element" formControlName="date_fin"/>
         <mat-error *ngIf="f.date_fin.invalid "> date_fin invalid</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="w-100" color="primary">
@@ -23,11 +30,17 @@
         <input matInput class="mat-input-element" formControlName="description"/>
         <mat-error *ngIf="f.description.invalid "> description invalid</mat-error>
       </mat-form-field>
+
+
+
       <mat-form-field appearance="outline" class="w-100" color="primary">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">client</mat-label>
-        <input matInput class="mat-input-element" formControlName="client"/>
-        <mat-error *ngIf="f.client.invalid "> client invalid</mat-error>
+        <input matInput class="mat-input-element" formControlName="client" readonly (click)="openClientSelectionDialog()">
+        <mat-icon matSuffix (click)="openClientSelectionDialog()">keyboard_arrow_down</mat-icon>
+        <mat-error *ngIf="f.client.invalid">client invalid</mat-error>
       </mat-form-field>
+
+
       <div appearance="outline" class="w-100" color="primary">
         <button type="submit" mat-flat-button color="primary" class="w-50"> Confirm</button>
       </div>
