@@ -340,6 +340,90 @@ export const navItemsEmploye: NavItem[] = [
     route: '/extra/sample-page',
   },
 ];
+export const navItemsClient: NavItem[] = [
+  {
+    navCap: 'Appointments',
+  },
+  {
+    displayName: 'All Apointments',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/formrendezVous',
+  },
+  {
+    displayName: 'Historic',
+    iconName: 'layout-dashboard',
+    route: '/dashboard/rendezVous',
+  },
+
+  // Personnel
+  {
+    navCap: 'Employees',
+  },
+  {
+    displayName: 'New Employee',
+    iconName: 'rosette',
+    route: '/ui-components/badge',
+  },
+  {
+    displayName: 'All employee',
+    iconName: 'poker-chip',
+    route: '/ui-components/chips',
+  },
+  {
+    navCap: 'Statistics',
+  },
+  {
+    displayName: 'Temps moyen de travail par employe',
+    iconName: 'rosette',
+    route: '/ui-components/badge',
+  },
+  {
+    displayName: 'Nombre de reservation par jour, par mois',
+    iconName: 'poker-chip',
+    route: '/ui-components/chips',
+  },
+  {
+    displayName: 'Chiffre d\'affaire',
+    iconName: 'list',
+    route: '/ui-components/lists',
+  },
+  {
+    displayName: 'Benefice mensuel',
+    iconName: 'layout-navbar-expand',
+    route: '/ui-components/menu',
+  },
+  {
+    displayName: 'Tooltips',
+    iconName: 'tooltip',
+    route: '/ui-components/tooltips',
+  },
+  {
+    navCap: 'Auth',
+  },
+  {
+    displayName: 'Login',
+    iconName: 'lock',
+    route: '/authentication/login',
+  },
+  {
+    displayName: 'Register',
+    iconName: 'user-plus',
+    route: '/authentication/register',
+  },
+  {
+    navCap: 'Extra',
+  },
+  {
+    displayName: 'Icons',
+    iconName: 'mood-smile',
+    route: '/extra/icons',
+  },
+  {
+    displayName: 'Sample Page',
+    iconName: 'aperture',
+    route: '/extra/sample-page',
+  },
+];
 
 export const navItemsNo: NavItem[] = [
   {

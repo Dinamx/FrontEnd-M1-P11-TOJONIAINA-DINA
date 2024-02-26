@@ -14,6 +14,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {Router} from "@angular/router";
 import {basicImportsModule} from "../../../basicImports.module";
+import {CompteServiceService} from "../../../services/controllers/compte-service.service";
 
 @Component({
   selector: 'app-form-compte',
@@ -26,7 +27,7 @@ import {basicImportsModule} from "../../../basicImports.module";
   ],
 })
 export class FormCompteComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router , private compteClientService : CompteServiceService) {}
   form = new FormGroup({
     montant: new FormControl('', [Validators.required]),
   });

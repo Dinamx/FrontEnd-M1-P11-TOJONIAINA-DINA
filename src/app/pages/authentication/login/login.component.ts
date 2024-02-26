@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormsModule} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, Validators} from "@angular/forms";
 import axios from "axios";
 
 @Component({
@@ -11,7 +11,10 @@ export class AppSideLoginComponent implements OnInit {
   userType: string = '1';
 
   errorMessage!: string;
-
+  form = new FormGroup({
+    email: new FormControl('', [(Validators.required), (Validators.email) ]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]), // Prix positif
+  });
   constructor(private route: ActivatedRoute, private router  : Router ) {}
 
   ngOnInit(): void {
@@ -80,6 +83,8 @@ export class AppSideLoginComponent implements OnInit {
 
 
   async logIn(){
+
+
     console.log('user + ' + this.userEmail);
     console.log('psswd + ' + this.userPsswd);
     // Simuler une connexion réussie
