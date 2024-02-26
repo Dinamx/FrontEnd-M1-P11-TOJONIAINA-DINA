@@ -28,6 +28,7 @@ export interface Rendezvous {
   duree: string;
   comission: string;
   etat_rdv: string;
+  etat_valid: string;
 }
 
 
