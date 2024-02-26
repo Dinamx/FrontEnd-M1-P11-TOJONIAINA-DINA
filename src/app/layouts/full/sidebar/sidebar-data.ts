@@ -239,20 +239,20 @@ export const navItemsEmploye: NavItem[] = [
     navCap: 'Home',
   },
   {
-    displayName: 'form horaire travail employe',
+    displayName: 'Mes horaires de travail',
     iconName: 'calendar-time',
     route: '/dashboard/formHoraireTravail',
   },
   {
-    displayName: 'listeRendezVousEmp',
+    displayName: 'Mes rendez-Vous',
     iconName: 'bookmarks',
     route: '/dashboard/listeRendezVousEmp',
   },
-  {
-    displayName: 'listeRendezVousDuJourEmp',
-    iconName: 'layout-dashboard',
-    route: '/dashboard/listeRendezVousDuJourEmp',
-  },
+  // {
+  //   displayName: 'listeRendezVousDuJourEmp',
+  //   iconName: 'layout-dashboard',
+  //   route: '/dashboard/listeRendezVousDuJourEmp',
+  // },
 
 
 ];

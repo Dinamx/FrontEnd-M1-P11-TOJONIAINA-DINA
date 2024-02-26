@@ -61,13 +61,12 @@ export class HeaderComponent {
             });
           }
           else {
-            alert('tsy loalStorageF')
+
           }
         } catch (error) {
           alert(error)
         }
       } else {
-        alert('SOLDE HAFA')
         this.solde = '';
       }
     } else {
