@@ -63,9 +63,7 @@ export class FormCompteComponent implements OnInit {
       try {
         const response = await this.compteClientService.insertCompte(this.form.value);
         console.log('Insertion réussie :', response);
-        alert('Insertion  effectuée' + response);
-        // Rediriger ou effectuer d'autres actions après la réussite de l'insertion
-        // this.router.navigate(['chemin/vers/la/page']);
+        alert('Votre compte a été crédité');
       } catch (error) {
         console.error('Erreur lors de l\'insertion :', error);
         alert('Erreur lors de l\'insertion' + error);

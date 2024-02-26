@@ -25,7 +25,7 @@ export class CompteServiceService {
 
   async getMontant(idClient : string) {
     try {
-      const response = await this.webservicesService.getDataById('/', idClient);
+      const response = this.webservicesService.getDataById('/compteClient/total', idClient);
       console.log('Montant Compte Actuel récupérée :', response);
       // Gérer la réponse  ici
       return response;

@@ -26,8 +26,8 @@ export class WebservicesService {
     try {
       const response = await axios.get(`${url}${api}/${id}` );
       // Gérer les données de la réponse ici
-      console.log(response.data);
-      return response.data;
+      console.log('getdatabyID' + response);
+      return response;
     } catch (error) {
       // Gérer les erreurs ici
       console.error('Une erreur s\'est produite lors de la récupération des données :', error);
