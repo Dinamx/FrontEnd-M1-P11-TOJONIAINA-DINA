@@ -11,7 +11,7 @@ export class CompteServiceService {
 
   async insertCompte(formData: any) {
     try {
-      const response = await this.webservicesService.insertData(formData, '/compte');
+      const response = await this.webservicesService.insertData(formData, '/compteClient');
       console.log('Insertion réussie :', response);
       // Gérer la réponse de l'insertion  ici
       return response;

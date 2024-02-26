@@ -123,7 +123,6 @@ export class FormServiceComponent {
     event.stopPropagation();
     event.preventDefault();
   }
-
   onDrop(event: DragEvent) {
     event.stopPropagation();
     event.preventDefault();

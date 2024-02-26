@@ -37,17 +37,22 @@ export class HeaderComponent {
     // Acces base solde client
     this.soldeChiffre = 0;
 
+    if (localStorage.getItem("email")){
+      this.nom = localStorage.getItem("email");
+      const typeUser = localStorage.getItem("typeUser");
+
+      if (typeUser === 'client')
+      {
+        this.solde = 'Votre solde :' + this.soldeChiffre  + 'ar';
+      }else{
+        this.solde = '';
+      }
 
 
 
-    if (!localStorage.getItem("nom")){
-      this.nom = 'Nom Fictif';
-
-
-
-      this.solde = 'Votre solde :' + this.soldeChiffre  + 'ar';
     }
     else {
+
       this.solde = '0';
       this.nom = localStorage.getItem("nom");
       this.router.navigateByUrl('/');

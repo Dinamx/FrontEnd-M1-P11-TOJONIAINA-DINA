@@ -111,10 +111,11 @@ export class AppSideLoginComponent implements OnInit {
       const response = await this.loginService.logIn(this.form.value);
       if (response.status ===  200) {
         // Stocker les informations de l'utilisateur dans le localStorage
-        localStorage.setItem('name', response.data.userId);
+        localStorage.setItem('userId', response.data.userId);
         localStorage.setItem('typeUser', response.data.type_user);
+        localStorage.setItem('email', response.data.email);
 
-        console.log('Up' + localStorage.getItem('typeUser'));
+        console.log('typeUser' + localStorage.getItem('typeUser'));
 
         // Vérifier si localStorage.getItem('typeUser') n'est pas nul
         const typeUser = localStorage.getItem('typeUser');

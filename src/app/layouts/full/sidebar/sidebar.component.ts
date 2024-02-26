@@ -22,7 +22,7 @@ export class SidebarComponent implements OnInit {
   checkUserTypeAndRedirect() {
     const userType = localStorage.getItem('typeUser');
     if (!userType || userType === '') {
-      alert('Veuillez vous logeer svp');
+      alert('Please Log In Before');
       this.redirectWithError('Please Log In');
     } else if (userType === 'client') {
       // alert('Client');
