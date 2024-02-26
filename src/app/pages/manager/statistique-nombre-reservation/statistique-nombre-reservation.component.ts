@@ -42,7 +42,6 @@ export class StatistiqueNombreReservationComponent {
 
   months = this.constService.months;
   @ViewChild(`chart`) chart: ChartComponent | undefined;
-  // public chartOptions: Partial<ChartOptions>;
   public chartOptions: ChartOptions;
 
   constructor(  public constService: ConstantsService) {

@@ -14,6 +14,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import Compressor from "compressorjs";
+import {ServicesService} from "../../../services/controllers/services.service";
 
 @Component({
   selector: 'app-form-service',
@@ -40,7 +41,7 @@ import Compressor from "compressorjs";
   ],
 })
 export class FormServiceComponent {
-  constructor(private router: Router , private cd: ChangeDetectorRef) {}
+  constructor(private router: Router , private cd: ChangeDetectorRef , private servicesService: ServicesService) {}
 
   imageToShow : string = '/assets/images/profile/user-1.jpg';
 
@@ -61,20 +62,20 @@ export class FormServiceComponent {
     return this.form.controls;
   }
 
-  submit() {
+  async submit() {
     console.log('Form value:', this.form.value);
     if (this.form.valid) {
       console.log('Form submitted successfully');
-      console.log('Form value:', this.form.value);
-
-      alert('Insertion dans service effectuée');
-
-
-
-      // this.router.navigate();
-
-
-
+      try {
+        const response = await this.servicesService.insertServiceData(this.form.value);
+        console.log('Insertion réussie :', response);
+        alert('Insertion dans service effectuée' + response);
+        // Rediriger ou effectuer d'autres actions après la réussite de l'insertion
+        // this.router.navigate(['chemin/vers/la/page']);
+      } catch (error) {
+        console.error('Erreur lors de l\'insertion :', error);
+        alert('Erreur lors de l\'insertion');
+      }
     } else {
       alert('Erreur')
       console.log('Form submission failed');

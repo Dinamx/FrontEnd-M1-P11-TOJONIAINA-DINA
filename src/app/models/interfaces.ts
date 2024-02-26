@@ -5,6 +5,7 @@ export interface Service {
   prix: number;
   duree: string;
   comission: number;
+  image: string;
 }
 
 // Employés

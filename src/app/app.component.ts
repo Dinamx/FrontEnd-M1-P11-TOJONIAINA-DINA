@@ -29,4 +29,5 @@ export class AppComponent implements OnInit{
 }
 
 
-export const url = 'http//localhost:3000/';
+// export const url = 'http//localhost:3000/';
+export const url = 'https://backend-m1p11mean-tojoniaina-dina.onrender.com';

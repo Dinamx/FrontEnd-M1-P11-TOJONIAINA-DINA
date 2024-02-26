@@ -39,17 +39,13 @@ export class UpdateComponent {
   onSubmit() {
 
     if (this.updateForm.valid) {
-      // this.webService.updateData('' , this.updateForm.value).subscribe(() => {
-      //   this.data.updateList(); // Appelez la méthode de mise à jour de la liste du composant parent
-      //   this.dialogRef.close(); // Fermez la boîte de dialogue
-      //
-      // });
+
       this.webService.updateData('' , this.updateForm.value);
       this.data.updateList(); // Appelez la méthode de mise à jour de la liste du composant parent
       this.dialogRef.close(); // Fermez la boîte de dialogue
     }
     else {
-      alert('Valeur fausse')
+      alert('Valeur erronée')
     }
   }
   // onSubmit() {

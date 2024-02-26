@@ -17,6 +17,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {UpdateComponent} from "./update/update.component";
 import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
 import {Service} from "../../../models/interfaces";
+import {ServicesService} from "../../../services/controllers/services.service";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 
@@ -29,14 +31,17 @@ const ELEMENT_DATA: Service[] = [
     service: 'Description du service  1',
     prix: 100,
     duree: '1 heure',
-    comission: 10
+    comission: 10,
+    image: '10'
   },
   {
     id: 'service2',
     service: 'Description du service  2',
     prix: 200,
     duree: '2 heures',
-    comission: 20
+    comission: 20,
+    image: '10'
+
   }
 ];
 
@@ -49,7 +54,7 @@ const ELEMENT_DATA: Service[] = [
   styleUrls: ['./liste-service.component.scss'],
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatIconModule, TablerIconsModule, MatCardModule, NgApexchartsModule, MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule,],
+  imports: [MatButtonModule,MatProgressSpinnerModule, MatMenuModule, MatIconModule, TablerIconsModule, MatCardModule, NgApexchartsModule, MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule,],
 })
 export class ListeServiceComponent {
   myControl = new FormControl('');
@@ -58,14 +63,18 @@ export class ListeServiceComponent {
   searchForm: FormGroup;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
+
+
+  servicesList: Service[] | undefined;
+
   ngAfterViewInit() {
     if (this.paginator) {
-      this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
+      this.dataSource = new MatTableDataSource<any>(this.servicesList);
       this.dataSource.paginator = this.paginator;
     }
   }
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog , private servicesService: ServicesService) {
     this.searchForm = this.fb.group(
       {
         service: [''],
@@ -75,6 +84,29 @@ export class ListeServiceComponent {
     console.log(this.dataSource);
   }
 
+  isLoading: boolean = false;
+
+  async ngOnInit() {
+    this.isLoading = true;
+    try {
+      const servicesList = await this.servicesService.getServicesList();
+      console.log('Services list:', servicesList);
+      this.dataSource.data = servicesList;
+    } catch (error) {
+      console.error('Erreur lors de la récupération de la liste des services :', error);
+    } finally {
+      this.isLoading = false;
+      console.log('Chargement terminé'); // Pour vérifier
+    }
+  }
+
+
+
+
+
+
+
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
@@ -82,6 +114,7 @@ export class ListeServiceComponent {
 
   displayedColumns: string[] = [ 'service', 'duree', 'prix', 'comission', 'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+
 
   filterData(filterValue: any) {
     const filteredData = ELEMENT_DATA.filter(item => {

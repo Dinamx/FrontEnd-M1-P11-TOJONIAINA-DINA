@@ -62,7 +62,6 @@ export class WebservicesService {
   }
   async deleteData(data : any , api: string){
     try {
-
       const response = await axios.post(`${url}${api}` , data );
       // Gérer les données de la réponse ici
       console.log(response.data);
