@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, FormsModule, Validators} from "@angular/forms";
 import axios from "axios";
+import {LoginServiceService} from "../../../services/controllers/login/login-service.service";
 
 @Component({
   selector: 'app-login',
@@ -11,37 +12,37 @@ export class AppSideLoginComponent implements OnInit {
   userType: string = '1';
 
   errorMessage!: string;
-  form = new FormGroup({
-    email: new FormControl('', [(Validators.required), (Validators.email) ]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]), // Prix positif
-  });
-  constructor(private route: ActivatedRoute, private router  : Router ) {}
+  form!: FormGroup;
+
+
+  constructor(private route: ActivatedRoute, private router  : Router  ,private  loginService : LoginServiceService) {}
 
   ngOnInit(): void {
-
     this.route.queryParams.subscribe(params => {
       this.errorMessage = params['error'];
     });
 
     this.route.params.subscribe(params => {
       this.userType = params['userType'] || '1';
+      this.initializeForm(); // Assure-toi que le formulaire est initialisé après avoir défini le type d'utilisateur
+    });
+  }
 
+  initializeForm() {
+    let userEmail = 'client@client.com';
+    let userPsswd = 'password';
 
-      if (this.userType == '2'){
-        this.userEmail= 'emp';
-        this.userPsswd= 'emp';
-      }
-      else if (this.userType == '3'){
-        this.userEmail= 'admin';
-        this.userPsswd= 'admin';
-      }
-      else {
-        this.userEmail= 'client';
-        this.userPsswd= 'client';
-      }
+    if (this.userType == '2') {
+      userEmail = 'employe@employe.com';
+      userPsswd = 'password';
+    } else if (this.userType == '3') {
+      userEmail = 'admin@admin.com';
+      userPsswd = 'password';
+    }
 
-      console.log('this.useremail' + this.userEmail)
-
+    this.form = new FormGroup({
+      email: new FormControl(userEmail, [Validators.required, Validators.email]),
+      password: new FormControl(userPsswd, [Validators.required, Validators.minLength(6)]),
     });
   }
   userEmail : string = '';
@@ -67,6 +68,23 @@ export class AppSideLoginComponent implements OnInit {
 
 
 
+  redirect(typeUser: string) {
+    let route: string;
+    switch (typeUser) {
+      case 'client':
+        route = '/dashboard/rendezVous';
+        break;
+      case 'employe':
+        route = '/dashboard/listeRendezVousEmp';
+        break;
+      case 'admin':
+        route = '/dashboard/listeservice';
+        break;
+      default:
+        route = '/'; // Route par défaut si le type d'utilisateur n'est pas reconnu
+    }
+    this.router.navigateByUrl(route);
+  }
 
   getLink() {
     switch (this.userType) {
@@ -82,53 +100,41 @@ export class AppSideLoginComponent implements OnInit {
   }
 
 
-  async logIn(){
 
+  async logIn() {
+    try {
+      console.log(this.form.value);
+      console.log('user + ' + this.userEmail);
+      console.log('psswd + ' + this.userPsswd);
 
-    console.log('user + ' + this.userEmail);
-    console.log('psswd + ' + this.userPsswd);
-    // Simuler une connexion réussie
-    const user = {
-      name: 'John Doe',
-      typeUser: 'client'
-    };
+      // Attendre la résolution de la promesse
+      const response = await this.loginService.logIn(this.form.value);
+      if (response.status ===  200) {
+        // Stocker les informations de l'utilisateur dans le localStorage
+        localStorage.setItem('name', response.data.userId);
+        localStorage.setItem('typeUser', response.data.type_user);
 
-    // Stocker les informations de l'utilisateur dans le localStorage
-    localStorage.setItem('name', user.name);
-    localStorage.setItem('typeUser', user.typeUser);
-    // localStorage.setItem('typeUser', '');
+        console.log('Up' + localStorage.getItem('typeUser'));
 
-    if (user.typeUser == 'client'){
-  this.router.navigateByUrl('/dashboard/rendezVous');
-  // this.router.navigateByUrl('/dashboard/rendezVous');
+        // Vérifier si localStorage.getItem('typeUser') n'est pas nul
+        const typeUser = localStorage.getItem('typeUser');
+        if (typeUser) {
+          this.redirect(typeUser);
+        } else {
+          alert('Type d\'utilisateur incorrect.');
+        }
       }
-    else if (user.typeUser == 'admin'){
-      this.router.navigateByUrl('/dashboard/rendezVous')
+    } catch (error) {
+
+      console.log('Erreur complète :', error);
+      // Gérer les erreurs
+      if (axios.isAxiosError(error) && error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert('Une erreur inattendue est survenue.');
+      }
     }
-    else if (user.typeUser == 'emp'){
-      this.router.navigateByUrl('/dashboard/rendezVous')
-    }
-
-
-
-    // try {
-    //   // Faites votre appel Axios ici
-    //   const response = await axios.post('votre_url_api', {
-    //     email: this.userEmail,
-    //     password: this.userPsswd,
-    //   });
-    //
-    //
-    //   // Traitement de la réponse
-    //   console.log('Réponse de l\'API :', response.data);
-    // } catch (error) {
-    //   // Gestion des erreurs
-    //   console.error('Erreur lors de l\'appel API :', error);
-    // }
-
-
   }
-
 
 
 

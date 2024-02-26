@@ -7,13 +7,13 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'New Appointment',
-    iconName: 'calendar-clock',
+    // iconName: 'playlist-add',
+    iconName: 'calendar-heart',
     route: '/dashboard/rendezVous',
-
   },
   {
     displayName: 'My Appointments',
-    iconName: 'layout-dashboard',
+    iconName: 'list',
     route: '/dashboard/listerendezVous',
   },
 
@@ -23,7 +23,7 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Charge my account',
-    iconName: 'layout-dashboard',
+    iconName: 'coins',
     route: '/dashboard/formcompte',
   },
 
@@ -33,70 +33,71 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'form employe',
-    iconName: 'layout-dashboard',
+    iconName: 'user-plus',
     route: '/dashboard/formemploye',
   },
   {
     displayName: 'liste employe',
-    iconName: 'layout-dashboard',
+    iconName: 'users',
     route: '/dashboard/listeemploye',
   },
   {
     displayName: 'form service',
-    iconName: 'layout-dashboard',
+    iconName: 'playlist-add',
     route: '/dashboard/formservice',
   },
   {
     displayName: 'Liste service',
-    iconName: 'layout-dashboard',
+    iconName: 'list',
     route: '/dashboard/listeservice',
   },
 
   {
     displayName: 'liste Offre speciale',
-    iconName: 'layout-dashboard',
+    iconName: 'list',
     route: '/dashboard/listeOffrespeciale',
   },
   {
     displayName: 'form Offre speciale',
-    iconName: 'layout-dashboard',
+    iconName: 'discount',
     route: '/dashboard/formOffrespeciale',
   },
   {
     displayName: 'Nombre de réservation',
-    iconName: 'layout-dashboard',
+    // iconName: 'layout-dashboard',
+    iconName: 'bookmarks',
     route: '/dashboard/statistiqueNombreReservation',
   },
   {
     displayName: 'Temps travail Moyen',
-    iconName: 'layout-dashboard',
+    iconName: 'clock-play',
     route: '/dashboard/statistiqueTempsTravailMoyen',
   },
   {
-    displayName: 'Nombre de Reservation',
-    iconName: 'layout-dashboard',
+    displayName: 'Chiffre d`\'affaire',
+    iconName: 'premium-rights',
     route: '/dashboard/statistiqueNombreReservationComponent',
   },
 
   {
     displayName: 'Bénéfices mensuels',
-    iconName: 'layout-dashboard',
+    iconName: 'coins',
     route: '/dashboard/statistiqueBeneficeMensuel',
   },
 
 
-  //Manager
+  //Employe
   {
-    navCap: 'EMPLOYE',
+    navCap: 'EMploye',
   },
   {
     displayName: 'form horaire travail employe',
-    iconName: 'layout-dashboard',
+    iconName: 'calendar-time',
     route: '/dashboard/formHoraireTravail',
   },
   {
     displayName: 'listeRendezVousEmp',
-    iconName: 'layout-dashboard',
+    iconName: 'bookmarks',
     route: '/dashboard/listeRendezVousEmp',
   },
   {
@@ -172,256 +173,114 @@ export const navItems: NavItem[] = [
 
 
 export const navItemsAdmin: NavItem[] = [
+  //Manager
   {
-    navCap: 'Services',
+    navCap: 'MANAGER',
   },
   {
-    displayName: 'New Service',
-    iconName: 'layout-dashboard',
-    route: '/dashboard/formrendezVous',
+    displayName: 'form employe',
+    iconName: 'user-plus',
+    route: '/dashboard/formemploye',
   },
   {
-    displayName: 'All Services',
-    iconName: 'layout-dashboard',
-    route: '/dashboard/rendezVous',
+    displayName: 'liste employe',
+    iconName: 'users',
+    route: '/dashboard/listeemploye',
+  },
+  {
+    displayName: 'form service',
+    iconName: 'playlist-add',
+    route: '/dashboard/formservice',
+  },
+  {
+    displayName: 'Liste service',
+    iconName: 'list',
+    route: '/dashboard/listeservice',
   },
 
-  // Personnel
   {
-    navCap: 'Employees',
-  },
-  {
-    displayName: 'New Employee',
-    iconName: 'rosette',
-    route: '/ui-components/badge',
-  },
-  {
-    displayName: 'All employee',
-    iconName: 'poker-chip',
-    route: '/ui-components/chips',
-  },
-  {
-    navCap: 'Statistics',
-  },
-  {
-    displayName: 'Temps moyen de travail par employe',
-    iconName: 'rosette',
-    route: '/ui-components/badge',
-  },
-  {
-    displayName: 'Nombre de reservation par jour, par mois',
-    iconName: 'poker-chip',
-    route: '/ui-components/chips',
-  },
-  {
-    displayName: 'Chiffre d\'affaire',
+    displayName: 'liste Offre speciale',
     iconName: 'list',
-    route: '/ui-components/lists',
+    route: '/dashboard/listeOffrespeciale',
   },
   {
-    displayName: 'Benefice mensuel',
-    iconName: 'layout-navbar-expand',
-    route: '/ui-components/menu',
+    displayName: 'form Offre speciale',
+    iconName: 'discount',
+    route: '/dashboard/formOffrespeciale',
   },
   {
-    displayName: 'Tooltips',
-    iconName: 'tooltip',
-    route: '/ui-components/tooltips',
+    displayName: 'Nombre de réservation',
+    // iconName: 'layout-dashboard',
+    iconName: 'bookmarks',
+    route: '/dashboard/statistiqueNombreReservation',
   },
   {
-    navCap: 'Auth',
+    displayName: 'Temps travail Moyen',
+    iconName: 'clock-play',
+    route: '/dashboard/statistiqueTempsTravailMoyen',
   },
   {
-    displayName: 'Login',
-    iconName: 'lock',
-    route: '/authentication/login',
+    displayName: 'Chiffre d`\'affaire',
+    iconName: 'premium-rights',
+    route: '/dashboard/statistiqueNombreReservationComponent',
   },
+
   {
-    displayName: 'Register',
-    iconName: 'user-plus',
-    route: '/authentication/register',
+    displayName: 'Bénéfices mensuels',
+    iconName: 'coins',
+    route: '/dashboard/statistiqueBeneficeMensuel',
   },
-  {
-    navCap: 'Extra',
-  },
-  {
-    displayName: 'Icons',
-    iconName: 'mood-smile',
-    route: '/extra/icons',
-  },
-  {
-    displayName: 'Sample Page',
-    iconName: 'aperture',
-    route: '/extra/sample-page',
-  },
+
 ];
 
 export const navItemsEmploye: NavItem[] = [
+  //Employe
   {
-    navCap: 'Appointments',
+    navCap: 'Home',
   },
   {
-    displayName: 'All Apointments',
-    iconName: 'layout-dashboard',
-    route: '/dashboard/formrendezVous',
+    displayName: 'form horaire travail employe',
+    iconName: 'calendar-time',
+    route: '/dashboard/formHoraireTravail',
   },
   {
-    displayName: 'Historic',
+    displayName: 'listeRendezVousEmp',
+    iconName: 'bookmarks',
+    route: '/dashboard/listeRendezVousEmp',
+  },
+  {
+    displayName: 'listeRendezVousDuJourEmp',
     iconName: 'layout-dashboard',
-    route: '/dashboard/rendezVous',
+    route: '/dashboard/listeRendezVousDuJourEmp',
   },
 
-  // Personnel
-  {
-    navCap: 'Employees',
-  },
-  {
-    displayName: 'New Employee',
-    iconName: 'rosette',
-    route: '/ui-components/badge',
-  },
-  {
-    displayName: 'All employee',
-    iconName: 'poker-chip',
-    route: '/ui-components/chips',
-  },
-  {
-    navCap: 'Statistics',
-  },
-  {
-    displayName: 'Temps moyen de travail par employe',
-    iconName: 'rosette',
-    route: '/ui-components/badge',
-  },
-  {
-    displayName: 'Nombre de reservation par jour, par mois',
-    iconName: 'poker-chip',
-    route: '/ui-components/chips',
-  },
-  {
-    displayName: 'Chiffre d\'affaire',
-    iconName: 'list',
-    route: '/ui-components/lists',
-  },
-  {
-    displayName: 'Benefice mensuel',
-    iconName: 'layout-navbar-expand',
-    route: '/ui-components/menu',
-  },
-  {
-    displayName: 'Tooltips',
-    iconName: 'tooltip',
-    route: '/ui-components/tooltips',
-  },
-  {
-    navCap: 'Auth',
-  },
-  {
-    displayName: 'Login',
-    iconName: 'lock',
-    route: '/authentication/login',
-  },
-  {
-    displayName: 'Register',
-    iconName: 'user-plus',
-    route: '/authentication/register',
-  },
-  {
-    navCap: 'Extra',
-  },
-  {
-    displayName: 'Icons',
-    iconName: 'mood-smile',
-    route: '/extra/icons',
-  },
-  {
-    displayName: 'Sample Page',
-    iconName: 'aperture',
-    route: '/extra/sample-page',
-  },
+
 ];
 export const navItemsClient: NavItem[] = [
   {
     navCap: 'Appointments',
   },
   {
-    displayName: 'All Apointments',
-    iconName: 'layout-dashboard',
-    route: '/dashboard/formrendezVous',
+    displayName: 'New Appointment',
+    // iconName: 'playlist-add',
+    iconName: 'calendar-heart',
+    route: '/dashboard/rendezVous',
+
   },
   {
-    displayName: 'Historic',
-    iconName: 'layout-dashboard',
-    route: '/dashboard/rendezVous',
+    displayName: 'My Appointments',
+    iconName: 'list',
+    route: '/dashboard/listerendezVous',
   },
 
-  // Personnel
+  // Payement
   {
-    navCap: 'Employees',
+    navCap: 'My Account',
   },
   {
-    displayName: 'New Employee',
-    iconName: 'rosette',
-    route: '/ui-components/badge',
-  },
-  {
-    displayName: 'All employee',
-    iconName: 'poker-chip',
-    route: '/ui-components/chips',
-  },
-  {
-    navCap: 'Statistics',
-  },
-  {
-    displayName: 'Temps moyen de travail par employe',
-    iconName: 'rosette',
-    route: '/ui-components/badge',
-  },
-  {
-    displayName: 'Nombre de reservation par jour, par mois',
-    iconName: 'poker-chip',
-    route: '/ui-components/chips',
-  },
-  {
-    displayName: 'Chiffre d\'affaire',
-    iconName: 'list',
-    route: '/ui-components/lists',
-  },
-  {
-    displayName: 'Benefice mensuel',
-    iconName: 'layout-navbar-expand',
-    route: '/ui-components/menu',
-  },
-  {
-    displayName: 'Tooltips',
-    iconName: 'tooltip',
-    route: '/ui-components/tooltips',
-  },
-  {
-    navCap: 'Auth',
-  },
-  {
-    displayName: 'Login',
-    iconName: 'lock',
-    route: '/authentication/login',
-  },
-  {
-    displayName: 'Register',
-    iconName: 'user-plus',
-    route: '/authentication/register',
-  },
-  {
-    navCap: 'Extra',
-  },
-  {
-    displayName: 'Icons',
-    iconName: 'mood-smile',
-    route: '/extra/icons',
-  },
-  {
-    displayName: 'Sample Page',
-    iconName: 'aperture',
-    route: '/extra/sample-page',
+    displayName: 'Charge my account',
+    iconName: 'coins',
+    route: '/dashboard/formcompte',
   },
 ];
 

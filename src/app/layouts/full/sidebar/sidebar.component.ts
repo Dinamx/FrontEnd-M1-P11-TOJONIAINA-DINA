@@ -12,6 +12,7 @@ export class SidebarComponent implements OnInit {
   navItemsEmploye = navItemsEmploye;
   navItemsManager = navItemsAdmin;
 
+
   constructor(public navService: NavService ,  private router: Router , private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -21,13 +22,17 @@ export class SidebarComponent implements OnInit {
   checkUserTypeAndRedirect() {
     const userType = localStorage.getItem('typeUser');
     if (!userType || userType === '') {
+      alert('Veuillez vous logeer svp');
       this.redirectWithError('Please Log In');
     } else if (userType === 'client') {
-      this.navItemsClient = navItems;
+      // alert('Client');
+      this.navItems = navItemsClient;
     }else if (userType === 'employe') {
-      this.navItemsClient = navItems;
+      this.navItems = navItemsEmploye;
     }else if (userType === 'admin') {
-      this.navItemsClient = navItems;
+      // alert('Admin');
+
+      this.navItems = navItemsAdmin;
     }
   }
 

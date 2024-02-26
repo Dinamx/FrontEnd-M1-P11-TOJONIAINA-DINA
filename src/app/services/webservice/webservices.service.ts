@@ -39,7 +39,21 @@ export class WebservicesService {
       const response = await axios.post(`${url}${api}` , data );
       // Gérer les données de la réponse ici
       console.log(response.data);
-      return response.data;
+      console.log(response);
+      console.log('Fonction login');
+      return response;
+    } catch (error) {
+      // Gérer les erreurs ici
+      console.error('Une erreur s\'est produite lors de la récupération des données :', error);
+      throw error;
+    }
+  }
+  async insertDataRetour(data : any , api: string){
+    try {
+      const response = await axios.post(`${url}${api}` , data );
+      // Gérer les données de la réponse ici
+      console.log(response.data);
+      return response;
     } catch (error) {
       // Gérer les erreurs ici
       console.error('Une erreur s\'est produite lors de la récupération des données :', error);

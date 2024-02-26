@@ -42,6 +42,9 @@ export class HeaderComponent {
 
     if (!localStorage.getItem("nom")){
       this.nom = 'Nom Fictif';
+
+
+
       this.solde = 'Votre solde :' + this.soldeChiffre  + 'ar';
     }
     else {
@@ -53,8 +56,7 @@ export class HeaderComponent {
 
   disconnect(){
     localStorage.clear();
-
-
+    this.router.navigateByUrl('/');
   }
 
 

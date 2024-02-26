@@ -11,10 +11,9 @@ export class LoginServiceService {
 
   async logIn(formData: any) {
     try {
+      // alert('FONCTION LOG IN DEJA')
       const response = await this.webservicesService.insertData(formData, '/login');
-      console.log('Log In réussie :', response);
-
-      // Gérer la réponse de l'insertion  ici
+      console.log('Log In réussi :', response.data);
       return response;
     } catch (error) {
       alert('Eurreur : ' +  error)
