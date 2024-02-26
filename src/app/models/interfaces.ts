@@ -1,11 +1,11 @@
 // Services
 export interface Service {
   id: string;
-  service: string;
   prix: number;
   duree: string;
   comission: number;
   image: string;
+  description: string;
 }
 
 // Employés
