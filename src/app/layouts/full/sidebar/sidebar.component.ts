@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { navItems , navItemsAdmin , navItemsEmploye , navItemsClient } from './sidebar-data';
+import { navItemsNo,navItems , navItemsAdmin , navItemsEmploye , navItemsClient } from './sidebar-data';
 import { NavService } from '../../../services/nav.service';
 import {ActivatedRoute, Router} from '@angular/router';
 @Component({
@@ -28,7 +28,8 @@ export class SidebarComponent implements OnInit {
       // alert('Client');
       this.navItems = navItemsClient;
     }else if (userType === 'employe') {
-      this.navItems = navItemsEmploye;
+      // this.navItems = navItemsEmploye;
+      this.navItems =  navItemsEmploye;
     }else if (userType === 'admin') {
       // alert('Admin');
 

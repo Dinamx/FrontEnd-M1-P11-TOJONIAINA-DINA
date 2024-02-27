@@ -28,6 +28,7 @@ export interface Rendezvous {
   duree: string;
   comission: string;
   etat_rdv: string;
+
 }
 
 
@@ -43,6 +44,35 @@ export interface Offrespeciale{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+export interface RendezvousEmploye {
+  _id: string;
+  date_heure: string;
+  service: string;
+  client: string | null;
+  employe: {
+    _id: string;
+    email: string;
+  };
+  prixpaye: number;
+  rappel: number;
+  comissionemploye: number;
+  duree: number;
+  comission: number;
+  etat_rdv: number;
+  etat_valid: number;
+  __v: number;
+}
 
 
 

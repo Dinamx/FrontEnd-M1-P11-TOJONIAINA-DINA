@@ -8,7 +8,7 @@ import {TablerIconsModule} from "angular-tabler-icons";
 import {MatCardModule} from "@angular/material/card";
 import {NgApexchartsModule} from "ng-apexcharts";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
-import {AsyncPipe, CommonModule} from "@angular/common";
+import {AsyncPipe, CommonModule, DatePipe} from "@angular/common";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
@@ -17,6 +17,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {UpdateComponent} from "./update/update.component";
 import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
 import {Rendezvous} from "../../../models/interfaces";
+import {RendezVousServiceService} from "../../../services/controllers/client/rendez-vous-service.service";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 const ELEMENT_DATA: Rendezvous[] = [
@@ -56,7 +58,8 @@ const ELEMENT_DATA: Rendezvous[] = [
     , TablerIconsModule
     , MatCardModule
     , NgApexchartsModule
-    , MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule,],
+    , MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule, MatProgressSpinnerModule,],
+  providers: [DatePipe],
 })
 export class ListeRendezVousEmployeComponent {
 
@@ -72,8 +75,10 @@ export class ListeRendezVousEmployeComponent {
       this.dataSource.paginator = this.paginator;
     }
   }
-
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {
+  formatDateEnFrancais(date: Date): string {
+    return <string>this.datePipe.transform(date, 'dd MMMM yyyy hh:mm', 'fr-FR');
+  }
+  constructor(private fb: FormBuilder, private dialog: MatDialog , private rendezvousService: RendezVousServiceService , public datePipe: DatePipe) {
     this.searchForm = this.fb.group({
       id: [''],
       date_heure: [''],
@@ -89,12 +94,41 @@ export class ListeRendezVousEmployeComponent {
     console.log(this.dataSource);
   }
 
+  isLoading: boolean = false;
+
+  listResearch : Rendezvous[] | undefined;
+
+  async ngOnInit() {
+    this.isLoading = true;
+    try {
+      if (localStorage.getItem('userId')){
+        console.log(localStorage.getItem('userId'));
+      const liste = await this.rendezvousService.getRendezVousList(<string>localStorage.getItem('userId'));
+      console.log('Services list:', liste);
+
+
+      this.listResearch = liste;
+      console.log('RECHERCHE + ' + this.listResearch)
+      this.dataSource.data = liste;
+      }
+    } catch (error) {
+      console.error('Erreur lors de la récupération de la liste des services :', error);
+    } finally {
+      this.isLoading = false;
+      console.log('Chargement terminé'); // Pour vérifier
+    }
+  }
+
+
+
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  displayedColumns: string[] = ['id', 'date_heure', 'service', 'client', 'employe', 'prixpaye', 'comissionemploye', 'duree', 'comission', 'etat_rdv', 'action'];
+  displayedColumns: string[] = [ 'date_heure', 'service', 'client', 'employe', 'prixpaye', 'comissionemploye', 'duree', 'comission', 'etat_rdv', 'action'];
+
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   filterData(filterValue: any) {

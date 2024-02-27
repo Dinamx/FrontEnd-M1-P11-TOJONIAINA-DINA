@@ -94,7 +94,6 @@ export class ListeServiceComponent {
       const servicesList = await this.servicesService.getServicesList();
       console.log('Services list:', servicesList);
 
-
       this.servicesListResearch = servicesList;
       console.log('RECHERCHE + ' + this.servicesListResearch)
       this.dataSource.data = servicesList;

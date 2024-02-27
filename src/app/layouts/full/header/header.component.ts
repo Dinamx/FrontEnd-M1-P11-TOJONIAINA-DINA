@@ -39,7 +39,7 @@ export class HeaderComponent {
     this.solde =  '';
 
     if (localStorage.getItem("email")) {
-      this.nom = localStorage.getItem("email");
+      this.nom = (<string>localStorage.getItem("email")).split('@')[0];
       const typeUser = localStorage.getItem("typeUser");
 
       if (typeUser === 'client') {
@@ -51,7 +51,7 @@ export class HeaderComponent {
               // Vérifie si retour est une réponse Axios
               if ('data' in retour) {
                 // Si c'est une réponse Axios, accède à retour.data.montant
-                this.solde = 'Votre solde :' + retour.data.total + ' ar';
+                this.solde = 'Votre solde :' + retour.data.total.toLocaleString() + ' ar';
               } else {
                 // Sinon, retour est un objet avec un champ montant directement
                 this.solde = 'Votre solde :' + retour.montant + 'ar';

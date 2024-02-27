@@ -9,12 +9,12 @@ export class RendezVousServiceService {
   constructor(private webservicesService: WebservicesService) { }
 
 
-  async getRendezVousList(idClient: String) {
+  async getRendezVousList(idClient: string) {
     try {
-      const response = await this.webservicesService.getDataById('/rendezVous', idClient);
+      const response = await this.webservicesService.getDataById('/employes/rendezvous', idClient);
       console.log('ListeRendez Vous :', response);
       // Gérer la réponse de l'insertion  ici
-      return response;
+      return response.data;
     } catch (error) {
       alert('Eurreur : ' +  error)
       console.error('Erreur lors de l\'insertion :', error);
