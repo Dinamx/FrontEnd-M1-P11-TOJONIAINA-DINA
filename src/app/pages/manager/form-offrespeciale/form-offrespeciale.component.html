@@ -5,9 +5,8 @@
     <form [formGroup]="form" (ngSubmit)="submit()">
 
       <mat-form-field appearance="outline" class="w-100" color="primary">
-        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">date_heure_envoi</mat-label>
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Date début</mat-label>
         <input type="datetime-local" matInput class="mat-input-element" formControlName="date_heure_envoi"/>
-        <mat-error *ngIf="f.date_heure_envoi.invalid "> date_heure_envoi invalid</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-100" color="primary">
@@ -32,15 +31,13 @@
 
 
       <mat-form-field appearance="outline" class="w-100" color="primary">
-        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">date_fin</mat-label>
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Date Fin</mat-label>
         <input type="datetime-local" matInput class="mat-input-element" formControlName="date_fin"/>
-        <mat-error *ngIf="f.date_fin.invalid ">Date_fin invalid</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-100" color="primary">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Contenu </mat-label>
         <input matInput class="mat-input-element" formControlName="contenu"/>
-        <mat-error *ngIf="f.description.invalid ">Contenu invalid</mat-error>
       </mat-form-field>
 
 

@@ -8,6 +8,16 @@ export class OffrespecialeService {
 
   constructor(private webservicesService: WebservicesService) { }
 
+  async insertOffreSpeciale(formData: any) {
+    try {
+      const response = await this.webservicesService.insertData( formData , '/offrespeciales/add' );
+      return response;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des données :', error);
+      throw error;
+    }
+  }
+
   async getClientList() {
     try {
       const response = await this.webservicesService.getData('/client');

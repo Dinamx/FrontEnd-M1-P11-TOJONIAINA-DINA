@@ -55,29 +55,16 @@ export class FormOffrespecialeComponent {
     {value: 'service3', viewValue: 'Service  3'}
   ];
 
-
   form = new FormGroup({
+    idclient: new FormControl('', [Validators.required]),
+    contenu: new FormControl('', [Validators.required]),
     date_heure_envoi: new FormControl('', [Validators.required]),
-    service: new FormControl('', [Validators.required]),
+    mail_envoi: new FormControl('', [Validators.required]),
+    pourcentage: new FormControl('', [Validators.required]),
     date_fin: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required]),
-    client: new FormControl([]),
+    idservice: new FormControl('', [Validators.required]),
   });
 
-  openClientSelectionDialog(): void {
-    const dialogRef = this.dialog.open(ChoixClientComponent, {
-      width: '250px',
-      data: {} // Vous pouvez passer des données au dialogue si nécessaire
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // Vérifie si le contrôle de formulaire 'client' existe avant d'appeler setValue
-      const clientControl = this.form.get('client');
-      if (clientControl && result && result.length >  0) {
-        clientControl.setValue(result);
-      }
-    });
-  }
 
 
   get f() {
@@ -90,6 +77,7 @@ export class FormOffrespecialeComponent {
     this.getServiceList();
   }
 
+  
   async getClientList() {
     try {
       const response = await this.offreSpecialesService.getClientList();
@@ -113,22 +101,31 @@ export class FormOffrespecialeComponent {
     }
   }
 
-  submit() {
+async submit() {
 
-    if (this.form.valid) {
-
-      console.log('Form submitted successfully');
-      console.log('Form value:', this.form.value);
-      alert('Insertion dans service effectuée');
-      //Insert
-
-
-
-
-      this.router.navigate([self]);
-    } else {
-      alert('Erreur')
-      console.log('Form submission failed');
-    }
+  console.log('Form value:', this.form.value);
+  if (this.form.valid) {
+    console.log('Form submitted successfully');
+    try {
+        const response = await this.offreSpecialesService.insertOffreSpeciale(this.form.value);
+        const status = response.data.status;
+        if (status === "200") {
+        this.successMessage = 'Offre Spéciale a été bien enregistré avec email.';
+        } 
+      } 
+      catch (error) 
+      {
+      console.error('Erreur lors de l\'insertion :', error);
+      alert('Erreur lors de l\'insertion');
+      }
+  } 
+  else 
+  {
+    alert('Erreur')
+    console.log('Form submission failed');
   }
+  
+}
+
+
 }
