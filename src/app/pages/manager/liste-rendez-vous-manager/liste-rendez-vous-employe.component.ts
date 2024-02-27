@@ -127,7 +127,7 @@ export class ListeRendezVousEmployeComponent {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  displayedColumns: string[] = [ 'date_heure', 'service', 'client', 'prixpaye', 'comissionemploye', 'duree', 'comission', 'etat_rdv', 'action'];
+  displayedColumns: string[] = [ 'date_heure', 'service', 'client', 'employe', 'prixpaye', 'comissionemploye', 'duree', 'comission', 'etat_rdv', 'action'];
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
