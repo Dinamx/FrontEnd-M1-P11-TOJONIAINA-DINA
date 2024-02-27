@@ -24,20 +24,22 @@ export interface Rendezvous {
   client: string;
   employe: string;
   prixpaye: string;
+  rappel: string;
   comissionemploye: string;
   duree: string;
   comission: string;
   etat_rdv: string;
+  etat_valid: string;
 
 }
 
 
-export interface Offrespeciale{
+export interface Offrespeciale {
   date_heure_envoi: string;
   service: string;
-  date_fin : string;
-  description : string | 'Promotion';
-  client : any;
+  date_fin: string;
+  description: string | 'Promotion';
+  client: any;
 }
 
 
