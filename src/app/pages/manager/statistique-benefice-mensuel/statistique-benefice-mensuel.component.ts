@@ -25,10 +25,26 @@ export class StatistiqueBeneficeMensuelComponent {
   constructor(public constService: ConstantsService,private globalService: GlobalService) {
   }
 
-  async ngOnInit() 
-  {
-    this.benefice = await this.globalService.getBenefice();
-    this.chiffre_affaire = await this.globalService.getChiffre();
+  async ngOnInit() {
+    await this.updateData();
+}
+
+async onMonthSelectionChange(event: any) {
+    const mois = event.value;
+    const annee = 2024;
+    const benefice = await this.globalService.getSearchBenefice(mois, annee);
+    const chiffre = await this.globalService.getSearchChiffre(mois, annee);
+    this.benefice = benefice;
+    this.chiffre_affaire = chiffre;
     this.depense = this.chiffre_affaire - this.benefice;
-  }   
+}
+
+async updateData() {
+    const benefice = await this.globalService.getBenefice();
+    const chiffre = await this.globalService.getChiffre();
+    this.benefice = benefice;
+    this.chiffre_affaire = chiffre;
+    this.depense = this.chiffre_affaire - this.benefice;
+}
+
 }

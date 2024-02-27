@@ -1,14 +1,15 @@
 <div class="container">
     <mat-card class="search-card">
-      <mat-card-content>
-        <mat-form-field appearance="outline" color="primary" class="col-3 mat-form-field-outline">
-          <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Mois</mat-label>
-          <mat-select class="mat-input-element">
-            <mat-option *ngFor="let month of months" [value]="month.value">{{ month.name }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-card-content>
-    </mat-card>
+        <mat-card-content>
+          <mat-form-field appearance="outline" color="primary" class="col-3 mat-form-field-outline">
+            <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Mois</mat-label>
+            <mat-select class="mat-input-element" (selectionChange)="onMonthSelectionChange($event)">
+              <mat-option *ngFor="let month of months" [value]="month.value">{{ month.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+      
   
     <div class="row">
       <div class="col-md-4">
