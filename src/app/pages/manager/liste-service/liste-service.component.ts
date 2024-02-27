@@ -23,9 +23,6 @@ import {MatSelectModule} from "@angular/material/select";
 
 
 
-
-
-
 const ELEMENT_DATA: Service[] = [
   {
     id: 'service1',
@@ -109,13 +106,6 @@ export class ListeServiceComponent {
       console.log('Chargement terminé'); // Pour vérifier
     }
   }
-
-
-
-
-
-
-
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();

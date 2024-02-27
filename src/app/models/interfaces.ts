@@ -35,11 +35,13 @@ export interface Rendezvous {
 
 
 export interface Offrespeciale {
+  idclient: string;
+  contenu: string;
   date_heure_envoi: string;
-  service: string;
+  mail_envoi: string;
+  pourcentage: any;
   date_fin: string;
-  description: string | 'Promotion';
-  client: any;
+  idservice: string;
 }
 
 

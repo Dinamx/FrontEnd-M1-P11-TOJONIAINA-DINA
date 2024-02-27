@@ -15,26 +15,30 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatDialog} from "@angular/material/dialog";
 import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
-import { Offrespeciale} from "../../../models/interfaces";
+import {Offrespeciale} from "../../../models/interfaces";
 import {UpdateComponent} from "../liste-employe/update/update.component";
 import {MatSelectModule} from "@angular/material/select";
-
+import {OffrespecialeService} from "../../../services/controllers/offrespeciale.service";
 
 
 const ELEMENT_DATA: Offrespeciale[] = [
   {
+    idclient: '1',
+    contenu: 'Promotion',
     date_heure_envoi: '2024-02-23 09:00',
-    service: 'Service A',
+    mail_envoi: 'mail',
+    pourcentage: '12',
     date_fin: '2024-03-15',
-    description: 'Promotion',
-    client: 'Mark J. Freeman'
+    idservice: '2',
   },
   {
-    date_heure_envoi: '2024-02-23 10:30',
-    service: 'Service B',
-    date_fin: '2024-03-10',
-    description: 'Offre spéciale',
-    client: 'Andrew McDownland'
+    idclient: '2',
+    contenu: 'Promotion',
+    date_heure_envoi: '2024-02-23 09:00',
+    mail_envoi: 'mail',
+    pourcentage: '12',
+    date_fin: '2024-03-15',
+    idservice: '3',
   }
 ];
 
@@ -58,22 +62,45 @@ export class ListeOffrespecialeComponent {
   searchForm: FormGroup;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
+  offrespecialeListResearch: Offrespeciale[] | undefined;
+
+  offrespecialeList: Offrespeciale[] | undefined;
+
   ngAfterViewInit() {
     if (this.paginator) {
-      this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
+      this.dataSource = new MatTableDataSource<any>(this.offrespecialeList);
       this.dataSource.paginator = this.paginator;
     }
   }
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog , private offreSpecialesService: OffrespecialeService)
+  {
     this.searchForm = this.fb.group({
+      contenu: [''],
       date_heure_envoi: [''],
-      service: [''],
+      mail_envoi: [''],
+      pourcentage: [''],
       date_fin: [''],
-      description: [''],
-      client: [''],
     });
     console.log(this.dataSource);
+  }
+
+  isLoading: boolean = false;
+
+  async ngOnInit() {
+    this.isLoading = true;
+    try {
+      const offrespecialeList = await this.offreSpecialesService.getOffreList();
+      this.offrespecialeListResearch = offrespecialeList;
+      console.log('RECHERCHE + ' + this.offrespecialeListResearch)
+      this.dataSource.data = offrespecialeList;
+      console.log("DataSource"+this.dataSource.data);
+    } catch (error) {
+      console.error('Erreur lors de la récupération de la liste des offres sepeciales :', error);
+    } finally {
+      this.isLoading = false;
+      console.log('Chargement terminé'); // Pour vérifier
+    }
   }
 
   private _filter(value: string): string[] {
@@ -81,22 +108,22 @@ export class ListeOffrespecialeComponent {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  displayedColumns: string[] = ['date_heure_envoi', 'service', 'date_fin', 'description', 'client', 'action'];
+  displayedColumns: string[] = ['idclient','idservice','contenu', 'pourcentage', 'mail_envoi', 'date_heure_envoi' , 'date_fin' , 'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   filterData(filterValue: any) {
     const filteredData = ELEMENT_DATA.filter(item => {
       const date_heure_envoi = item.date_heure_envoi.toLowerCase();
-      const service = item.service.toLowerCase();
       const date_fin = item.date_fin.toLowerCase();
-      const description = item.description.toLowerCase();
-      const client = item.client.toLowerCase();
+      const description = item.contenu.toLowerCase();
+      const client = item.idclient.toLowerCase();
+
       const searchDate_heure_envoi = filterValue.date_heure_envoi.toLowerCase();
-      const searchService = filterValue.service.toLowerCase();
       const searchDate_fin = filterValue.date_fin.toLowerCase();
       const searchDescription = filterValue.description.toLowerCase();
-      const searchClient = filterValue.client.toLowerCase();
-      return ((searchDate_heure_envoi === '' || date_heure_envoi.includes(searchDate_heure_envoi)) && (searchService === '' || service.includes(searchService)) && (searchDate_fin === '' || date_fin.includes(searchDate_fin)) && (searchDescription === '' || description.includes(searchDescription)) && (searchClient === '' || client.includes(searchClient)) );
+      
+
+      return ((searchDate_heure_envoi === '' || date_heure_envoi.includes(searchDate_heure_envoi)) && (searchDate_fin === '' || date_fin.includes(searchDate_fin)) && (searchDescription === '' || description.includes(searchDescription)) );
     });
     this.dataSource.data = filteredData;
   }

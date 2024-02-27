@@ -10,26 +10,6 @@
               <input formControlName="date_heure_envoi" class="mat-input-class" matInput
                      placeholder="Entrez le date_heure_envoi..."></mat-form-field>
 
-
-
-
-
-
-
-
-
-          </div>
-          <br>
-          <div class="col-3 m-0 p-0">
-            <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">Service</mat-label>
-              <mat-select formControlName="service" class="mat-input-class" matInput>
-<!--                <mat-option *ngFor="let serv of services" [value]="serv.value">{{serv.viewValue}}</mat-option>-->
-                <mat-option  [value]="'service1'">Service1</mat-option>
-                <mat-option  [value]="'service1'">Service1</mat-option>
-              </mat-select>
-            </mat-form-field>
-
           </div>
           <br>
           <div class="col-3 m-0 p-0">
@@ -62,46 +42,66 @@
   </mat-card>
   <mat-card class="cardWithShadow">
     <mat-card-content class="p-24">
-      <mat-card-title>Take a new Appointment</mat-card-title>
+      <mat-card-title>Offre Speciale</mat-card-title>
       <div class="table-responsive m-t-16">
         <table mat-table [dataSource]="dataSource" class="w-100 table-borderless">
+          
+          <ng-container matColumnDef="idclient">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> Client</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.idclient.email }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="idservice">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> Service</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.idservice.description }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="contenu">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> Description</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.contenu }} </span></div>
+              </div>
+            </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="pourcentage">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> Pourcentage</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.pourcentage }}%</span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="mail_envoi">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> Mail</th>
+            <td mat-cell *matCellDef="let element ">
+              <div class="d-flex align-items-center">
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.mail_envoi }}</span></div>
+              </div>
+            </td>
+          </ng-container>
           <ng-container matColumnDef="date_heure_envoi">
-            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> date_heure_envoi</th>
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> Date Début</th>
             <td mat-cell *matCellDef="let element ">
               <div class="d-flex align-items-center">
                 <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.date_heure_envoi }} </span></div>
               </div>
             </td>
           </ng-container>
-          <ng-container matColumnDef="service">
-            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> service</th>
-            <td mat-cell *matCellDef="let element ">
-              <div class="d-flex align-items-center">
-                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.service }} </span></div>
-              </div>
-            </td>
-          </ng-container>
           <ng-container matColumnDef="date_fin">
-            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> date_fin</th>
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> Date Fin</th>
             <td mat-cell *matCellDef="let element ">
               <div class="d-flex align-items-center">
                 <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.date_fin }} </span></div>
-              </div>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> description</th>
-            <td mat-cell *matCellDef="let element ">
-              <div class="d-flex align-items-center">
-                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.description }} </span></div>
-              </div>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="client">
-            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> client</th>
-            <td mat-cell *matCellDef="let element ">
-              <div class="d-flex align-items-center">
-                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.client }} </span></div>
               </div>
             </td>
           </ng-container>
