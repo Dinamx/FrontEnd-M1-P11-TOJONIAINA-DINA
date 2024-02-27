@@ -24,7 +24,7 @@ export class RendezvousServiceService {
   async addRdv(formData: any) {
     try {
       const response = await this.webservicesService.insertData( formData , '/client/rendezvous/add' );
-      return response.data;
+      return response;
     } catch (error) {
       console.error('Erreur lors de la récupération des horaires :', error);
       throw error;

@@ -24,6 +24,7 @@ export interface Rendezvous {
   client: string;
   employe: string;
   prixpaye: string;
+  rappel: string;
   comissionemploye: string;
   duree: string;
   comission: string;

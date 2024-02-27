@@ -14,6 +14,10 @@ import {MatInputModule} from "@angular/material/input";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatSelectModule} from "@angular/material/select";
+import { Rendezvous } from 'src/app/models/interfaces';
+import { RendezvousServiceService } from "../../../services/controllers/rendezvous/rendezvous-service.service";
+import {ServicesService} from "../../../services/controllers/services.service";
+
 
 @Component({
   selector: 'form-rendez-vous',
@@ -40,24 +44,86 @@ import {MatSelectModule} from "@angular/material/select";
   ],
 })
 export class FormRendezVousComponent {
-  constructor(private router: Router) {}
+  employees: { _id: number, email: string }[] = [];
+  services: { _id: number, description: string ; duree: string }[] = [];
+  dure: any = '0';
+  userId: any;
 
+
+  constructor(private router: Router,private rendezvousService: RendezvousServiceService, private servicesService: ServicesService) {}
 
   selected = '';
 
-
   form = new FormGroup({
-    uname: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
+    date_heure: new FormControl('', [Validators.required]),
+    idservice: new FormControl('', [Validators.required]),
+    idclient: new FormControl(localStorage.getItem("userId")),
+    idemploye: new FormControl('', [Validators.required]),
+    prixpaye: new FormControl('', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]),
+    rappel: new FormControl('', [Validators.required]),
   });
 
   get f() {
     return this.form.controls;
   }
 
-  submit() {
-    // console.log(this.form.value);
-    this.router.navigate(['/dashboard']);
+  ngOnInit() 
+  {
+    this.userId = localStorage.getItem("userId"); // Récupérer la valeur de userId depuis le local storage
+    this.getEmployeeList();
+    this.getServiceList();
+  }
+
+  async getEmployeeList() {
+    try {
+      const response = await this.rendezvousService.getEmployeList();
+      console.log('Liste des employés récupérée :', response);
+      this.employees = response; // Mettez à jour la liste des employés dans votre composant
+    } catch (error) {
+      alert('Erreur : ' + error);
+      console.error('Erreur lors de la récupération de la liste des employés :', error);
+    }
+  }
+
+  async getServiceList()
+  {
+    try {
+      const response = await this.servicesService.getServicesList();
+      console.log('Liste des services récupérée :', response);
+      this.services = response; 
+    } catch (error) {
+      alert('Erreur : ' + error);
+      console.error('Erreur lors de la récupération de la liste des employés :', error);
+    }
+  }
+
+  onServiceSelectionChange(event: any) {
+    const selectedServiceId = event.value;
+    const selectedService = this.services.find(service => service._id === selectedServiceId);
+    console.log(selectedService?.duree);
+    if (selectedService) {
+      this.dure = selectedService.duree;
+    }
+  }
+
+async  submit() {
+  console.log('Form value:', this.form.value);
+  if (this.form.valid) {
+    console.log('Form submitted successfully');
+    try {
+      const response = await this. rendezvousService.addRdv(this.form.value);
+      alert('Insertion des donnees');
+      } 
+      catch (error) 
+      {
+      console.error('Erreur lors de l\'insertion :', error);
+      alert('Erreur lors de l\'insertion');
+      }
+  } 
+  else 
+  {
+    alert('Erreur')
+    console.log('Form submission failed');
+  }
   }
 }
