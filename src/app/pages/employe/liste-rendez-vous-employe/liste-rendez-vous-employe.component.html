@@ -1,11 +1,20 @@
 <div class="col-lg-12">
-  <div *ngIf="isLoading" style="position: fixed; width: 100%; height: 100%; display: flex ; justify-content: center; align-items: center; background: white; top: 0; left: 0 ; z-index:  9999;  margin-top: 7%; border-radius: 5%; " >
+  <div *ngIf="isLoading"
+       style="position: fixed; width: 100%; height: 100%; display: flex ; justify-content: center; align-items: center; background: white; top: 0; left: 0 ; z-index:  9999;  margin-top: 7%; border-radius: 5%; ">
     <mat-spinner></mat-spinner>
   </div>
 
   <mat-card class="mat-card cardWithShadow">
     <form [formGroup]="searchForm" (submit)="filterData(searchForm.value)">
       <mat-card-content class="mat-mdc-card-content">
+        <div class="row">
+          <div class="col-3 m-0 p-0">
+          <button mat-raised-button color="primary" (click)="filterTodaysAppointments()">Voir rendez-vous du jour
+          </button>
+          </div>
+        </div>
+
+        <br/>
         <div class="row justify-content-evenly"
              style="display: flex; align-items: center; justify-content: space-evenly">
           <div class="col-3 m-0 p-0">
@@ -68,12 +77,13 @@
             <button mat-flat-button color="primary" class="add-contact-button-class col-12"> Rechercher</button>
           </div>
         </div>
+
       </mat-card-content>
     </form>
   </mat-card>
   <mat-card class="cardWithShadow">
     <mat-card-content class="p-24">
-      <mat-card-title>Take a new Appointment</mat-card-title>
+      <mat-card-title>All Appointments</mat-card-title>
       <div class="table-responsive m-t-16">
         <table mat-table [dataSource]="dataSource" class="w-100 table-borderless">
           <ng-container matColumnDef="date_heure">
@@ -115,7 +125,8 @@
             <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> prixpaye</th>
             <td mat-cell *matCellDef="let element ">
               <div class="d-flex align-items-center">
-                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.prixpaye }} </span></div>
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.prixpaye.toLocaleString() }} </span>
+                </div>
               </div>
             </td>
           </ng-container>
@@ -123,7 +134,8 @@
             <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> comissionemploye</th>
             <td mat-cell *matCellDef="let element ">
               <div class="d-flex align-items-center">
-                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.comissionemploye.toLocaleString() }} ar </span></div>
+                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.comissionemploye.toLocaleString() }}
+                  ar </span></div>
               </div>
             </td>
           </ng-container>
@@ -146,11 +158,9 @@
           <ng-container matColumnDef="etat_rdv">
             <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"> etat_rdv</th>
             <td mat-cell *matCellDef="let element ">
-<!--              <div class="d-flex align-items-center">-->
-<!--                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.etat_rdv }} </span></div>-->
-<!--              </div>-->
-
-
+              <!--              <div class="d-flex align-items-center">-->
+              <!--                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.etat_rdv }} </span></div>-->
+              <!--              </div>-->
 
 
               <ng-template [ngIf]="element.etat_rdv == '0'">
@@ -160,29 +170,17 @@
                     En attente
                   </span>
               </ng-template>
-            <ng-template [ngIf]="element.etat_rdv == '1'">
+              <ng-template [ngIf]="element.etat_rdv == '1'">
                   <span
                     class="bg-light-success text-success rounded f-w-600 p-y-6 p-x-16 f-s-14"
                   >
                     Validé
                   </span>
-            </ng-template>
+              </ng-template>
             </td>
 
 
-
-
-
           </ng-container>
-
-
-
-
-
-
-
-
-
 
 
           <ng-container matColumnDef="action">

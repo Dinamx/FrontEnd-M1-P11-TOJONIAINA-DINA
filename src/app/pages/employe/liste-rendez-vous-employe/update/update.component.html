@@ -6,7 +6,7 @@
     <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline" color="primary" class="form-field-class">
         <mat-label class="mat-label-class">Date et Heure</mat-label>
-        <input class="mat-input-class" matInput formControlName="date_heure" type="datetime-local">
+        <input class="mat-input-class" matInput formControlName="date_heure" type="text" readonly>
       </mat-form-field>
       <mat-form-field appearance="outline" color="primary" class="form-field-class">
         <mat-label class="mat-label-class">Service</mat-label>
@@ -17,28 +17,16 @@
         <input class="mat-input-class" matInput formControlName="client" readonly>
       </mat-form-field>
       <mat-form-field appearance="outline" color="primary" class="form-field-class">
-        <mat-label class="mat-label-class">Employé</mat-label>
-        <input class="mat-input-class" matInput formControlName="employe" readonly>
+        <mat-label class="mat-label-class">Prix</mat-label>
+        <input class="mat-input-class" min="0" matInput formControlName="prixpaye" type="number">
       </mat-form-field>
       <mat-form-field appearance="outline" color="primary" class="form-field-class">
-        <mat-label class="mat-label-class">Prix Payé</mat-label>
-        <input class="mat-input-class" matInput formControlName="prixpaye" type="number">
+        <mat-label class="mat-label-class">Durée (minutes)</mat-label>
+        <input class="mat-input-class" min="0" matInput formControlName="duree" type="number">
       </mat-form-field>
       <mat-form-field appearance="outline" color="primary" class="form-field-class">
-        <mat-label class="mat-label-class">Commission Employé</mat-label>
-        <input class="mat-input-class" matInput formControlName="comissionemploye" type="number">
-      </mat-form-field>
-      <mat-form-field appearance="outline" color="primary" class="form-field-class">
-        <mat-label class="mat-label-class">Durée</mat-label>
-        <input class="mat-input-class" matInput formControlName="duree" type="number">
-      </mat-form-field>
-      <mat-form-field appearance="outline" color="primary" class="form-field-class">
-        <mat-label class="mat-label-class">Commission</mat-label>
-        <input class="mat-input-class" matInput formControlName="comission" type="number">
-      </mat-form-field>
-      <mat-form-field appearance="outline" color="primary" class="form-field-class">
-        <mat-label class="mat-label-class">État du RDV</mat-label>
-        <input class="mat-input-class" matInput formControlName="etat_rdv" type="number">
+        <mat-label class="mat-label-class">Commission (Ar)</mat-label>
+        <input class="mat-input-class" matInput formControlName="comissionemploye" type="number" readonly>
       </mat-form-field>
       <div appearance="outline" color="primary" class="form-field-class">
         <button mat-raised-button color="primary" type="submit">Mettre à jour</button>

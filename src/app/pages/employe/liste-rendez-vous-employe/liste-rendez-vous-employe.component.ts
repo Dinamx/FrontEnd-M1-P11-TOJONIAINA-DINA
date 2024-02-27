@@ -21,34 +21,34 @@ import {RendezVousServiceService} from "../../../services/controllers/client/ren
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
-const ELEMENT_DATA: Rendezvous[] = [
-  {
-    date_heure: '2024-02-22T09:00:00',
-    service: 'Service 1',
-    client: 'Mark J. Freeman',
-    employe: 'Employee 1',
-    prixpaye: '50',
-    rappel: '1',
-    comissionemploye: '10',
-    duree: '60',
-    comission: '15',
-    etat_rdv: '1',
-    etat_valid: '1',
-  },
-  {
-    date_heure: '2024-02-22T09:00:00',
-    service: 'Service 1',
-    client: 'Mark J. Freeman',
-    employe: 'Employee 1',
-    prixpaye: '50',
-    rappel: '1',
-    comissionemploye: '10',
-    duree: '60',
-    comission: '15',
-    etat_rdv: '1',
-    etat_valid: '1',
-  }
-];
+// const ELEMENT_DATA: Rendezvous[] = [
+//   {
+//     date_heure: '2024-02-22T09:00:00',
+//     service: 'Service 1',
+//     client: 'Mark J. Freeman',
+//     employe: 'Employee 1',
+//     prixpaye: '50',
+//     rappel: '1',
+//     comissionemploye: '10',
+//     duree: '60',
+//     comission: '15',
+//     etat_rdv: '1',
+//     etat_valid: '1',
+//   },
+//   {
+//     date_heure: '2024-02-22T09:00:00',
+//     service: 'Service 1',
+//     client: 'Mark J. Freeman',
+//     employe: 'Employee 1',
+//     prixpaye: '50',
+//     rappel: '1',
+//     comissionemploye: '10',
+//     duree: '60',
+//     comission: '15',
+//     etat_rdv: '1',
+//     etat_valid: '1',
+//   }
+// ];
 
 @Component({
   selector: 'app-liste-rendez-vous-employe',
@@ -75,7 +75,7 @@ export class ListeRendezVousEmployeComponent {
 
   ngAfterViewInit() {
     if (this.paginator) {
-      this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
+      this.dataSource = new MatTableDataSource<any>(this.listResearch);
       this.dataSource.paginator = this.paginator;
     }
   }
@@ -116,10 +116,11 @@ export class ListeRendezVousEmployeComponent {
       this.dataSource.data = liste;
       }
     } catch (error) {
+      alert('Erreur lors de la récupération de la liste des services :'+ error)
       console.error('Erreur lors de la récupération de la liste des services :', error);
     } finally {
       this.isLoading = false;
-      console.log('Chargement terminé'); // Pour vérifier
+
     }
   }
 
@@ -136,28 +137,30 @@ export class ListeRendezVousEmployeComponent {
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   filterData(filterValue: any) {
-    const filteredData = ELEMENT_DATA.filter(item => {
-      const date_heure = item.date_heure.toLowerCase();
-      const service = item.service.toLowerCase();
-      const client = item.client.toLowerCase();
-      const employe = item.employe.toLowerCase();
-      const prixpaye = item.prixpaye.toLowerCase();
-      const comissionemploye = item.comissionemploye.toLowerCase();
-      const duree = item.duree.toLowerCase();
-      const comission = item.comission.toLowerCase();
-      const etat_rdv = item.etat_rdv.toLowerCase();
-      const searchDate_heure = filterValue.date_heure.toLowerCase();
-      const searchService = filterValue.service.toLowerCase();
-      const searchClient = filterValue.client.toLowerCase();
-      const searchEmploye = filterValue.employe.toLowerCase();
-      const searchPrixpaye = filterValue.prixpaye.toLowerCase();
-      const searchComissionemploye = filterValue.comissionemploye.toLowerCase();
-      const searchDuree = filterValue.duree.toLowerCase();
-      const searchComission = filterValue.comission.toLowerCase();
-      const searchEtat_rdv = filterValue.etat_rdv.toLowerCase();
-      return ((searchDate_heure === '' || date_heure.includes(searchDate_heure)) && (searchService === '' || service.includes(searchService)) && (searchClient === '' || client.includes(searchClient)) && (searchEmploye === '' || employe.includes(searchEmploye)) && (searchPrixpaye === '' || prixpaye.includes(searchPrixpaye)) && (searchComissionemploye === '' || comissionemploye.includes(searchComissionemploye)) && (searchDuree === '' || duree.includes(searchDuree)) && (searchComission === '' || comission.includes(searchComission)) && (searchEtat_rdv === '' || etat_rdv.includes(searchEtat_rdv)));
-    });
+    if (this.listResearch) {
+      const filteredData = this.listResearch.filter(item => {
+        const date_heure = item.date_heure.toLowerCase();
+        const service = item.service.toLowerCase();
+        const client = item.client.toLowerCase();
+        const employe = item.employe.toLowerCase();
+        const prixpaye = item.prixpaye.toLowerCase();
+        const comissionemploye = item.comissionemploye.toLowerCase();
+        const duree = item.duree.toLowerCase();
+        const comission = item.comission.toLowerCase();
+        const etat_rdv = item.etat_rdv.toLowerCase();
+        const searchDate_heure = filterValue.date_heure.toLowerCase();
+        const searchService = filterValue.service.toLowerCase();
+        const searchClient = filterValue.client.toLowerCase();
+        const searchEmploye = filterValue.employe.toLowerCase();
+        const searchPrixpaye = filterValue.prixpaye.toLowerCase();
+        const searchComissionemploye = filterValue.comissionemploye.toLowerCase();
+        const searchDuree = filterValue.duree.toLowerCase();
+        const searchComission = filterValue.comission.toLowerCase();
+        const searchEtat_rdv = filterValue.etat_rdv.toLowerCase();
+        return ((searchDate_heure === '' || date_heure.includes(searchDate_heure)) && (searchService === '' || service.includes(searchService)) && (searchClient === '' || client.includes(searchClient)) && (searchEmploye === '' || employe.includes(searchEmploye)) && (searchPrixpaye === '' || prixpaye.includes(searchPrixpaye)) && (searchComissionemploye === '' || comissionemploye.includes(searchComissionemploye)) && (searchDuree === '' || duree.includes(searchDuree)) && (searchComission === '' || comission.includes(searchComission)) && (searchEtat_rdv === '' || etat_rdv.includes(searchEtat_rdv)));
+      });
     this.dataSource.data = filteredData;
+    }
   }
 
   ismodif = false;
@@ -168,11 +171,57 @@ export class ListeRendezVousEmployeComponent {
     const dialogRef = this.dialog.open(UpdateComponent, {width: '400px', data: element});
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        try {
+          this.isLoading = true;
+          this.updateList();
+
+
+          // Trouver l'index de l'élément dans la liste locale
+          const index = this.dataSource.data.findIndex(item => item._id === result._id);
+          if (index !== -1) {
+            // Mettre à jour l'élément dans la liste locale
+            this.dataSource.data[index] = result;
+            // Mettre à jour la liste de la source de données
+            this.dataSource._updateChangeSubscription();
+            this.updateList();
+            this.isLoading = true;
+          }
+        }
+        catch (error){
+          alert(error);
+        }
+        finally {
+          this.isLoading = false;
+        }
+
       }
     });
   }
 
+  updateList() {
+    this.rendezvousService.getRendezVousList(<string>localStorage.getItem('userId')).then(data => {
+      this.dataSource.data = data; // Mettez à jour votre source de données avec les nouvelles données
+    }).catch(error => {
+      console.error('Une erreur s\'est produite lors de la récupération des données :', error);
+    });
+  }
+
+
   delete(element: any) {
     this.isdelete = true;
+  }
+
+  filterTodaysAppointments() {
+    const today = new Date();
+    today.setHours(0,  0,  0,  0); // Réinitialiser l'heure à minuit pour une comparaison correcte
+
+    // Filtrer les rendez-vous du jour
+    const todaysAppointments = this.dataSource.data.filter(appointment => {
+      const appointmentDate = new Date(appointment.date_heure);
+      return appointmentDate.setHours(0,  0,  0,  0) === today.getTime();
+    });
+
+    // Mettre à jour la source de données avec les rendez-vous du jour
+    this.dataSource.data = todaysAppointments;
   }
 }
