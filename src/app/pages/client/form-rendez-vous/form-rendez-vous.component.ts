@@ -48,7 +48,8 @@ export class FormRendezVousComponent {
   services: { _id: number, description: string ; duree: string }[] = [];
   dure: any = '0';
   userId: any;
-
+  alertMessage: string | null = null;
+  successMessage: string | null = null;
 
   constructor(private router: Router,private rendezvousService: RendezvousServiceService, private servicesService: ServicesService) {}
 
@@ -112,7 +113,16 @@ async  submit() {
     console.log('Form submitted successfully');
     try {
       const response = await this. rendezvousService.addRdv(this.form.value);
-      alert('Insertion des donnees');
+      const status = response.data.status;
+      if (status === "200") {
+        this.successMessage = 'Rendez-vous a été bien enregistré.';
+      } else if (status === "400") {
+        this.alertMessage = 'Employé occupé.';
+      } else if (status === "401") {
+        this.alertMessage = 'Solde insuffisant.';
+      } else {
+        this.alertMessage = 'Statut inconnu : ' + status;
+      }
       } 
       catch (error) 
       {
