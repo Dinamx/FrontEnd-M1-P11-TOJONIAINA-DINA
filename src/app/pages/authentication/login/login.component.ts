@@ -29,7 +29,7 @@ export class AppSideLoginComponent implements OnInit {
   }
 
   initializeForm() {
-    let userEmail = 'tojohajarisoa@gmail.com';
+    let userEmail = 'client@client.com';
     let userPsswd = 'password';
 
     if (this.userType == '2') {
