@@ -3,10 +3,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl, FormGroup, FormsModule, Validators} from "@angular/forms";
 import axios from "axios";
 import {LoginServiceService} from "../../../services/controllers/login/login-service.service";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+
 })
 export class AppSideLoginComponent implements OnInit {
   userType: string = '1';
@@ -99,9 +101,11 @@ export class AppSideLoginComponent implements OnInit {
     }
   }
 
-
+  isLoading = false;
 
   async logIn() {
+    this.isLoading = true; // Active le spinner
+
     try {
       console.log(this.form.value);
       console.log('user + ' + this.userEmail);

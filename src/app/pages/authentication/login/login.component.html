@@ -1,4 +1,8 @@
 <div class="blank-layout-container justify-content-center align-items-center " style="background: #ecf0f1;">
+  <div *ngIf="isLoading" style="position: fixed; width: 100%; height: 100%; display: flex ; justify-content: center; align-items: center; background: white; top: 0; left: 0 ; z-index:  9999;   border-radius: 5%; " >
+    <mat-spinner></mat-spinner>
+  </div>
+
 
   <div
     class=" position-relative row w-100 h-100 bg-gredient justify-content-center">
