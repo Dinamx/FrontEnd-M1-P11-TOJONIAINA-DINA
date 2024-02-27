@@ -2,28 +2,26 @@
   <mat-card class="cardWithShadow">
 
 
-<!--    <header>-->
-<!--      <mat-form-field appearance="outline" color="primary" style="padding: 1rem" class=" col-3 mat-form-field-outline">-->
-<!--        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Mois</mat-label>-->
-<!--        <mat-select class="mat-input-element">-->
-<!--          <mat-option *ngFor="let month of months" [value]="month.value">{{ month.name }}</mat-option>-->
-<!--        </mat-select>-->
-<!--      </mat-form-field>-->
-<!--    </header>-->
+    <header>
+      <mat-form-field appearance="outline" color="primary" style="padding: 1rem" class=" col-3 mat-form-field-outline">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Mois</mat-label>
+        <mat-select class="mat-input-element">
+          <mat-option *ngFor="let month of months" [value]="month.value">{{ month.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </header>
 
 
     <div style=" width:75%; padding: 1rem;" id="chart">
 
 
 
-      <apx-chart
-        [series]="chartOptions.series"
-        [chart]="chartOptions.chart"
-        [labels]="chartOptions.labels"
-        [fill]="chartOptions.fill"
-        [stroke]="chartOptions.stroke"
-        [responsive]="chartOptions.responsive"
-      ></apx-chart>
+      <apx-chart [series]="chartOptions.series ?? []"
+                 [chart]="chartOptions.chart ?? {type: 'line', height:  350}"
+                 [dataLabels]="chartOptions.dataLabels ?? {enabled: false}"
+                 [plotOptions]="chartOptions.plotOptions ?? {bar: {horizontal: false}}"
+                 [xaxis]="chartOptions.xaxis ?? {categories: []}"
+                 ></apx-chart>
 
     </div>
 

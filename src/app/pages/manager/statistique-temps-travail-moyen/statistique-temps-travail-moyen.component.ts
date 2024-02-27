@@ -1,23 +1,24 @@
 import { Component, ViewChild } from "@angular/core";
-import {ChartComponent, NgApexchartsModule} from "ng-apexcharts";
+import {NgApexchartsModule} from "ng-apexcharts";
 
 import {
-  ApexNonAxisChartSeries,
-  ApexResponsive,
+  ApexAxisChartSeries,
   ApexChart,
-  ApexStroke,
-  ApexFill
+  ChartComponent,
+  ApexDataLabels,
+  ApexXAxis,
+  ApexPlotOptions
 } from "ng-apexcharts";
 import {basicImportsModule} from "../../../basicImports.module";
 import {MatSelectModule} from "@angular/material/select";
+import {ConstantsService} from "../../../services/const/constants.service";
 
 export type ChartOptions = {
-  series: ApexNonAxisChartSeries;
+  series?: ApexAxisChartSeries;
   chart: ApexChart;
-  responsive: ApexResponsive[];
-  labels: any;
-  stroke: ApexStroke;
-  fill: ApexFill;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  xaxis: ApexXAxis;
 };
 
 @Component({
@@ -33,35 +34,43 @@ export type ChartOptions = {
 })
 export class StatistiqueTempsTravailMoyenComponent {
   @ViewChild(`chart`) chart: ChartComponent | undefined;
-  public chartOptions: ChartOptions;
+  public chartOptions: Partial<ChartOptions> ;
+  months = this.constService.months;
 
-  constructor() {
+  constructor(private constService : ConstantsService) {
     this.chartOptions = {
-      series: [14, 23, 21, 17, 15, 10, 12, 17, 21],
-      labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5', 'Label 6', 'Label 7', 'Label 8', 'Label 9'], // Ajout des étiquettes
-      chart: {
-        type: "polarArea"
-      },
-      stroke: {
-        colors: ["#fff"]
-      },
-      fill: {
-        opacity: 0.8
-      },
-      responsive: [
+      series: [
         {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: "bottom"
-            }
-          }
+          name: "basic",
+          data: [400,  430,  448,  470,  540,  580,  690,  1100,  1200,  1380]
         }
-      ]
+      ],
+      chart: {
+        type: "bar",
+        height:  350
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      xaxis: {
+        categories: [
+          "South Korea",
+          "Canada",
+          "United Kingdom",
+          "Netherlands",
+          "Italy",
+          "France",
+          "Japan",
+          "United States",
+          "China",
+          "Germany"
+        ]
+      }
     };
-
   }
 }
