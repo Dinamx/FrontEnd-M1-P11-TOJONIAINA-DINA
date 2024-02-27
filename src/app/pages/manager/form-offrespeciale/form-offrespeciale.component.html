@@ -3,47 +3,73 @@
     <mat-card-title>Offrespeciale</mat-card-title>
     <mat-card-subtitle class="mat-body-1">New Offrespeciale</mat-card-subtitle>
     <form [formGroup]="form" (ngSubmit)="submit()">
+
       <mat-form-field appearance="outline" class="w-100" color="primary">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">date_heure_envoi</mat-label>
-        <input type="date" matInput class="mat-input-element" formControlName="date_heure_envoi"/>
+        <input type="datetime-local" matInput class="mat-input-element" formControlName="date_heure_envoi"/>
         <mat-error *ngIf="f.date_heure_envoi.invalid "> date_heure_envoi invalid</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline" color="primary" class=" w-100">
+
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Mail</mat-label>
+        <input type="text" matInput class="mat-input-element" formControlName="mail_envoi"/>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" color="primary" class=" col-12 mat-form-field-outline">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block"  >Pourcentage</mat-label>
+        <input matInput min="0" class="mat-input-element" formControlName="pourcentage" >
+      </mat-form-field>
+      
+      
+      <mat-form-field appearance="outline" color="primary" class=" col-12 mat-form-field-outline">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block" >Service</mat-label>
-        <!--        <input  matInput  >-->
-        <mat-select  class="mat-input-element" [(value)]="selected">
+<!--        <input  matInput  >-->
+        <mat-select  class="mat-input-element" formControlName="idservice">
           <mat-option class="mat-input-element">None</mat-option>
-          <mat-option class="mat-input-element" value="option1">Ongles</mat-option>
-          <mat-option class="mat-input-element" value="option2">Cheveux</mat-option>
-          <mat-option class="mat-input-element" value="option3">Ongles</mat-option>
+          <mat-option *ngFor="let service of services" [value]="service._id">{{ service.description }}</mat-option>
         </mat-select>
       </mat-form-field>
 
 
       <mat-form-field appearance="outline" class="w-100" color="primary">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">date_fin</mat-label>
-        <input type="date" matInput class="mat-input-element" formControlName="date_fin"/>
-        <mat-error *ngIf="f.date_fin.invalid "> date_fin invalid</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="w-100" color="primary">
-        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">description</mat-label>
-        <input matInput class="mat-input-element" formControlName="description"/>
-        <mat-error *ngIf="f.description.invalid "> description invalid</mat-error>
+        <input type="datetime-local" matInput class="mat-input-element" formControlName="date_fin"/>
+        <mat-error *ngIf="f.date_fin.invalid ">Date_fin invalid</mat-error>
       </mat-form-field>
 
-
-
       <mat-form-field appearance="outline" class="w-100" color="primary">
-        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">client</mat-label>
-        <input matInput class="mat-input-element" formControlName="client" readonly (click)="openClientSelectionDialog()">
-        <mat-icon matSuffix (click)="openClientSelectionDialog()">keyboard_arrow_down</mat-icon>
-        <mat-error *ngIf="f.client.invalid">client invalid</mat-error>
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Contenu </mat-label>
+        <input matInput class="mat-input-element" formControlName="contenu"/>
+        <mat-error *ngIf="f.description.invalid ">Contenu invalid</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" color="primary" class=" col-12 mat-form-field-outline">
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block" >Client</mat-label>
+<!--        <input  matInput  >-->
+        <mat-select  class="mat-input-element" formControlName="idclient">
+          <mat-option class="mat-input-element">None</mat-option>
+          <mat-option *ngFor="let clients of client" [value]="clients._id">{{ clients.email }}</mat-option>
+        </mat-select>
       </mat-form-field>
 
 
       <div appearance="outline" class="w-100" color="primary">
         <button type="submit" mat-flat-button color="primary" class="w-50"> Confirm</button>
       </div>
+
+      <div class="alert alert-danger" *ngIf="successMessage" style="
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #0dbd39;
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 1rem;
+      border-radius: 0.25rem;
+      margin-top: 20px; /* Ajoutez une marge supérieure de 20px */
+    ">
+      {{ successMessage }}
+    </div>
+
     </form>
   </mat-card-content>
 </mat-card>

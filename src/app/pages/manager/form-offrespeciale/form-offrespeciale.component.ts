@@ -16,6 +16,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 import {ChoixClientComponent} from "./choix-client/choix-client.component";
+import {ServicesService} from "../../../services/controllers/services.service";
+import {OffrespecialeService} from "../../../services/controllers/offrespeciale.service";
+
 
 @Component({
   selector: 'app-form-offrespeciale',
@@ -27,7 +30,11 @@ import {ChoixClientComponent} from "./choix-client/choix-client.component";
 
 
 export class FormOffrespecialeComponent {
-  constructor(private router: Router  , private dialog: MatDialog) {
+  client: { _id: number, email: string }[] = [];
+  services: { _id: number, description: string ; duree: string }[] = [];
+  successMessage: string | null = null;
+
+  constructor(private router: Router  , private dialog: MatDialog,private offreSpecialesService: OffrespecialeService,private servicesService: ServicesService) {
   }
 
 
@@ -75,6 +82,35 @@ export class FormOffrespecialeComponent {
 
   get f() {
     return this.form.controls;
+  }
+
+  ngOnInit() 
+  {
+    this.getClientList();
+    this.getServiceList();
+  }
+
+  async getClientList() {
+    try {
+      const response = await this.offreSpecialesService.getClientList();
+      console.log('Liste des clients récupérée :', response);
+      this.client = response; // Mettez à jour la liste des employés dans votre composant
+    } catch (error) {
+      alert('Erreur : ' + error);
+      console.error('Erreur lors de la récupération de la liste des employés :', error);
+    }
+  }
+
+  async getServiceList()
+  {
+    try {
+      const response = await this.servicesService.getServicesList();
+      console.log('Liste des services récupérée :', response);
+      this.services = response; 
+    } catch (error) {
+      alert('Erreur : ' + error);
+      console.error('Erreur lors de la récupération de la liste des employés :', error);
+    }
   }
 
   submit() {
