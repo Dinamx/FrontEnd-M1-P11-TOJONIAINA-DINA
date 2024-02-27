@@ -54,7 +54,6 @@ export class FormEmployeComponent {
 
   form = new FormGroup({
     nom: new FormControl('', [Validators.required]),
-    prenom: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     number: new FormControl('', [Validators.required]),

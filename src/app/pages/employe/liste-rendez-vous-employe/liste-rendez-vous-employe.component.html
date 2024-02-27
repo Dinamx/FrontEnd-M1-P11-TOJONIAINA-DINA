@@ -3,73 +3,85 @@
        style="position: fixed; width: 100%; height: 100%; display: flex ; justify-content: center; align-items: center; background: white; top: 0; left: 0 ; z-index:  9999;  margin-top: 7%; border-radius: 5%; ">
     <mat-spinner></mat-spinner>
   </div>
-
   <mat-card class="mat-card cardWithShadow">
     <form [formGroup]="searchForm" (submit)="filterData(searchForm.value)">
       <mat-card-content class="mat-mdc-card-content">
         <div class="row">
           <div class="col-3 m-0 p-0">
-          <button mat-raised-button color="primary" (click)="filterTodaysAppointments()">Voir rendez-vous du jour
-          </button>
+            <button mat-raised-button color="primary" (click)="filterTodaysAppointments()">Voir rendez-vous du jour</button>
           </div>
         </div>
 
         <br/>
-        <div class="row justify-content-evenly"
-             style="display: flex; align-items: center; justify-content: space-evenly">
+        <div class="row justify-content-evenly" style="display: flex; align-items: center; justify-content: space-evenly">
+          <!-- Intervalle de recherche -->
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">date_heure</mat-label>
-              <input formControlName="date_heure" class="mat-input-class" matInput
-                     placeholder="Entrez le date_heure..."></mat-form-field>
-          </div>
-          <br>
-          <div class="col-3 m-0 p-0">
-            <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">service</mat-label>
-              <input formControlName="service" class="mat-input-class" matInput placeholder="Entrez le service...">
+              <mat-label class="mat-label-class">Intervalle de recherche</mat-label>
+              <mat-date-range-input [formGroup]="searchForm" [rangePicker]="picker">
+                <input class="mat-input-class" matStartDate formControlName="start" placeholder="Date de début">
+                <input class="mat-input-class" matEndDate formControlName="end" placeholder="Date de fin">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
             </mat-form-field>
           </div>
           <br>
+          <!-- Sélecteur de service -->
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">client</mat-label>
+              <mat-label class="mat-label-class">Service</mat-label>
+              <mat-select formControlName="service" class="mat-input-class">
+                <mat-option *ngFor="let service of services" [value]="service.value">{{service.value}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <br>
+          <!-- Champ pour le client -->
+          <div class="col-3 m-0 p-0">
+            <mat-form-field appearance="outline" class="form-field-class col-12">
+              <mat-label class="mat-label-class">Client</mat-label>
               <input formControlName="client" class="mat-input-class" matInput placeholder="Entrez le client...">
             </mat-form-field>
           </div>
           <br>
+          <!-- Prix min et prix max -->
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">prixpaye</mat-label>
-              <input formControlName="prixpaye" class="mat-input-class" matInput placeholder="Entrez le prixpaye...">
+              <mat-label class="mat-label-class">Prix min</mat-label>
+              <input formControlName="prixMin" class="mat-input-class" matInput placeholder="Entrez le prix min...">
             </mat-form-field>
           </div>
           <br>
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">comissionemploye</mat-label>
-              <input formControlName="comissionemploye" class="mat-input-class" matInput
-                     placeholder="Entrez le comissionemploye..."></mat-form-field>
+              <mat-label class="mat-label-class">Prix max</mat-label>
+              <input formControlName="prixMax" class="mat-input-class" matInput placeholder="Entrez le prix max...">
+            </mat-form-field>
           </div>
           <br>
+          <!-- Durée min et durée max -->
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">duree</mat-label>
-              <input formControlName="duree" class="mat-input-class" matInput placeholder="Entrez le duree...">
+              <mat-label class="mat-label-class">Durée min</mat-label>
+              <input formControlName="dureeMin" class="mat-input-class" matInput placeholder="Entrez la durée min...">
             </mat-form-field>
           </div>
           <br>
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">comission</mat-label>
-              <input formControlName="comission" class="mat-input-class" matInput placeholder="Entrez le comission...">
+              <mat-label class="mat-label-class">Durée max</mat-label>
+              <input formControlName="dureeMax" class="mat-input-class" matInput placeholder="Entrez la durée max...">
             </mat-form-field>
           </div>
           <br>
+          <!-- État du RDV -->
           <div class="col-3 m-0 p-0">
             <mat-form-field appearance="outline" class="form-field-class col-12">
-              <mat-label class="mat-label-class">etat_rdv</mat-label>
-              <input formControlName="etat_rdv" class="mat-input-class" matInput placeholder="Entrez le etat_rdv...">
+              <mat-label class="mat-label-class">État du RDV</mat-label>
+              <mat-select formControlName="etatRdv" class="mat-input-class">
+                <mat-option *ngFor="let etat of etatsRdv" [value]="etat.value">{{etat.viewValue}}</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
           <br>
@@ -77,7 +89,6 @@
             <button mat-flat-button color="primary" class="add-contact-button-class col-12"> Rechercher</button>
           </div>
         </div>
-
       </mat-card-content>
     </form>
   </mat-card>

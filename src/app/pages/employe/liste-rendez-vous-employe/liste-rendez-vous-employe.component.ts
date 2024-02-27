@@ -19,6 +19,8 @@ import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
 import {Rendezvous} from "../../../models/interfaces";
 import {RendezVousServiceService} from "../../../services/controllers/client/rendez-vous-service.service";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatSelectModule} from "@angular/material/select";
 
 
 // const ELEMENT_DATA: Rendezvous[] = [
@@ -62,7 +64,10 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     , TablerIconsModule
     , MatCardModule
     , NgApexchartsModule
-    , MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule, MatProgressSpinnerModule,],
+    ,
+    ReactiveFormsModule,
+    MatSelectModule
+    , MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule, MatProgressSpinnerModule, MatDatepickerModule],
   providers: [DatePipe],
 })
 export class ListeRendezVousEmployeComponent {
@@ -84,16 +89,16 @@ export class ListeRendezVousEmployeComponent {
   }
   constructor(private fb: FormBuilder, private dialog: MatDialog , private rendezvousService: RendezVousServiceService , public datePipe: DatePipe) {
     this.searchForm = this.fb.group({
-      id: [''],
-      date_heure: [''],
+      start: [''],
+      end: [''],
       service: [''],
       client: [''],
-      employe: [''],
-      prixpaye: [''],
-      comissionemploye: [''],
-      duree: [''],
-      comission: [''],
-      etat_rdv: [''],
+      prixMin: [''],
+      prixMax: [''],
+      dureeMin: [''],
+      dureeMax: [''],
+      etatRdv: [''],
+      commission: ['']
     });
     console.log(this.dataSource);
   }
@@ -137,31 +142,54 @@ export class ListeRendezVousEmployeComponent {
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   filterData(filterValue: any) {
+    console.log('FILTER DATA DANS LISTE RDV EMP')
+    console.log('FILTER DATA DANS LISTE RDV EMP')
     if (this.listResearch) {
       const filteredData = this.listResearch.filter(item => {
-        const date_heure = item.date_heure.toLowerCase();
-        const service = item.service.toLowerCase();
-        const client = item.client.toLowerCase();
-        const employe = item.employe.toLowerCase();
-        const prixpaye = item.prixpaye.toLowerCase();
-        const comissionemploye = item.comissionemploye.toLowerCase();
-        const duree = item.duree.toLowerCase();
-        const comission = item.comission.toLowerCase();
-        const etat_rdv = item.etat_rdv.toLowerCase();
-        const searchDate_heure = filterValue.date_heure.toLowerCase();
-        const searchService = filterValue.service.toLowerCase();
-        const searchClient = filterValue.client.toLowerCase();
-        const searchEmploye = filterValue.employe.toLowerCase();
-        const searchPrixpaye = filterValue.prixpaye.toLowerCase();
-        const searchComissionemploye = filterValue.comissionemploye.toLowerCase();
-        const searchDuree = filterValue.duree.toLowerCase();
-        const searchComission = filterValue.comission.toLowerCase();
-        const searchEtat_rdv = filterValue.etat_rdv.toLowerCase();
-        return ((searchDate_heure === '' || date_heure.includes(searchDate_heure)) && (searchService === '' || service.includes(searchService)) && (searchClient === '' || client.includes(searchClient)) && (searchEmploye === '' || employe.includes(searchEmploye)) && (searchPrixpaye === '' || prixpaye.includes(searchPrixpaye)) && (searchComissionemploye === '' || comissionemploye.includes(searchComissionemploye)) && (searchDuree === '' || duree.includes(searchDuree)) && (searchComission === '' || comission.includes(searchComission)) && (searchEtat_rdv === '' || etat_rdv.includes(searchEtat_rdv)));
+        // Filtrage par intervalle de date
+        const startDate = new Date(filterValue.start);
+        const endDate = new Date(filterValue.end);
+        const appointmentDate = new Date(item.date_heure);
+        const isDateInRange = appointmentDate >= startDate && appointmentDate <= endDate;
+
+        // Filtrage par service
+        const serviceMatch = filterValue.service ? item.service.toLowerCase().includes(filterValue.service.toLowerCase()) : true;
+
+        // Filtrage par client
+        const clientMatch = filterValue.client ? item.client.toLowerCase().includes(filterValue.client.toLowerCase()) : true;
+
+        // Filtrage par prix min et max
+        const prixPayeMin = filterValue.prixPayeMin ? item.prixpaye >= filterValue.prixPayeMin : true;
+        const prixPayeMax = filterValue.prixPayeMax ? item.prixpaye <= filterValue.prixPayeMax : true;
+
+        // Filtrage par durée min et max
+        const dureeMin = filterValue.dureeMin ? item.duree >= filterValue.dureeMin : true;
+        const dureeMax = filterValue.dureeMax ? item.duree <= filterValue.dureeMax : true;
+
+        // Filtrage par état du rendez-vous (1 ou  0)
+        const etatRdvMatch = filterValue.etat_rdv ? item.etat_rdv === filterValue.etat_rdv : true;
+
+        // Filtrage par commission (entre  0 et  100)
+        const comissionMin = filterValue.comissionMin ? item.comission >= filterValue.comissionMin : true;
+        const comissionMax = filterValue.comissionMax ? item.comission <= filterValue.comissionMax : true;
+
+        return isDateInRange && serviceMatch && clientMatch && prixPayeMin && prixPayeMax && dureeMin && dureeMax && etatRdvMatch && comissionMin && comissionMax;
       });
-    this.dataSource.data = filteredData;
+      this.dataSource.data = filteredData;
     }
   }
+
+  services = [
+    {value: 'service1', viewValue: 'Service  1'},
+    {value: 'service2', viewValue: 'Service  2'},
+    // Ajoutez d'autres services  ici
+  ];
+
+  etatsRdv = [
+    {value: '0', viewValue: 'En attente'},
+    {value: '1', viewValue: 'Validé'},
+    // Ajoutez d'autres états  ici
+  ];
 
   ismodif = false;
   isdelete = false;

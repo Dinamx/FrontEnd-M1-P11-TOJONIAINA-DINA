@@ -20,7 +20,7 @@ export class UpdateComponent {
 
   constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<UpdateComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private webService: WebservicesService) {
     this.updateForm = this.fb.group({
-      service: [data.service, Validators.required],
+      service: [data.description, Validators.required],
       prix: [data.prix, Validators.required],
       duree: [data.duree, Validators.required],
       comission: [data.comission, Validators.required],
