@@ -117,9 +117,13 @@ export class ListeEmployeComponent {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
+  // displayedColumns: string[] = [
+  //   'nom',
+  //   'prenom', 'email', 'number' ,
+  //   'action'];
+
   displayedColumns: string[] = [
-    'nom',
-    'prenom', 'email', 'number' ,
+    'prenom', 'email',
     'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 

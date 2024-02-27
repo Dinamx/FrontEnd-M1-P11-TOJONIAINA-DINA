@@ -15,6 +15,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatRadioModule} from "@angular/material/radio";
 import Compressor from 'compressorjs';
+import {WebservicesService} from "../../../services/webservice/webservices.service";
 
 @Component({
   selector: 'app-form-employe',
@@ -41,7 +42,7 @@ import Compressor from 'compressorjs';
 })
 export class FormEmployeComponent {
 
-  constructor(private router: Router , private cd: ChangeDetectorRef) {
+  constructor(private router: Router , private cd: ChangeDetectorRef , private  webService : WebservicesService) {
 
   }
 
@@ -49,15 +50,14 @@ export class FormEmployeComponent {
   selectedServices: string[] = [];
 
 
-  imageToShow : string = '/assets/images/profile/user-1.jpg';
-
-
+  imageToShow : string = '/assets/images/profile/profile.png';
   form = new FormGroup({
     nom: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     number: new FormControl('', [Validators.required]),
     image: new FormControl('', [Validators.required]),
+    type_user: new FormControl('employe', [Validators.required]),
   });
 
   get f() {
@@ -69,8 +69,8 @@ export class FormEmployeComponent {
     if (this.form.valid) {
       console.log('Form submitted successfully');
       console.log('Form value:', this.form.value);
-      alert('Insertion dans service effectuée');
-      this.router.navigate([self]);
+      const retour = this.webService.insertDataRetour(this.form.value , '/login/signup');
+      alert('Employé enregistré');
     } else {
       alert('Erreur')
       console.log('Form submission failed');
