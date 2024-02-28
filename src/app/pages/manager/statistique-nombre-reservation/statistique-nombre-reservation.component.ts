@@ -45,124 +45,132 @@ export class StatistiqueNombreReservationComponent {
   public chartOptions: ChartOptions | undefined;
 
   constructor(public constService: ConstantsService, private reservationService: ReservationService) {
-    (async () => {
-      const categories = await this.generateCategories();
-      
-      this.chartOptions = {
-        series: [
-          {
-            name: "Nombre de reservation",
-            data: []
-          }
-        ],
-        chart: {
-          height: 350,
-          width: 1500,
-          type: "bar"
-        },
-        plotOptions: {
-          bar: {
-            dataLabels: {
-              position: "top"
-            }
-          }
-        },
-        dataLabels: {
-          enabled: true,
-          offsetY: -20,
-          style: {
-            fontSize: "12px",
-            colors: ["#304758"]
-          }
-        },
-        xaxis: {
-          categories: categories,
-          position: "top",
-          labels: {
-            offsetY: -18
-          },
-          axisBorder: {
-            show: false
-          },
-          axisTicks: {
-            show: false
-          },
-          crosshairs: {
-            fill: {
-              type: "gradient",
-              gradient: {
-                colorFrom: "#D8E3F0",
-                colorTo: "#BED1E6",
-                stops: [0, 100],
-                opacityFrom: 0.4,
-                opacityTo: 0.5
-              }
-            }
-          },
-          tooltip: {
-            enabled: true,
-            offsetY: -35
-          },
-        },
-        fill: {
-          type: "gradient",
-          gradient: {
-            shade: "light",
-            type: "horizontal",
-            shadeIntensity: 0.25,
-            gradientToColors: undefined,
-            inverseColors: true,
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [50, 0, 100, 100]
-          }
-        },
-        yaxis: {
-          axisBorder: {
-            show: false
-          },
-          axisTicks: {
-            show: false
-          },
-          labels: {
-            show: false
-          }
-        },
-        title: {
-          text: "Statistiques nombre de reservation",
-          floating: false,
-          offsetY: 330,
-          align: "center",
-          style: {
-            color: "#444"
+   
+  }
+
+  async ngOnInit() {
+      const reservations = await this.updateDataFromResponse();
+      this.initializeChartAsync(reservations);
+  }
+
+
+  async onMonthSelectionChange(event: any) {
+    const mois = event.value;
+    const reservations = await this.updateSearchDataFromResponse(mois);
+    // Logic for month selection change
+    this.initializeChartAsync(reservations);
+  }
+
+  private async initializeChartAsync(reservations: number[]): Promise<void> {
+
+    const categories = await this.generateCategories();
+
+    this.chartOptions = {
+      series: [
+        {
+          name: "Nombre de reservation",
+          data: reservations
+        }
+      ],
+      chart: {
+        height: 350,
+        width: 1500,
+        type: "bar"
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            position: "top"
           }
         }
-      };
-    })();
-  }
-
-  ngOnInit() {
-    this.updateDataFromResponse();
-  } 
-
-  async updateDataFromResponse() {
-    try {
-      const response = await this.reservationService.getNombreReservation();
-      console.log(response);
-      
-      if (this.chartOptions && this.chartOptions.series) {
-        this.chartOptions.series[0].data = response.map((item: ReservationData) => item.reservations);
-      } else {
-        console.error('Erreur : this.chartOptions ou this.chartOptions.series est undefined.');
+      },
+      dataLabels: {
+        enabled: true,
+        offsetY: -20,
+        style: {
+          fontSize: "12px",
+          colors: ["#304758"]
+        }
+      },
+      xaxis: {
+        categories: categories,
+        position: "top",
+        labels: {
+          offsetY: -18
+        },
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        crosshairs: {
+          fill: {
+            type: "gradient",
+            gradient: {
+              colorFrom: "#D8E3F0",
+              colorTo: "#BED1E6",
+              stops: [0, 100],
+              opacityFrom: 0.4,
+              opacityTo: 0.5
+            }
+          }
+        },
+        tooltip: {
+          enabled: true,
+          offsetY: -35
+        },
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shade: "light",
+          type: "horizontal",
+          shadeIntensity: 0.25,
+          gradientToColors: undefined,
+          inverseColors: true,
+          opacityFrom: 1,
+          opacityTo: 1,
+          stops: [50, 0, 100, 100]
+        }
+      },
+      yaxis: {
+        axisBorder: {
+          show: false
+        },
+        axisTicks: {
+          show: false
+        },
+        labels: {
+          show: false
+        }
+      },
+      title: {
+        text: "Statistiques nombre de reservation",
+        floating: false,
+        offsetY: 330,
+        align: "center",
+        style: {
+          color: "#444"
+        }
       }
-    } catch (error) {
-      console.error('Erreur lors de la récupération du Nb reservation :', error);
-    }
+    };
   }
-  
-  
+
+
+
+  private async updateDataFromResponse(): Promise<number[]> {
+    const response = await this.reservationService.getNombreReservation();
+    return response.map((item: ReservationData) => item.reservations);
+  }
+
   private async generateCategories(): Promise<string[]> {
     const response = await this.reservationService.getNombreReservation();
     return response.map((item: ReservationData) => item.date);
   }
+
+  private async updateSearchDataFromResponse(mois:number): Promise<number[]> {
+    const response = await this.reservationService.getSearchNombreReservation(mois);
+    return response.map((item: ReservationData) => item.reservations);
+  }   
 }

@@ -10,6 +10,19 @@ export class ReservationService {
   constructor(private webservicesService: WebservicesService) { }
 
  
+  async getSearchNombreReservation(mois:number)
+  {
+    try {
+      const response = await axios.get(`http://localhost:3000/statistiques/reservation/${mois}`);
+      console.log('search Nombre de reservation :', response.data);
+      return response.data;
+    } catch (error) {
+      alert('Erreur : ' + error);
+      console.error('Erreur lors de la recherche :', error);
+      throw error;
+    }
+  }
+
   async getNombreReservation() {
     try {
       const response = await this.webservicesService.getData('/statistiques/reservation');
