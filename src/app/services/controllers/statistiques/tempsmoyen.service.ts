@@ -9,10 +9,10 @@ export class TempsmoyenService {
 
   constructor(private webservicesService: WebservicesService) { }
  
-  async getSearchTempsMoyenEmploye(mois:number,date:string)
+  async getSearchTempsMoyenEmploye(mois:number)
   {
     try {
-      const response = await axios.get(`http://localhost:3000/statistiques/temps_moyen_travail/${mois}/${date}`);
+      const response = await axios.get(`http://localhost:3000/statistiques/temps_moyen_travail/${mois}`);
       console.log('search Temps moyen de travail :', response.data);
       return response.data;
     } catch (error) {

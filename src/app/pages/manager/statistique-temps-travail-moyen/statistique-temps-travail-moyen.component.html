@@ -16,7 +16,7 @@
 
 
 
-      <apx-chart [series]="chartOptions.series ?? []"
+      <apx-chart *ngIf="chartOptions" [series]="chartOptions.series ?? []"
                  [chart]="chartOptions.chart ?? {type: 'line', height:  350}"
                  [dataLabels]="chartOptions.dataLabels ?? {enabled: false}"
                  [plotOptions]="chartOptions.plotOptions ?? {bar: {horizontal: false}}"

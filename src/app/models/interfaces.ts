@@ -50,7 +50,7 @@ export interface ReservationData {
 }
 
 export interface TempsmoyenData {
-  employe: string; 
+  nom: string; 
   temps: number; 
 }
 
