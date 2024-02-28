@@ -1,6 +1,6 @@
 <script src="../../employe/liste-rendez-vous-employe/liste-rendez-vous-employe.component.spec.ts"></script>
 <div class="col-lg-12">
-  <mat-card class="cardWithShadow">
+  <mat-card class="cardWithShadow" style="width: 190%;">
 
 
     <header>
@@ -13,21 +13,23 @@
     </header>
 
 
-<div style="padding: 1rem;" id="chart">
-
-
+    <div style="padding: 1rem;" id="chart">
 
 
   <apx-chart
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [dataLabels]="chartOptions.dataLabels"
-    [plotOptions]="chartOptions.plotOptions"
-    [yaxis]="chartOptions.yaxis"
-    [xaxis]="chartOptions.xaxis"
-    [fill]="chartOptions.fill"
-    [title]="chartOptions.title"
-  ></apx-chart>
+  *ngIf="chartOptions"
+  [series]="chartOptions.series"
+  [chart]="chartOptions.chart"
+  [dataLabels]="chartOptions.dataLabels"
+  [plotOptions]="chartOptions.plotOptions"
+  [yaxis]="chartOptions.yaxis"
+  [xaxis]="chartOptions.xaxis"
+  [fill]="chartOptions.fill"
+  [title]="chartOptions.title"
+></apx-chart>
+
+
+
 </div>
 
   </mat-card>

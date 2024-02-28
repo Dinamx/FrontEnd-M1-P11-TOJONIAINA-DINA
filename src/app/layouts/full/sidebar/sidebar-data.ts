@@ -74,17 +74,10 @@ export const navItems: NavItem[] = [
     route: '/dashboard/statistiqueTempsTravailMoyen',
   },
   {
-    displayName: 'Chiffre d`\'affaire',
-    iconName: 'premium-rights',
-    route: '/dashboard/statistiqueNombreReservationComponent',
-  },
-
-  {
     displayName: 'Bénéfices mensuels',
     iconName: 'coins',
     route: '/dashboard/statistiqueBeneficeMensuel',
   },
-
 
   //Employe
   {
@@ -219,12 +212,6 @@ export const navItemsAdmin: NavItem[] = [
     iconName: 'clock-play',
     route: '/dashboard/statistiqueTempsTravailMoyen',
   },
-  {
-    displayName: 'Chiffre d`\'affaire',
-    iconName: 'premium-rights',
-    route: '/dashboard/statistiqueNombreReservationComponent',
-  },
-
   {
     displayName: 'Bénéfices mensuels',
     iconName: 'coins',
