@@ -9,6 +9,20 @@ export class RendezVousServiceService {
   constructor(private webservicesService: WebservicesService) { }
 
 
+  async getHistoriqueRdv(idClient: string) {
+    try {
+      const response = await this.webservicesService.getDataById('/client/rendezvous/historique', idClient);
+      console.log('Historique Rendez vous :', response);
+      // Gérer la réponse de l'insertion  ici
+      return response.data;
+    } catch (error) {
+      alert('Eurreur : ' +  error)
+      console.error('Erreur lors de l\'insertion :', error);
+      throw error; // Propagation de l'erreur pour la gérer au niveau supérieur
+    }
+  }
+
+
   async getRendezVousList(idClient: string) {
     try {
       const response = await this.webservicesService.getDataById('/employes/rendezvous', idClient);
