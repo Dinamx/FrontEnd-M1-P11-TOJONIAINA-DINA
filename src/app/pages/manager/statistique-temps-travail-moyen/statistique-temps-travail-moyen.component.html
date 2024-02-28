@@ -19,7 +19,11 @@
     </header>
 
 
-    <div style=" width:75%; padding: 1rem;" id="chart">
+    <div class="row">
+
+
+    <div class="col-12" style=" width:50%; padding: 1rem;" id="chart">
+
 
 
 
@@ -29,7 +33,7 @@
                  [plotOptions]="chartOptions.plotOptions ?? {bar: {horizontal: false}}"
                  [xaxis]="chartOptions.xaxis ?? {categories: []}"
                  ></apx-chart>
-
+    </div>
     </div>
 
   </mat-card>
