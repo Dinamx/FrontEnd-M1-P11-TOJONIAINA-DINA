@@ -70,6 +70,7 @@ export class FormEmployeComponent {
       console.log('Form submitted successfully');
       console.log('Form value:', this.form.value);
       const retour = this.webService.insertDataRetour(this.form.value , '/login/signup');
+      console.log(retour);
       alert('Employé enregistré');
     } else {
       alert('Erreur')

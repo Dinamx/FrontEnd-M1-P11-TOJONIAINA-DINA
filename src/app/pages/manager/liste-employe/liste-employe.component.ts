@@ -1,4 +1,4 @@
-import {Component, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectorRef, Component, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {map, Observable, startWith} from "rxjs";
 import {MatButtonModule} from "@angular/material/button";
@@ -18,6 +18,8 @@ import {UpdateComponent} from "./update/update.component";
 import {MatGridList, MatGridListModule} from "@angular/material/grid-list";
 import {WebservicesService} from "../../../services/webservice/webservices.service";
 import {Employe} from "../../../models/interfaces";
+import {url} from "../../../app.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 
@@ -65,6 +67,7 @@ const ELEMENT_DATA: Employe[] = [
     AsyncPipe,
     MatGridListModule,
     MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
 })
 export class ListeEmployeComponent {
@@ -78,30 +81,47 @@ export class ListeEmployeComponent {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
-
-  ngAfterViewInit() {
-    if (this.paginator){
-
-    this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
-    this.dataSource.paginator = this.paginator;
-
-
-      // this.searchForm.valueChanges.subscribe(val => {
-      //   this.filterData(val);
-      // });
+  isLoading: boolean = true;
+  ngOnInit() {
+    this.isLoading = true;
+    // alert('onInit');
+    try {
+      this.webService.getData(`/employes`).then(data => {
+        console.log('liste de tout les employé' )
+        console.log(data )
+        this.dataSource = new MatTableDataSource(data);
+        if (this.paginator) {
+          this.dataSource.paginator = this.paginator;
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        }
+      });
+    }
+    catch (e) {
+      alert(e);
+    }
+    finally {
+      // alert('Fin onInit');
 
     }
 
+  }
+
+  ngAfterViewInit() {
+    this.cdr.detectChanges();
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+      this.cdr.detectChanges();
+    }
 
   }
-  constructor(private fb: FormBuilder, private dialog: MatDialog , private webService: WebservicesService) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog , private webService: WebservicesService  , private cdr: ChangeDetectorRef) {
     this.searchForm = this.fb.group({
       nom: [''],
       prenom: [''],
       email: [''],
       number: [''],
     });
-
 
     // this.filteredOptions = this.myControl.valueChanges.pipe(
     //   startWith(''),
@@ -123,7 +143,7 @@ export class ListeEmployeComponent {
   //   'action'];
 
   displayedColumns: string[] = [
-    'prenom', 'email',
+    'email', 'password',
     'action'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
@@ -174,6 +194,24 @@ export class ListeEmployeComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      try {
+        this.webService.getData(`/employes`).then(data => {
+          console.log('liste de tout les employé' )
+          console.log(data )
+          this.dataSource = new MatTableDataSource(data);
+          if (this.paginator) {
+            this.dataSource.paginator = this.paginator;
+            this.isLoading = false;
+          }
+        });
+      }
+      catch (e) {
+        console.error(e);
+      }
+      finally {
+
+        this.isLoading = false;
+      }
       if (result) {
         // Mettez à jour l'élément avec les nouvelles données
         // Vous pouvez utiliser le résultat pour mettre à jour votre source de données

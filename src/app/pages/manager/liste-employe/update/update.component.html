@@ -4,21 +4,17 @@
     <mat-card-subtitle class="mat-body-1">Modifier Employé</mat-card-subtitle>
 
     <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="outline" color="primary" class="form-field-class">
-    <mat-label class="mat-label-class">Nom</mat-label>
-    <input class="mat-input-class" matInput formControlName="nom">
-  </mat-form-field>
-  <mat-form-field appearance="outline" color="primary" class="form-field-class">
-    <mat-label class="mat-label-class">Prénom</mat-label>
-    <input class="mat-input-class" matInput formControlName="prenom">
-  </mat-form-field>
+<!--  <mat-form-field appearance="outline" color="primary" class="form-field-class">-->
+<!--    <mat-label class="mat-label-class">Nom</mat-label>-->
+<!--    <input class="mat-input-class" matInput formControlName="nom">-->
+<!--  </mat-form-field>-->
   <mat-form-field appearance="outline" color="primary" class="form-field-class">
     <mat-label class="mat-label-class">Email</mat-label>
     <input class="mat-input-class" matInput formControlName="email">
   </mat-form-field>
   <mat-form-field appearance="outline" color="primary" class="form-field-class">
-    <mat-label class="mat-label-class">Numéro</mat-label>
-    <input class="mat-input-class" matInput formControlName="number" type="number">
+    <mat-label class="mat-label-class">Password</mat-label>
+    <input class="mat-input-class" matInput formControlName="password" >
   </mat-form-field>
       <div appearance="outline" color="primary" class="form-field-class">
   <button mat-raised-button color="primary" type="submit">Mettre à jour</button>
