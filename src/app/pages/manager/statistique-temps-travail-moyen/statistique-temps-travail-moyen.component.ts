@@ -39,20 +39,43 @@ export class StatistiqueTempsTravailMoyenComponent {
   @ViewChild(`chart`) chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions>| undefined;
   months = this.constService.months;
+  isLoading: boolean = true;
 
-  constructor(private constService : ConstantsService,private tempsmoyenService: TempsmoyenService) 
+  constructor(private constService : ConstantsService,private tempsmoyenService: TempsmoyenService)
   {}
 
   async ngOnInit() {
+    try {
+     this.isLoading  = true;
     const temps = await this.updateDataFromResponse();
     this.initializeChartAsync(temps);
+
+    }
+    catch (e) {
+      alert(e);
+    }
+    finally {
+      this.isLoading  = false;
+    }
+
+
   }
 
   async onMonthSelectionChange(event: any) {
-    const mois = event.value;
-    const temps = await this.updateSearchDataFromResponse(mois);
-    // Logic for month selection change
-    this.initializeChartAsync(temps);
+    try {
+      this.isLoading = true;
+      const mois = event.value;
+      const temps = await this.updateSearchDataFromResponse(mois);
+      // Logic for month selection change
+      this.initializeChartAsync(temps);
+    }
+    catch (e) {
+      alert(e);
+    }
+    finally {
+      this.isLoading = false;
+
+    }
   }
 
   private async initializeChartAsync(temps: number[]): Promise<void> {
@@ -81,8 +104,8 @@ export class StatistiqueTempsTravailMoyenComponent {
       }
     };
 
-  } 
-  
+  }
+
   private async updateDataFromResponse(): Promise<number[]> {
     const response = await this.tempsmoyenService.getTempsMoyenEmploye();
     return response.map((item: TempsmoyenData) => item.temps);
@@ -96,5 +119,5 @@ export class StatistiqueTempsTravailMoyenComponent {
   private async updateSearchDataFromResponse(mois:number): Promise<number[]> {
     const response = await this.tempsmoyenService.getSearchTempsMoyenEmploye(mois);
     return response.map((item: TempsmoyenData) => item.temps);
-  }   
+  }
 }

@@ -1,5 +1,12 @@
 <div class="container">
-    <mat-card class="search-card">
+
+  <div *ngIf="isLoading"
+       style="position: fixed; width: 100%; height: 100%; display: flex ; justify-content: center; align-items: center; background: white; top: 0; left: 0 ; z-index:  9999;  margin-top: 7%; border-radius: 5%; ">
+    <mat-spinner></mat-spinner>
+  </div>
+
+
+  <mat-card class="search-card">
         <mat-card-content>
           <mat-form-field appearance="outline" color="primary" class="col-3 mat-form-field-outline">
             <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Mois</mat-label>
@@ -9,8 +16,8 @@
           </mat-form-field>
         </mat-card-content>
       </mat-card>
-      
-  
+
+
     <div class="row">
       <div class="col-md-4">
         <mat-card class="benefit-card">
@@ -38,4 +45,3 @@
       </div>
     </div>
   </div>
-  

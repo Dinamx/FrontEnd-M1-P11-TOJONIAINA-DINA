@@ -41,24 +41,48 @@ export type ChartOptions = {
 export class StatistiqueNombreReservationComponent {
 
   months = this.constService.months;
-  @ViewChild('chart') chart: ChartComponent | undefined;
+  @ViewChild(`chart`) chart: ChartComponent | undefined;
   public chartOptions: ChartOptions | undefined;
+  isLoading: boolean = true;
 
   constructor(public constService: ConstantsService, private reservationService: ReservationService) {
-   
+
   }
 
   async ngOnInit() {
-      const reservations = await this.updateDataFromResponse();
+    try {
+
+
+    this.isLoading = true;
+    const reservations = await this.updateDataFromResponse();
       this.initializeChartAsync(reservations);
+    }
+    catch (e) {
+      alert(e);
+    }
+    finally {
+      this.isLoading = false;
+    }
+
   }
 
 
   async onMonthSelectionChange(event: any) {
+    try {
+
+this.isLoading = true
     const mois = event.value;
     const reservations = await this.updateSearchDataFromResponse(mois);
     // Logic for month selection change
     this.initializeChartAsync(reservations);
+    }
+    catch (e) {
+      alert(e);
+    }
+    finally {
+      this.isLoading = false;
+
+    }
   }
 
   private async initializeChartAsync(reservations: number[]): Promise<void> {
@@ -172,5 +196,5 @@ export class StatistiqueNombreReservationComponent {
   private async updateSearchDataFromResponse(mois:number): Promise<number[]> {
     const response = await this.reservationService.getSearchNombreReservation(mois);
     return response.map((item: ReservationData) => item.reservations);
-  }   
+  }
 }

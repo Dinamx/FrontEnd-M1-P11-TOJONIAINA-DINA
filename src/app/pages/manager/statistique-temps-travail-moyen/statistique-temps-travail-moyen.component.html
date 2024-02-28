@@ -1,4 +1,11 @@
 <div class="col-lg-12">
+
+  <div *ngIf="isLoading"
+       style="position: fixed; width: 100%; height: 100%; display: flex ; justify-content: center; align-items: center; background: white; top: 0; left: 0 ; z-index:  9999;  margin-top: 7%; border-radius: 5%; ">
+    <mat-spinner></mat-spinner>
+  </div>
+
+
   <mat-card class="cardWithShadow">
 
 

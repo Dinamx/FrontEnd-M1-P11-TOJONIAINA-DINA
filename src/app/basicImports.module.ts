@@ -12,6 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import {MatSelectModule} from "@angular/material/select";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [],
@@ -44,7 +45,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatAutocompleteModule,
     MatDatepickerModule,
     MatTableModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    MatProgressSpinnerModule
   ],
 
   providers: [
