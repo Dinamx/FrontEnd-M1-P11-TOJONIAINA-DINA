@@ -20,6 +20,7 @@ export class AppSideLoginComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router  : Router  ,private  loginService : LoginServiceService) {}
 
   ngOnInit(): void {
+    localStorage.clear();
     this.route.queryParams.subscribe(params => {
       this.errorMessage = params['error'];
     });
@@ -121,7 +122,7 @@ export class AppSideLoginComponent implements OnInit {
         localStorage.setItem('nom', response.data.nom);
         localStorage.setItem('image', response.data.image);
 
-        console.log('typeUser' + localStorage.getItem('typeUser'));
+        // console.log('typeUser' + localStorage.getItem('typeUser'));
 
         // Vérifier si localStorage.getItem('typeUser') n'est pas nul
         const typeUser = localStorage.getItem('typeUser');

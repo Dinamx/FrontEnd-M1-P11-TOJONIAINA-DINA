@@ -15,6 +15,7 @@ import {StatistiqueTempsTravailMoyenComponent} from "./manager/statistique-temps
 import {StatistiqueBeneficeMensuelComponent} from "./manager/statistique-benefice-mensuel/statistique-benefice-mensuel.component";
 import {FormOffrespecialeComponent} from "./manager/form-offrespeciale/form-offrespeciale.component";
 import {ListeOffrespecialeComponent} from "./manager/liste-offrespeciale/liste-offrespeciale.component";
+import {MonProfilComponent} from "./mon-profil/mon-profil.component";
 
 export const PagesRoutes: Routes = [
   {
@@ -22,6 +23,14 @@ export const PagesRoutes: Routes = [
     component: AppDashboardComponent,
     data: {
       title: 'Starter Page',
+    },
+  },
+  //Prise de rendez Vous pour client
+  {
+    path: 'modifierProfil',
+    component: MonProfilComponent,
+    data: {
+      title: 'Modifier mon profil',
     },
   },
   //Prise de rendez Vous pour client
