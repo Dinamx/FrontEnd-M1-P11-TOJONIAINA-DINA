@@ -43,7 +43,7 @@
     />
   </button>
   <mat-menu #profilemenu="matMenu" xPosition="before" class="topbar-dd cardWithShadow">
-    <button mat-menu-item>
+    <button (click)="monProfil()" mat-menu-item>
       <mat-icon class="d-flex align-items-center"
         ><i-tabler name="user" class="icon-18 d-flex"></i-tabler></mat-icon
       >My Profile

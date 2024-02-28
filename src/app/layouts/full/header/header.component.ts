@@ -92,4 +92,8 @@ export class HeaderComponent {
   }
 
 
+  monProfil() {
+      this.router.navigateByUrl('/dashboard/modifierProfil');
+
+  }
 }
