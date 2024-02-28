@@ -48,6 +48,13 @@ export class StatistiqueTempsTravailMoyenComponent {
     this.initializeChartAsync(temps);
   }
 
+  async onMonthSelectionChange(event: any) {
+    const mois = event.value;
+    const temps = await this.updateSearchDataFromResponse(mois);
+    // Logic for month selection change
+    this.initializeChartAsync(temps);
+  }
+
   private async initializeChartAsync(temps: number[]): Promise<void> {
     const categories = await this.generateCategories();
     this.chartOptions = {
