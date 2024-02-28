@@ -8,7 +8,6 @@ export class RendezVousServiceService {
 
   constructor(private webservicesService: WebservicesService) { }
 
-
   async getRendezVousList(idClient: string) {
     try {
       const response = await this.webservicesService.getDataById('/employes/rendezvous', idClient);
