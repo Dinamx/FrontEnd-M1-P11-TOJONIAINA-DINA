@@ -2,8 +2,7 @@
   <mat-card-content>
     <mat-card-title>Employe</mat-card-title>
     <mat-card-subtitle class="mat-body-1">New Employe</mat-card-subtitle>
-    <form [formGroup]="form" (ngSubmit)="submit()">
-
+    <form [formGroup]="form" >
       <mat-card-content (click)="openFileDialog()" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" appearance="outline" class="mat-mdc-card-content p-y-24" style="border: 1px solid ; border-top-left-radius: 4px;
     border-top-right-radius:  4px;
     border-bottom-right-radius: 0;
@@ -22,7 +21,7 @@
         </div>
       </mat-card-content>
 
-      <mat-form-field appearance="outline" class="w-100" color="primary">
+      <mat-form-field style="margin-top: 1.3rem;" appearance="outline" class="w-100" color="primary">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">nom</mat-label>
         <input matInput class="mat-input-element" formControlName="nom"/>
         <mat-error *ngIf="f.nom.invalid "> nom invalid</mat-error>
@@ -33,17 +32,19 @@
         <mat-error *ngIf="f.email.invalid "> email invalid</mat-error>
       </mat-form-field>
 
+
       <mat-form-field appearance="outline" class="w-100" color="primary">
-        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">password</mat-label>
-        <input matInput class="mat-input-element" formControlName="password"/>
+        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Enter your password</mat-label>
+        <input matInput class="mat-input-element" formControlName="password" [type]="hide ? 'password' : 'text'">
+        <span style="margin-right: 1.02rem " mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </span>
         <mat-error *ngIf="f.password.invalid "> password invalid</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-100" color="primary">
-        <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Phone Number</mat-label>
-        <input matInput class="mat-input-element" formControlName="number"/>
-        <mat-error *ngIf="f.number.invalid "> number invalid</mat-error>
-      </mat-form-field>
+
+
+
 
 <!--      PHOTO IMPORT-->
 
@@ -61,7 +62,7 @@
       </mat-radio-group>
 
       <div appearance="outline" class="w-100" color="primary">
-        <button  type="submit" mat-flat-button color="primary" class="w-50"> Confirm</button>
+        <button (click)="submit()" type="submit" mat-flat-button color="primary" class="w-50"> Confirm</button>
       </div>
     </form>
   </mat-card-content>

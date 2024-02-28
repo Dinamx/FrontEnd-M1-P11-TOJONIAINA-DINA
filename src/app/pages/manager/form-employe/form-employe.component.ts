@@ -41,7 +41,7 @@ import {WebservicesService} from "../../../services/webservice/webservices.servi
     AsyncPipe]
 })
 export class FormEmployeComponent {
-
+  hide = true;
   constructor(private router: Router , private cd: ChangeDetectorRef , private  webService : WebservicesService) {
 
   }
@@ -55,7 +55,6 @@ export class FormEmployeComponent {
     nom: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
-    number: new FormControl('', [Validators.required]),
     image: new FormControl('', [Validators.required]),
     type_user: new FormControl('employe', [Validators.required]),
   });
@@ -106,7 +105,7 @@ export class FormEmployeComponent {
   handleFile(file: File) {
     if (file) {
       new Compressor(file, {
-        quality:  0.6,
+        quality:  0.01,
         success: (result) => {
           const reader = new FileReader();
           reader.onloadend = () => {
