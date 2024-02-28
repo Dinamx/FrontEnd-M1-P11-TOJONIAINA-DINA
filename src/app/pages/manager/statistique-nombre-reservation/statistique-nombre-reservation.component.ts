@@ -8,12 +8,14 @@ import {
   ApexYAxis,
   ApexTitleSubtitle,
   ApexXAxis,
-  ApexFill, NgApexchartsModule
+  ApexFill
 } from "ng-apexcharts";
 
-import {basicImportsModule} from "../../../basicImports.module";
-import {MatSelectModule} from "@angular/material/select";
-import {ConstantsService} from "../../../services/const/constants.service";
+import { basicImportsModule } from "../../../basicImports.module";
+import { MatSelectModule } from "@angular/material/select";
+import { ConstantsService } from "../../../services/const/constants.service";
+import { ReservationService } from "../../../services/controllers/statistiques/reservation.service";
+import { ReservationData } from "../../../models/interfaces";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -26,14 +28,12 @@ export type ChartOptions = {
   title: ApexTitleSubtitle;
 };
 
-
 @Component({
   selector: 'app-statistique-nombre-reservation',
   templateUrl: './statistique-nombre-reservation.component.html',
   styleUrls: ['./statistique-nombre-reservation.component.scss'],
-  standalone : true,
-  imports : [
-    NgApexchartsModule,
+  standalone: true,
+  imports: [
     basicImportsModule,
     MatSelectModule
   ]
@@ -41,59 +41,59 @@ export type ChartOptions = {
 export class StatistiqueNombreReservationComponent {
 
   months = this.constService.months;
-  @ViewChild(`chart`) chart: ChartComponent | undefined;
-  public chartOptions: ChartOptions;
+  @ViewChild('chart') chart: ChartComponent | undefined;
+  public chartOptions: ChartOptions | undefined;
 
-  constructor(  public constService: ConstantsService) {
+  constructor(public constService: ConstantsService, private reservationService: ReservationService) {
+   
+  }
+
+  async ngOnInit() {
+      const reservations = await this.updateDataFromResponse();
+      this.initializeChartAsync(reservations);
+  }
+
+
+  async onMonthSelectionChange(event: any) {
+    const mois = event.value;
+    const reservations = await this.updateSearchDataFromResponse(mois);
+    // Logic for month selection change
+    this.initializeChartAsync(reservations);
+  }
+
+  private async initializeChartAsync(reservations: number[]): Promise<void> {
+
+    const categories = await this.generateCategories();
+
     this.chartOptions = {
       series: [
         {
-          name: "Inflation",
-          data: [2.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 2.3, 1.4, 0.8, 0.5, 0.2]
+          name: "Nombre de reservation",
+          data: reservations
         }
       ],
       chart: {
         height: 350,
+        width: 1500,
         type: "bar"
       },
       plotOptions: {
         bar: {
           dataLabels: {
-            position: "top" // top, center, bottom
+            position: "top"
           }
         }
       },
       dataLabels: {
         enabled: true,
-        formatter: function(val) {
-          return val + "%";
-        },
         offsetY: -20,
         style: {
           fontSize: "12px",
           colors: ["#304758"]
         }
       },
-
       xaxis: {
-
-
-
-
-        categories: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec"
-        ],
+        categories: categories,
         position: "top",
         labels: {
           offsetY: -18
@@ -119,7 +119,7 @@ export class StatistiqueNombreReservationComponent {
         tooltip: {
           enabled: true,
           offsetY: -35
-        }
+        },
       },
       fill: {
         type: "gradient",
@@ -142,16 +142,13 @@ export class StatistiqueNombreReservationComponent {
           show: false
         },
         labels: {
-          show: false,
-          formatter: function(val) {
-            return val + "%";
-          }
+          show: false
         }
       },
       title: {
         text: "Statistiques nombre de reservation",
         floating: false,
-        offsetY: 320,
+        offsetY: 330,
         align: "center",
         style: {
           color: "#444"
@@ -159,4 +156,21 @@ export class StatistiqueNombreReservationComponent {
       }
     };
   }
+
+
+
+  private async updateDataFromResponse(): Promise<number[]> {
+    const response = await this.reservationService.getNombreReservation();
+    return response.map((item: ReservationData) => item.reservations);
+  }
+
+  private async generateCategories(): Promise<string[]> {
+    const response = await this.reservationService.getNombreReservation();
+    return response.map((item: ReservationData) => item.date);
+  }
+
+  private async updateSearchDataFromResponse(mois:number): Promise<number[]> {
+    const response = await this.reservationService.getSearchNombreReservation(mois);
+    return response.map((item: ReservationData) => item.reservations);
+  }   
 }

@@ -1,1 +1,41 @@
-<p>statistique-benefice-mensuel works!</p>
+<div class="container">
+    <mat-card class="search-card">
+        <mat-card-content>
+          <mat-form-field appearance="outline" color="primary" class="col-3 mat-form-field-outline">
+            <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Mois</mat-label>
+            <mat-select class="mat-input-element" (selectionChange)="onMonthSelectionChange($event)">
+              <mat-option *ngFor="let month of months" [value]="month.value">{{ month.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+      
+  
+    <div class="row">
+      <div class="col-md-4">
+        <mat-card class="benefit-card">
+          <mat-card-content>
+            <h5 class="card-title">Bénéfice Mensuel</h5>
+            <p class="card-text">{{ benefice }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <mat-card class="revenue-card">
+          <mat-card-content>
+            <h5 class="card-title">Chiffre d'Affaires Mensuel</h5>
+            <p class="card-text">{{ chiffre_affaire }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-md-4">
+        <mat-card class="expenses-card">
+          <mat-card-content>
+            <h5 class="card-title">Dépenses Mensuelles</h5>
+            <p class="card-text">{{ depense }}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  

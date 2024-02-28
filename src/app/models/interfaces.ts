@@ -44,19 +44,10 @@ export interface Offrespeciale {
   idservice: string;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+export interface ReservationData {
+  reservations: number; // Assuming reservations is of type number, adjust as needed
+  date: string; // Assuming date is of type string, adjust as needed
+}
 
 
 export interface RendezvousEmploye {
