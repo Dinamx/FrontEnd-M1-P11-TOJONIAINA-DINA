@@ -118,6 +118,8 @@ export class AppSideLoginComponent implements OnInit {
         localStorage.setItem('userId', response.data.userId);
         localStorage.setItem('typeUser', response.data.type_user);
         localStorage.setItem('email', response.data.email);
+        localStorage.setItem('nom', response.data.nom);
+        localStorage.setItem('image', response.data.image);
 
         console.log('typeUser' + localStorage.getItem('typeUser'));
 

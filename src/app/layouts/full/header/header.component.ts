@@ -33,14 +33,23 @@ export class HeaderComponent {
 
 
   showFiller = false;
+  image: string | '/assets/images/profile/profile.png';
 
   constructor(public dialog: MatDialog, private router: Router, private compteClientService: CompteServiceService) {
     this.soldeChiffre =  0;
     this.solde =  '';
+    this.image = '/assets/images/profile/profile.png';
 
     if (localStorage.getItem("email")) {
       this.nom = (<string>localStorage.getItem("email")).split('@')[0];
       const typeUser = localStorage.getItem("typeUser");
+
+      if (localStorage.getItem("nom")){
+        this.nom = localStorage.getItem("nom");
+      }
+      if (localStorage.getItem("image")){
+        this.image = <string>localStorage.getItem("image");
+      }
 
       if (typeUser === 'client') {
         try {
