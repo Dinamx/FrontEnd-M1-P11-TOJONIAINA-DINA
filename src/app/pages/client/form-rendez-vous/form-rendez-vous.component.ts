@@ -47,6 +47,7 @@ export class FormRendezVousComponent {
   employees: { _id: number, email: string }[] = [];
   services: { _id: number, description: string ; duree: string }[] = [];
   dure: any = '0';
+  prix: any = '0';
   userId: any;
   alertMessage: string | null = null;
   successMessage: string | null = null;
@@ -98,12 +99,15 @@ export class FormRendezVousComponent {
     }
   }
 
-  onServiceSelectionChange(event: any) {
+ async onServiceSelectionChange(event: any) {
     const selectedServiceId = event.value;
     const selectedService = this.services.find(service => service._id === selectedServiceId);
-    console.log(selectedService?.duree);
+    const idclient = localStorage.getItem("userId");
+    const getPrice = await this.servicesService.getPrice(idclient,selectedServiceId);
+    console.log("prix sugg"+this.servicesService.getPrice(idclient,selectedServiceId));
     if (selectedService) {
       this.dure = selectedService.duree;
+      this.prix = getPrice;
     }
   }
 

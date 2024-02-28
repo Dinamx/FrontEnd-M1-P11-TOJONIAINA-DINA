@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {WebservicesService} from "../webservice/webservices.service";
+import axios from "axios";
+import {url} from "../../app.component";
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +9,19 @@ import {WebservicesService} from "../webservice/webservices.service";
 export class ServicesService {
 
   constructor(private webservicesService: WebservicesService) { }
+
+  async getPrice(idclient:string|null,idservice:string) {
+    try {
+      const response = await axios.get(`${url}/services/prix/${idclient}/${idservice}`);
+      console.log('dataaa :', response.data);
+      // Gérer la réponse de l'insertion  ici
+      return response.data;
+    } catch (error) {
+      alert('Eurreur : ' +  error)
+      console.error('Erreur lors de l\'insertion :', error);
+      throw error; // Propagation de l'erreur pour la gérer au niveau supérieur
+    }
+  }
 
 
   async insertServiceData(formData: any) {
