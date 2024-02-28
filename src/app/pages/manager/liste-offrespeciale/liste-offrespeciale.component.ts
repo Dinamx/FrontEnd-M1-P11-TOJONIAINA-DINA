@@ -19,6 +19,7 @@ import {Offrespeciale} from "../../../models/interfaces";
 import {UpdateComponent} from "../liste-employe/update/update.component";
 import {MatSelectModule} from "@angular/material/select";
 import {OffrespecialeService} from "../../../services/controllers/offrespeciale.service";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 
 const ELEMENT_DATA: Offrespeciale[] = [
@@ -53,6 +54,7 @@ const ELEMENT_DATA: Offrespeciale[] = [
   standalone: true,
   imports: [MatButtonModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
     MatMenuModule, MatIconModule, TablerIconsModule, MatCardModule, NgApexchartsModule, MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule,],
 })
 export class ListeOffrespecialeComponent {
@@ -108,7 +110,7 @@ export class ListeOffrespecialeComponent {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  displayedColumns: string[] = ['idclient','idservice','contenu', 'pourcentage', 'mail_envoi', 'date_heure_envoi' , 'date_fin' , 'action'];
+  displayedColumns: string[] = ['idclient','idservice','contenu', 'Remise', 'mail_envoi', 'date_heure_envoi' , 'date_fin'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   filterData(filterValue: any) {
@@ -121,7 +123,7 @@ export class ListeOffrespecialeComponent {
       const searchDate_heure_envoi = filterValue.date_heure_envoi.toLowerCase();
       const searchDate_fin = filterValue.date_fin.toLowerCase();
       const searchDescription = filterValue.description.toLowerCase();
-      
+
 
       return ((searchDate_heure_envoi === '' || date_heure_envoi.includes(searchDate_heure_envoi)) && (searchDate_fin === '' || date_fin.includes(searchDate_fin)) && (searchDescription === '' || description.includes(searchDescription)) );
     });
