@@ -20,6 +20,7 @@ import {UpdateComponent} from "../../manager/liste-employe/update/update.compone
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatSelectModule} from "@angular/material/select";
 import {WebservicesService} from "../../../services/webservice/webservices.service";
+import { RendezvousServiceService } from 'src/app/services/controllers/rendezvous/rendezvous-service.service';
 
 const ELEMENT_DATA: Rendezvous[] = [
   {
@@ -83,7 +84,9 @@ export class ListeRendezVousComponent {
   ];
 
   async ngOnInit(){
-    this.ELEMENT_DATA1 = await this.webservicesService.getData('rendezvous');
+    this.ELEMENT_DATA1 = await this.rendezvousService.getHistoriqueRdv(<string>localStorage.getItem('userId'));
+
+    console.log("hhdwh"+this.ELEMENT_DATA1);
     // Si vous souhaitez également mettre à jour le tableau de données de la table, faites-le  ici
     this.dataSource.data = this.ELEMENT_DATA1;
   }
@@ -99,7 +102,7 @@ export class ListeRendezVousComponent {
   //   end: new FormControl<Date | null>(null),
   // });
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog , private webservicesService: WebservicesService) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog , private webservicesService: WebservicesService ,private rendezvousService: RendezvousServiceService) {
     this.ELEMENT_DATA1 = [];
 
     this.searchForm = this.fb.group(
