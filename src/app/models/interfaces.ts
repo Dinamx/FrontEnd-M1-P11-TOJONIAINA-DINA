@@ -45,10 +45,14 @@ export interface Offrespeciale {
 }
 
 export interface ReservationData {
-  reservations: number; // Assuming reservations is of type number, adjust as needed
-  date: string; // Assuming date is of type string, adjust as needed
+  reservations: number; 
+  date: string; 
 }
 
+export interface TempsmoyenData {
+  nom: string; 
+  temps: number; 
+}
 
 export interface RendezvousEmploye {
   _id: string;

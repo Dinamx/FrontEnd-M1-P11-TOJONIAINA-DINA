@@ -12,6 +12,9 @@ import {
 import {basicImportsModule} from "../../../basicImports.module";
 import {MatSelectModule} from "@angular/material/select";
 import {ConstantsService} from "../../../services/const/constants.service";
+import { TempsmoyenService } from "../../../services/controllers/statistiques/tempsmoyen.service";
+import { TempsmoyenData } from "../../../models/interfaces";
+
 
 export type ChartOptions = {
   series?: ApexAxisChartSeries;
@@ -23,7 +26,7 @@ export type ChartOptions = {
 
 @Component({
   selector: 'app-statistique-temps-travail-moyen',
-  templateUrl: './statistique-temps-travail-moyen.component.html',
+  templateUrl:'./statistique-temps-travail-moyen.component.html',
   styleUrls: ['./statistique-temps-travail-moyen.component.scss'],
   standalone : true,
   imports : [
@@ -34,15 +37,31 @@ export type ChartOptions = {
 })
 export class StatistiqueTempsTravailMoyenComponent {
   @ViewChild(`chart`) chart: ChartComponent | undefined;
-  public chartOptions: Partial<ChartOptions> ;
+  public chartOptions: Partial<ChartOptions>| undefined;
   months = this.constService.months;
 
-  constructor(private constService : ConstantsService) {
+  constructor(private constService : ConstantsService,private tempsmoyenService: TempsmoyenService) 
+  {}
+
+  async ngOnInit() {
+    const temps = await this.updateDataFromResponse();
+    this.initializeChartAsync(temps);
+  }
+
+  async onMonthSelectionChange(event: any) {
+    const mois = event.value;
+    const temps = await this.updateSearchDataFromResponse(mois);
+    // Logic for month selection change
+    this.initializeChartAsync(temps);
+  }
+
+  private async initializeChartAsync(temps: number[]): Promise<void> {
+    const categories = await this.generateCategories();
     this.chartOptions = {
       series: [
         {
-          name: "basic",
-          data: [400,  430,  448,  470,  540,  580,  690,  1100,  1200,  1380]
+          name: "Temps moyen de travail (en minutes)",
+          data: temps
         }
       ],
       chart: {
@@ -58,19 +77,24 @@ export class StatistiqueTempsTravailMoyenComponent {
         enabled: false
       },
       xaxis: {
-        categories: [
-          "South Korea",
-          "Canada",
-          "United Kingdom",
-          "Netherlands",
-          "Italy",
-          "France",
-          "Japan",
-          "United States",
-          "China",
-          "Germany"
-        ]
+        categories: categories
       }
     };
+
+  } 
+  
+  private async updateDataFromResponse(): Promise<number[]> {
+    const response = await this.tempsmoyenService.getTempsMoyenEmploye();
+    return response.map((item: TempsmoyenData) => item.temps);
   }
+
+  private async generateCategories(): Promise<string[]> {
+    const response = await this.tempsmoyenService.getTempsMoyenEmploye();
+    return response.map((item: TempsmoyenData) => item.nom);
+  }
+
+  private async updateSearchDataFromResponse(mois:number): Promise<number[]> {
+    const response = await this.tempsmoyenService.getSearchTempsMoyenEmploye(mois);
+    return response.map((item: TempsmoyenData) => item.temps);
+  }   
 }

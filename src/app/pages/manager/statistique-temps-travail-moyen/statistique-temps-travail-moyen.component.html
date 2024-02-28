@@ -5,7 +5,7 @@
     <header>
       <mat-form-field appearance="outline" color="primary" style="padding: 1rem" class=" col-3 mat-form-field-outline">
         <mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Mois</mat-label>
-        <mat-select class="mat-input-element">
+        <mat-select class="mat-input-element" (selectionChange)="onMonthSelectionChange($event)">
           <mat-option *ngFor="let month of months" [value]="month.value">{{ month.name }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -16,7 +16,7 @@
 
 
 
-      <apx-chart [series]="chartOptions.series ?? []"
+      <apx-chart *ngIf="chartOptions" [series]="chartOptions.series ?? []"
                  [chart]="chartOptions.chart ?? {type: 'line', height:  350}"
                  [dataLabels]="chartOptions.dataLabels ?? {enabled: false}"
                  [plotOptions]="chartOptions.plotOptions ?? {bar: {horizontal: false}}"
