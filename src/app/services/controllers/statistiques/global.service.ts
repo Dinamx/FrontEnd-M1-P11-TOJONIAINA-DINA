@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {WebservicesService} from "../../webservice/webservices.service";
 import axios from "axios";
+import {url} from "../../../app.component";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class GlobalService {
 
   async getSearchBenefice(mois: number, annee: number) {
     try {
-        const response = await axios.get(`http://localhost:3000/statistiques/benefice/${mois}/${annee}`);
+        const response = await axios.get(`${url}/statistiques/benefice/${mois}/${annee}`);
         console.log('search Benefice :', response.data);
         return response.data;
     } catch (error) {
@@ -36,7 +37,7 @@ export class GlobalService {
 
   async getSearchChiffre(mois: number, annee: number) {
     try {
-        const response = await axios.get(`http://localhost:3000/statistiques/chiffre_affaire/${mois}/${annee}`);
+        const response = await axios.get(`${url}/statistiques/chiffre_affaire/${mois}/${annee}`);
         console.log('search Chiffre :', response.data);
         return response.data;
     } catch (error) {

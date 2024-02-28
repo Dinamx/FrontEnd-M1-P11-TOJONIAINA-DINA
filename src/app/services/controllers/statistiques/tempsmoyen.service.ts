@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {WebservicesService} from "../../webservice/webservices.service";
 import axios from "axios";
+import {url} from "../../../app.component";
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,11 @@ import axios from "axios";
 export class TempsmoyenService {
 
   constructor(private webservicesService: WebservicesService) { }
- 
+
   async getSearchTempsMoyenEmploye(mois:number)
   {
     try {
-      const response = await axios.get(`http://localhost:3000/statistiques/temps_moyen_travail/${mois}`);
+      const response = await axios.get(`${url}/statistiques/temps_moyen_travail/${mois}`);
       console.log('search Temps moyen de travail :', response.data);
       return response.data;
     } catch (error) {
