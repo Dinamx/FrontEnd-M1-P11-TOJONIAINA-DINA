@@ -85,7 +85,7 @@
                       <div style="margin: 1rem;" class=" d-flex align-items-center">
                         <div class="m-l-16 m-r-auto">
 <!--                          <h6 class="mat-subtitle-1 f-s-16 f-w-600">{{depense}}</h6>-->
-                          <span class="mat-body-1">{{depense.description   }} : {{depense.prix   }}  Ar</span>
+                          <span class="mat-body-1">{{depense.description   }} : {{depense.prix.toLocaleString()   }}  Ar</span>
                         </div>
                       </div>
                     </div>
@@ -124,13 +124,13 @@
                       >
                         <i-tabler name="arrow-up-right" class="icon-20"></i-tabler>
                       </button>
-                    <div class="col-10 mat-body-1 f-w-600 m-l-12">Benefice : {{ benefice | currency:'EUR':'2' }} Ariary</div>
+                    <div class="col-10 mat-body-1 f-w-600 m-l-12">Benefice : {{ benefice.toLocaleString() }} Ariary</div>
                     <div class="col-12 mat-body-1 m-l-4">
-                      Chiffre d'affaire : {{ chiffre_affaire | currency:'EUR':'2' }} Ariary
+                      Chiffre d'affaire : {{ chiffre_affaire.toLocaleString() }} Ariary
 
                     </div>
                       <div class="col-12 mat-body-1 m-l-4">
-                        Dépenses : {{ depense | currency:'EUR':'2' }} Ariary
+                        Dépenses : {{ depense.toLocaleString() }} Ariary
                       </div>
 
                     </div>

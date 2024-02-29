@@ -70,9 +70,6 @@ export class StatistiqueBeneficeMensuelComponent {
   public trafficChart!: Partial<trafficChart> | any;
   public salesChart!: Partial<salesChart> | any;
 
-
-
-
   isLoading: boolean = true;
   months = this.constService.months;
   benefice: any;
@@ -84,26 +81,7 @@ export class StatistiqueBeneficeMensuelComponent {
   }
 
   async ngOnInit() {
-
-
     await this.updateData();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
 
   async onMonthSelectionChange(event: any) {
@@ -132,14 +110,11 @@ export class StatistiqueBeneficeMensuelComponent {
       this.isLoading = true;
       const benefice = await this.globalService.getBenefice();
       const chiffre = await this.globalService.getChiffre();
+      console.log("benefice"+benefice);
       this.benefice = benefice;
+      console.log("this.benefice"+this.benefice);
       this.chiffre_affaire = chiffre;
       this.depense = this.chiffre_affaire - this.benefice;
-
-
-
-
-
 
       this.trafficChart = {
         series: [this.benefice, this.depense, this.chiffre_affaire],
@@ -199,28 +174,6 @@ export class StatistiqueBeneficeMensuelComponent {
           enabled: false,
         },
       };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     } catch (e) {
       alert(e);
     } finally {
