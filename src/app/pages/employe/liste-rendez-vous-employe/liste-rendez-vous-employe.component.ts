@@ -241,6 +241,7 @@ export class ListeRendezVousEmployeComponent {
 
   ValiderRdv(elementId: string) {
     const response = this.rendezvousService.ValiderRdv(elementId);
+    this.updateList();
   }
 
 
