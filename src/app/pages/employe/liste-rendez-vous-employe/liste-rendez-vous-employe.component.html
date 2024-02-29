@@ -173,21 +173,29 @@
               <!--                <div class="m-l-16"><span class="mat-body-1 f-s-14"> {{ element.etat_rdv }} </span></div>-->
               <!--              </div>-->
 
+              <ng-template [ngIf]="element.etat_valid == '0'">
+                <button class="bg-light-warning text-warning rounded f-w-600 p-y-6 p-x-16 f-s-14" (click)="ValiderRdv(element._id)">
+                  Valider ce rendez-vous
+                </button>
+            </ng-template>
+                <ng-template [ngIf]="element.etat_valid == '1'">
+                 
+                      Validé
 
+                </ng-template>
               <ng-template [ngIf]="element.etat_rdv == '0'">
-                  <span
-                    class="bg-light-warning text-warning rounded f-w-600 p-y-6 p-x-16 f-s-14"
-                  >
-                    En attente
-                  </span>
+                 
+                  <button class="bg-light-warning text-warning rounded f-w-600 p-y-6 p-x-16 f-s-14" (click)="TerminerRdv(element._id)">
+                    Terminer ce rendez-vous
+                  </button>
+              
               </ng-template>
               <ng-template [ngIf]="element.etat_rdv == '1'">
-                  <span
-                    class="bg-light-success text-success rounded f-w-600 p-y-6 p-x-16 f-s-14"
-                  >
-                    Validé
-                  </span>
-              </ng-template>
+             
+                  Terminé
+    
+            </ng-template>
+           
             </td>
 
 
