@@ -1,5 +1,10 @@
+<div>
 
-<div >
+  <div *ngIf="isLoading"
+       style="position: fixed; width: 100%; height: 100%; display: flex ; justify-content: center; align-items: center; background: white; top: 0; left: 0 ; z-index:  9999;  ">
+    <mat-spinner></mat-spinner>
+  </div>
+
   <header
     class="p-2 col-12 d-flex justify-content-between align-items-center px-4 position-fixed"
     style="z-index: 3"
@@ -9,15 +14,19 @@
 
     <span>Prettier</span>
 
-<!--    ngIf localStorage.getItem('userId') n'est pas null ,-->
+    <!--    ngIf localStorage.getItem('userId') n'est pas null ,-->
 
 
     <!-- Si localStorage.getItem('userId') n'est pas null -->
-    <button *ngIf="login" (click)="goToConnexion()" class="btn btn-primary">Connexion</button>
+    <button *ngIf="login" (click)="goToConnexion()" mat-flat-button
+            style="background-color: #e84393; color: white">Connexion
+    </button>
 
     <!-- Sinon, affiche le bouton pour prendre un rendez-vous -->
-    <button *ngIf="!login" (click)="goToRDV()" class="btn btn-primary">Prendre un rendez-vous</button>
-<!--    Sinon button prendre un rendez vous onclick(goToRDV)-->
+    <button *ngIf="!login" (click)="goToRDV()" mat-flat-button
+            style="background-color: #e84393; color: white">Prendre un rendez-vous
+    </button>
+    <!--    Sinon button prendre un rendez vous onclick(goToRDV)-->
 
 
   </header>
@@ -25,7 +34,7 @@
     style="height: 100vh"
     class="background-menu col-12 d-flex justify-content-start align-items-center"
   >
-    <img src="../../../../assets/login_img.jpg" alt="" class="img" />
+    <img src="../../../../assets/login_img.jpg" alt="" class="img"/>
     <span style="font-size: 40px" class="mx-5 p-3 bg-white"
     >Envie de vous faire une beauté?</span
     >
@@ -43,15 +52,27 @@
     </header>
     <div class="container">
       <div class="row d-flex flex-row justify-content-start">
-        <div class="col-sm-4 col-12 p-2" *ngFor="let item of servicesListResearch">
+        <div class="col-lg-4 col-12 p-2" *ngFor="let item of servicesListResearch ; let i = index">
           <div
             class="d-flex flex-column service"
-            style="height: 25rem; overflow: hidden"
+            style="height: 25rem; "
           >
             <div
               class="d-flex justify-content-center"
-              style="height: 80%; overflow: hidden"
+              style="height: 80%; "
             >
+
+
+              <button *ngIf="!login" (click)="item.favori == 0 ? favoriser(item._id , i) : delete(item._id , i)  "
+                      mat-mini-fab color="primary" class="icon-30 position-absolute  "
+                      style=" right: 20px ; top: 20px; " matTooltip="Add to Cart">
+                <img
+                  src="../../../../assets/images/{{ item.favori == 0 ? 'coeurVide.png' : 'coeurPlein.png'  }}"
+                  alt=""
+                  style="width: 1rem"
+                />
+              </button>
+
               <img
                 [src]="item.image"
                 alt=""
@@ -60,28 +81,18 @@
             </div>
             <div class="description p-2" style="height: 20%">
               <div class="d-flex justify-content-between">
-                <span>
-<!--                          <button-->
-<!--                            mat-mini-fab-->
-<!--                            color="primary"-->
-<!--                            class="icon-30 cart-btn"-->
-<!--                            matTooltip="Add to Cart"-->
-<!--                          >-->
-<!--        </button>-->
 
-                  Favori
-                </span>
                 <span>
                   <b>{{ item.description }}</b></span
                 >
                 <span
                   style="background-color: pink; border-radius: 12px"
                   class="px-2"
-                >{{ item.prix.toLocaleString() }}</span
+                >{{ item.prix.toLocaleString() }} Ar</span
                 >
               </div>
               <span>
-                {{ item.duree }}
+                Durée : {{ item.duree }} mn
               </span>
             </div>
           </div>

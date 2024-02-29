@@ -51,6 +51,18 @@ export class ServicesService {
     }
   }
 
+  async getServicesListUser(idUser : string) {
+    try {
+      const response = await this.webservicesService.getData(`/services/${idUser}`);
+      console.log('Liste des services récupérée :', response);
+      // Gérer la réponse  ici
+      return response;
+    } catch (error) {
+      alert('Erreur : ' + error);
+      console.error('Erreur lors de la récupération de la liste des services :', error);
+      throw error; // Propagation de l'erreur pour la gérer au niveau supérieur
+    }
+  }
 
   async updateService(){
 

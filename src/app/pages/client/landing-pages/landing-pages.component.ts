@@ -10,6 +10,8 @@ import {basicImportsModule} from "../../../basicImports.module";
 import {ServicesService} from "../../../services/controllers/services.service";
 import {Service} from "../../../models/interfaces";
 import {Router} from "@angular/router";
+import axios from "axios";
+import {url} from "../../../app.component";
 
 @Component({
   selector: 'app-landing-pages',
@@ -85,28 +87,31 @@ export class LandingPagesComponent {
 
   isLoading: boolean = false;
   // servicesListResearch: Service[] | undefined;
-  servicesListResearch: any | undefined;
+  servicesListResearch: any[]  = [];
   constructor(private servicesService: ServicesService , private router: Router) { }
 
   login: boolean = true;
   async ngOnInit(): Promise<void> {
-    if (localStorage.getItem('userId')){
-      this.login = false;
-    }
+
 
 
     this.isLoading = true;
     try {
-      const servicesList = await this.servicesService.getServicesList();
-      console.log('Services list:', servicesList);
 
-      this.servicesListResearch = servicesList;
-      console.log('RECHERCHE + ' + this.servicesListResearch)
+      if (localStorage.getItem('userId')){
+        this.login = false;
+        const servicesList = await this.servicesService.getServicesListUser(<string>localStorage.getItem('userId'));
+        console.log('Services list:', servicesList);
 
-
-      //  Service barre recherche
-
-
+        this.servicesListResearch = servicesList;
+        console.log('RECHERCHE + ' + this.servicesListResearch)
+      }
+      else{
+        const servicesList = await this.servicesService.getServicesList();
+        console.log('Services list:', servicesList);
+        this.servicesListResearch = servicesList;
+        console.log('RECHERCHE + ' + this.servicesListResearch)
+      }
     } catch (error) {
       console.error('Erreur lors de la récupération de la liste des services :', error);
     } finally {
@@ -122,5 +127,42 @@ export class LandingPagesComponent {
 
   goToRDV() {
     this.router.navigate(['dashboard/rendezVous']);
+  }
+
+  async delete(idService: string, i: number) {
+    try {
+      this.servicesListResearch[i].favori = 0;
+      const idUser = <string>localStorage.getItem('userId');
+
+      const dataToSEnd = {
+        client: idUser,
+        service: idService
+      };
+
+      const response = await axios.post(`${url}/preference/delete`, dataToSEnd);
+      console.log('Préférence supprimée avec succès :', response.data);
+
+
+    } catch (e) {
+      alert(e);
+    }
+
+  }
+
+  async favoriser(idService: string, i: number) {
+    try {
+      const idUser = <string>localStorage.getItem('userId');
+      this.servicesListResearch[i].favori = 1;
+      const response = await axios.post(`${url}/preference/`, {
+        client: idUser,
+        service: idService
+      });
+
+
+
+    } catch (e) {
+      alert(e);
+    }
+
   }
 }
