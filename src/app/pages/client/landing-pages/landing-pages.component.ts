@@ -116,7 +116,7 @@ export class LandingPagesComponent {
 
 
   goToConnexion() {
-    this.router.navigate(['']);
+    this.router.navigateByUrl('/');
   }
 
   goToRDV() {

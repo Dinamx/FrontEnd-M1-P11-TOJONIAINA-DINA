@@ -3,6 +3,27 @@
     <mat-card-title>Service</mat-card-title>
     <mat-card-subtitle class="mat-body-1">Modifier Service</mat-card-subtitle>
     <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+
+
+      <mat-card-content (click)="openFileDialog()" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" appearance="outline" class="mat-mdc-card-content p-y-24" style="border: 1px solid ; border-top-left-radius: 4px;
+    border-top-right-radius:  4px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;">
+        <mat-card-title class="mat-mdc-card-title">Change picture</mat-card-title>
+        <mat-card-subtitle class="mat-mdc-card-subtitle mat-body-1">Change a profile picture from here</mat-card-subtitle>
+        <div class="text-center m-t-24">
+          <img [src]="imageToShow" width="120" height="120" class="rounded-circle">
+          <div class="m-t-24">
+            <input id="fileInput" type="file" (change)="onFileChange($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" accept="image/*" class="d-none">
+            <div class="upload-area" >
+              <span class="f-s-14 m-t-24 d-block">Drag your image here or click to select</span>
+            </div>
+          </div>
+          <span class="f-s-14 m-t-24 d-block">Allowed JPG, GIF or PNG. Max size of  800K</span>
+        </div>
+      </mat-card-content>
+
+
       <mat-form-field appearance="outline" color="primary" class="form-field-class">
         <mat-label class="mat-label-class">service</mat-label>
         <input class="mat-input-class" matInput formControlName="description"></mat-form-field>
