@@ -67,7 +67,9 @@ export class ListeRendezVousComponent {
       this.isLoading = true;
       this.ELEMENT_DATA1 = await this.rendezvousService.getHistoriqueRdv(<string>localStorage.getItem('userId'));
       // Si vous souhaitez également mettre à jour le tableau de données de la table, faites-le  ici
+
       this.dataSource.data = this.ELEMENT_DATA1;
+
       await this.getServiceList();
     }
     catch (e) {
@@ -91,7 +93,7 @@ export class ListeRendezVousComponent {
   {
     try {
       const response = await this.servicesService.getServicesList();
-      console.log('Liste des services récupérée :', response);
+      // console.log('Liste des services récupérée :', response);
       this.servicesDeroulante = response;
     } catch (error) {
       alert('Erreur : ' + error);

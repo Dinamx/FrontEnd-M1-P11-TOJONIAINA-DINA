@@ -247,7 +247,7 @@ export class StatistiqueBeneficeMensuelComponent {
     const depenseNumber = parseFloat(this.newDepense);
     if (!isNaN(depenseNumber)) {
       const depenseData = {
-        description: this.description, 
+        description: this.description,
         prix: depenseNumber,
         date_heure: new Date().toISOString() // Utiliser la date d'aujourd'hui
       };
