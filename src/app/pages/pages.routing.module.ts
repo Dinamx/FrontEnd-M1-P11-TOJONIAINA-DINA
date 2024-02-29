@@ -16,6 +16,7 @@ import {StatistiqueBeneficeMensuelComponent} from "./manager/statistique-benefic
 import {FormOffrespecialeComponent} from "./manager/form-offrespeciale/form-offrespeciale.component";
 import {ListeOffrespecialeComponent} from "./manager/liste-offrespeciale/liste-offrespeciale.component";
 import {MonProfilComponent} from "./mon-profil/mon-profil.component";
+import {LandingPagesComponent} from "./client/landing-pages/landing-pages.component";
 
 export const PagesRoutes: Routes = [
   {
@@ -106,6 +107,9 @@ export const PagesRoutes: Routes = [
       title: 'Nombre de reservation ',
     },
   },
+
+
+
   {
     path: 'statistiqueBeneficeMensuel',
     component: StatistiqueBeneficeMensuelComponent,

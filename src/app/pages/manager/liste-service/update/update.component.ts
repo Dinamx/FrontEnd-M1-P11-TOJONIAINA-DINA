@@ -7,6 +7,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {ReactiveFormsModule} from '@angular/forms';
 import {basicImportsModule} from "../../../../basicImports.module";
 import {WebservicesService} from "../../../../services/webservice/webservices.service";
+import axios from "axios";
+import {url} from "../../../../app.component";
 
 @Component({
   selector: 'app-update',
@@ -28,12 +30,35 @@ export class UpdateComponent {
   }
 
   onSubmit() {
+    // if (this.updateForm.valid) {
+    //   this.webService.updateData('', this.updateForm.value);
+    //   this.data.updateList();
+    //   this.dialogRef.close();
+    // } else {
+    //   alert('Valeur fausse')
+    // }
+
+
+
     if (this.updateForm.valid) {
-      this.webService.updateData('', this.updateForm.value);
-      this.data.updateList();
-      this.dialogRef.close();
+      // Préparation des données pour la requête PUT
+      const updateData = this.updateForm.value;
+      // Envoi de la requête PUT
+      axios.put(`${url}/service/update/${this.data._id}`, updateData)
+        .then(() => {
+          alert('Update effectué')
+          this.dialogRef.close(updateData); // Fermer la boîte de dialogue après la mise à jour et passer les données mises à jour
+        })
+        .catch(error => {
+          console.error('Une erreur s\'est produite lors de la mise à jour du rendez-vous : ', error);
+          alert('Une erreur s\'est produite lors de la mise à jour du rendez-vous.');
+        });
     } else {
-      alert('Valeur fausse')
+      alert('Veuillez bien remplir tous les champs requis');
     }
+
+
+
+
   }
 }

@@ -4,6 +4,7 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import {AppSideLoginComponent} from "./pages/authentication/login/login.component";
 import {CreateComponentComponent} from "./pages/utils/create-component/create-component.component";
+import {LandingPagesComponent} from "./pages/client/landing-pages/landing-pages.component";
 
 const routes: Routes = [
   {
@@ -39,6 +40,14 @@ const routes: Routes = [
           import('./pages/extra/extra.module').then((m) => m.ExtraModule),
       },
     ],
+  },
+
+  {
+    path: 'landing',
+    component: LandingPagesComponent,
+    data: {
+      title: 'LandingPage',
+    },
   },
   {
     path: '',

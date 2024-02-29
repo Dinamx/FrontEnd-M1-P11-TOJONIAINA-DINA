@@ -27,6 +27,7 @@ export class SidebarComponent implements OnInit {
     } else if (userType === 'client') {
       // alert('Client');
       this.navItems = navItemsClient;
+      // this.navItems = navItemsNo;
     }else if (userType === 'employe') {
       // this.navItems = navItemsEmploye;
       this.navItems =  navItemsEmploye;
