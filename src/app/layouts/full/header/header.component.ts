@@ -56,7 +56,7 @@ export class HeaderComponent {
           if (localStorage.getItem("userId")) {
             // Utilisez await pour attendre que la promesse soit résolue
             this.compteClientService.getMontant(<string>localStorage.getItem("userId")).then(retour => {
-              console.log(retour);
+              // console.log(retour);
               // Vérifie si retour est une réponse Axios
               if ('data' in retour) {
                 // Si c'est une réponse Axios, accède à retour.data.montant

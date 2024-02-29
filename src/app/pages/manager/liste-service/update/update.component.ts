@@ -41,14 +41,14 @@ export class UpdateComponent {
 
 
     if (this.updateForm.valid) {
-      console.log('this.updateForm.valid');
+      // console.log('this.updateForm.valid');
       // Préparation des données pour la requête PUT
       const updateData = this.updateForm.value;
-      console.log(updateData);
+      // console.log(updateData);
       // Envoi de la requête PUT
       axios.put(`${url}/services/update/${this.data._id}`, updateData)
         .then(() => {
-          console.log('axios Put' +  updateData );
+          // console.log('axios Put' +  updateData );
           alert('Update effectué')
           this.dialogRef.close(updateData); // Fermer la boîte de dialogue après la mise à jour et passer les données mises à jour
         })

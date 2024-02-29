@@ -30,7 +30,7 @@ export class UpdateComponent {
   ) {
 
 
-    console.log(data);
+    // console.log(data);
 
 
     this.updateForm = this.fb.group({

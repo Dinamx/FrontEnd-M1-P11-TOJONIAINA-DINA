@@ -32,8 +32,8 @@ export class AppSideRegisterComponent {
 
   signUp(){
     if (this.form.valid) { // Vérification si le formulaire est valide
-      console.log('Sign up');
-      console.log(this.form);
+      // console.log('Sign up');
+      // console.log(this.form);
       const retour = this.webService.insertDataRetour(this.form.value , '/login/signup');
       alert('Compte Enregistré');
       this.router.navigateByUrl('');
@@ -41,7 +41,7 @@ export class AppSideRegisterComponent {
     } else {
 
       // Gérer le cas où le formulaire n'est pas valide, par exemple afficher des messages d'erreur
-      console.log('Invalid form');
+      // console.log('Invalid form');
     }
   }
 
@@ -93,7 +93,6 @@ export class AppSideRegisterComponent {
             }
             // alert('Bonjour');
             // alert(this.imageToShow);
-            console.log('IMAGE TO SHOW');
             this.cd.detectChanges();
             // Traiter la chaîne base64 de l'image compressée
           };

@@ -1,32 +1,71 @@
-<mat-card class="cardWithShadow">
-  <mat-card-content class="cardWithShadow">
-    <mat-card-title>Sample Page</mat-card-title>
-    <mat-card-subtitle class="mat-body-1">This is a test page</mat-card-subtitle>
-  </mat-card-content>
 
-  <mat-card-content>
-    <div class="image col-offset-1 col-11 h-100 d-flex align-items-center" style="overflow: hidden; height: auto;">
-      <img src="../../../../assets/login_img.jpg" style="object-fit: cover; width: calc(100% - 2rem); height: 100%; margin: 0 1rem;">
-    </div>
-  </mat-card-content>
-
-  <div class="row">
-    <div class="col-offset-3">
-
-      <mat-card-content class="services-section">
-    <h2>Voici nos services</h2>
-    <div class="services-list">
-      <!-- Ici, vous pouvez ajouter vos cartes de services -->
-      <mat-card class="service-card">
-        <mat-card-content>
-          <mat-card-title>Service 1</mat-card-title>
-          <mat-card-subtitle>Description du service 1</mat-card-subtitle>
-        </mat-card-content>
-      </mat-card>
-      <!-- Ajoutez d'autres cartes de service ici -->
-    </div>
-  </mat-card-content>
-    </div>
+<div >
+  <header
+    class="p-2 col-12 d-flex justify-content-between align-items-center px-4 position-fixed"
+    style="z-index: 3"
+    [style]="style"
+  >
+    <span>Prettier</span>
+    <button (click)="goToConnexion()" class="btn btn-primary">Connexion</button>
+  </header>
+  <div
+    style="height: 100vh"
+    class="background-menu col-12 d-flex justify-content-start align-items-center"
+  >
+    <img src="../../../../assets/login_img.jpg" alt="" class="img" />
+    <span style="font-size: 40px" class="mx-5 p-3 bg-white"
+    >Envie de vous faire une beauté?</span
+    >
   </div>
-
-</mat-card>
+  <section
+    class="card"
+    style="
+      border-radius: 12px 12px 0px 0px;
+      z-index: 2;
+      background-color: white;
+    "
+  >
+    <header class="p-4">
+      <span style="font-size: 20px">Nos services:</span>
+    </header>
+    <div class="container">
+      <div class="row d-flex flex-row justify-content-start">
+        <div class="col-sm-4 col-12 p-2" *ngFor="let item of servicesListResearch">
+          <div
+            class="d-flex flex-column service"
+            style="height: 25rem; overflow: hidden"
+          >
+            <div
+              class="d-flex justify-content-center"
+              style="height: 80%; overflow: hidden"
+            >
+              <img
+                [src]="item.image"
+                alt=""
+                height="100%"
+              />
+            </div>
+            <div class="description p-2" style="height: 20%">
+              <div class="d-flex justify-content-between">
+                <span>
+                  <b>{{ item.description }}</b></span
+                >
+                <span
+                  style="background-color: pink; border-radius: 12px"
+                  class="px-2"
+                >{{ item.prix.toLocaleString() }}</span
+                >
+              </div>
+              <span>
+                {{ item.duree }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="d-flex justify-content-evenly p-4 border-top">
+      <span>Tojoniaina Hajarisoa & Razafindratovo Dina</span>
+    </footer>
+  </section>
+</div>

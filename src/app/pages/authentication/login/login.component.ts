@@ -108,9 +108,9 @@ export class AppSideLoginComponent implements OnInit {
     this.isLoading = true; // Active le spinner
 
     try {
-      console.log(this.form.value);
-      console.log('user + ' + this.userEmail);
-      console.log('psswd + ' + this.userPsswd);
+      // console.log(this.form.value);
+      // console.log('user + ' + this.userEmail);
+      // console.log('psswd + ' + this.userPsswd);
 
       // Attendre la résolution de la promesse
       const response = await this.loginService.logIn(this.form.value);
