@@ -84,7 +84,8 @@ export class LandingPagesComponent {
 
 
   isLoading: boolean = false;
-  servicesListResearch: Service[] | undefined;
+  // servicesListResearch: Service[] | undefined;
+  servicesListResearch: any | undefined;
   constructor(private servicesService: ServicesService , private router: Router) { }
 
   login: boolean = true;
