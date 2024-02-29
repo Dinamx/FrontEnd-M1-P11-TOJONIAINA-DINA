@@ -5,8 +5,21 @@
     style="z-index: 3"
     [style]="style"
   >
+
+
     <span>Prettier</span>
-    <button (click)="goToConnexion()" class="btn btn-primary">Connexion</button>
+
+<!--    ngIf localStorage.getItem('userId') n'est pas null ,-->
+
+
+    <!-- Si localStorage.getItem('userId') n'est pas null -->
+    <button *ngIf="login" (click)="goToConnexion()" class="btn btn-primary">Connexion</button>
+
+    <!-- Sinon, affiche le bouton pour prendre un rendez-vous -->
+    <button *ngIf="!login" (click)="goToRDV()" class="btn btn-primary">Prendre un rendez-vous</button>
+<!--    Sinon button prendre un rendez vous onclick(goToRDV)-->
+
+
   </header>
   <div
     style="height: 100vh"

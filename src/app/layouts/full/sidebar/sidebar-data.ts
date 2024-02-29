@@ -269,6 +269,16 @@ export const navItemsClient: NavItem[] = [
     iconName: 'coins',
     route: '/dashboard/formcompte',
   },
+
+  {
+    navCap: 'Présentation',
+  },
+  {
+    displayName: 'Voir nos services',
+    iconName: 'layout-dashboard',
+    route: '/landing',
+  },
+
 ];
 
 export const navItemsNo: NavItem[] = [

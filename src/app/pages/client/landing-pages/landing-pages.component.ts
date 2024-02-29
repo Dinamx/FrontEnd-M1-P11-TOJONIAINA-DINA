@@ -87,7 +87,13 @@ export class LandingPagesComponent {
   servicesListResearch: Service[] | undefined;
   constructor(private servicesService: ServicesService , private router: Router) { }
 
+  login: boolean = true;
   async ngOnInit(): Promise<void> {
+    if (localStorage.getItem('userId')){
+      this.login = false;
+    }
+
+
     this.isLoading = true;
     try {
       const servicesList = await this.servicesService.getServicesList();
@@ -111,5 +117,9 @@ export class LandingPagesComponent {
 
   goToConnexion() {
     this.router.navigate(['']);
+  }
+
+  goToRDV() {
+    this.router.navigate(['dashboard/rendezVous']);
   }
 }
