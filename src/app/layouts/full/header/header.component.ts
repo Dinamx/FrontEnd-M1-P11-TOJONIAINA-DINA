@@ -63,7 +63,7 @@ export class HeaderComponent {
                 this.solde = 'Votre solde :' + retour.data.total.toLocaleString() + ' ar';
               } else {
                 // Sinon, retour est un objet avec un champ montant directement
-                this.solde = 'Votre solde :' + retour.montant + 'ar';
+                this.solde = 'Votre solde :' + retour.montant.toLocaleString() + 'ar';
               }
             }).catch(error => {
               alert(error);
