@@ -44,9 +44,10 @@ import {ServicesService} from "../../../services/controllers/services.service";
   ],
 })
 export class FormRendezVousComponent {
-  employees: { _id: number, email: string }[] = [];
-  services: { _id: number, description: string ; duree: string }[] = [];
+  employees: { _id: number, email: string , nom : string }[] = [];
+  services: { _id: number, description: string ; duree: string , prix : string }[] = [];
   dure: any = '0';
+  prixServiceSelectionne: any = '0';
   userId: any;
   alertMessage: string | null = null;
   successMessage: string | null = null;
@@ -68,7 +69,7 @@ export class FormRendezVousComponent {
     return this.form.controls;
   }
 
-  ngOnInit() 
+  ngOnInit()
   {
     this.userId = localStorage.getItem("userId"); // Récupérer la valeur de userId depuis le local storage
     this.getEmployeeList();
@@ -91,7 +92,7 @@ export class FormRendezVousComponent {
     try {
       const response = await this.servicesService.getServicesList();
       console.log('Liste des services récupérée :', response);
-      this.services = response; 
+      this.services = response;
     } catch (error) {
       alert('Erreur : ' + error);
       console.error('Erreur lors de la récupération de la liste des employés :', error);
@@ -104,6 +105,7 @@ export class FormRendezVousComponent {
     console.log(selectedService?.duree);
     if (selectedService) {
       this.dure = selectedService.duree;
+      this.prixServiceSelectionne = selectedService.prix;
     }
   }
 
@@ -123,14 +125,14 @@ async  submit() {
       } else {
         this.alertMessage = 'Statut inconnu : ' + status;
       }
-      } 
-      catch (error) 
+      }
+      catch (error)
       {
       console.error('Erreur lors de l\'insertion :', error);
       alert('Erreur lors de l\'insertion');
       }
-  } 
-  else 
+  }
+  else
   {
     alert('Erreur')
     console.log('Form submission failed');

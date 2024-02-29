@@ -21,35 +21,10 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatSelectModule} from "@angular/material/select";
 import {WebservicesService} from "../../../services/webservice/webservices.service";
 import { RendezvousServiceService } from 'src/app/services/controllers/rendezvous/rendezvous-service.service';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {ServicesService} from "../../../services/controllers/services.service";
 
-const ELEMENT_DATA: Rendezvous[] = [
-  {
-    date_heure: '2024-02-22T09:00:00',
-    service: 'Service 1',
-    client: 'Mark J. Freeman',
-    employe: 'Employee 1',
-    prixpaye: '50',
-    rappel: '1',
-    comissionemploye: '10',
-    duree: '60',
-    comission: '15',
-    etat_rdv: '1',
-    etat_valid: '1',
-  },
-  {
-    date_heure: '2024-02-22T09:00:00',
-    service: 'Service 1',
-    client: 'Mark J. Freeman',
-    employe: 'Employee 1',
-    prixpaye: '50',
-    rappel: '1',
-    comissionemploye: '10',
-    duree: '60',
-    comission: '15',
-    etat_rdv: '1',
-    etat_valid: '1',
-  }
-];
+
 
 @Component({
   selector: 'app-liste-rendez-vous',
@@ -63,6 +38,7 @@ const ELEMENT_DATA: Rendezvous[] = [
     MatIconModule, TablerIconsModule
     , MatSelectModule
     , MatCardModule,
+    MatProgressSpinnerModule,
     NgApexchartsModule,
     MatTableModule, CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, ReactiveFormsModule, AsyncPipe, MatGridListModule, MatPaginatorModule,],
 })
@@ -82,18 +58,44 @@ export class ListeRendezVousComponent {
     {value: 'service 2', viewValue: 'Service  2'},
     {value: 'service 3', viewValue: 'Service  3'},
   ];
+  isLoading: boolean = true;
+
 
   async ngOnInit(){
-    this.ELEMENT_DATA1 = await this.rendezvousService.getHistoriqueRdv(<string>localStorage.getItem('userId'));
 
-    console.log("hhdwh"+this.ELEMENT_DATA1);
-    // Si vous souhaitez également mettre à jour le tableau de données de la table, faites-le  ici
-    this.dataSource.data = this.ELEMENT_DATA1;
+    try {
+      this.isLoading = true;
+      this.ELEMENT_DATA1 = await this.rendezvousService.getHistoriqueRdv(<string>localStorage.getItem('userId'));
+      // Si vous souhaitez également mettre à jour le tableau de données de la table, faites-le  ici
+      this.dataSource.data = this.ELEMENT_DATA1;
+      await this.getServiceList();
+    }
+    catch (e) {
+      alert(e);
+    }
+    finally {
+      this.isLoading = false;
+    }
+
+
   }
   ngAfterViewInit() {
     if (this.paginator) {
-      this.dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
+      this.dataSource = new MatTableDataSource<any>(this.ELEMENT_DATA1);
       this.dataSource.paginator = this.paginator;
+    }
+  }
+
+  servicesDeroulante: { _id: number, description: string ; duree: string }[] = [];
+  async getServiceList()
+  {
+    try {
+      const response = await this.servicesService.getServicesList();
+      console.log('Liste des services récupérée :', response);
+      this.servicesDeroulante = response;
+    } catch (error) {
+      alert('Erreur : ' + error);
+      console.error('Erreur lors de la récupération de la liste des employés :', error);
     }
   }
 
@@ -102,7 +104,7 @@ export class ListeRendezVousComponent {
   //   end: new FormControl<Date | null>(null),
   // });
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog , private webservicesService: WebservicesService ,private rendezvousService: RendezvousServiceService) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog , private webservicesService: WebservicesService ,private rendezvousService: RendezvousServiceService , private servicesService: ServicesService) {
     this.ELEMENT_DATA1 = [];
 
     this.searchForm = this.fb.group(
@@ -111,7 +113,9 @@ export class ListeRendezVousComponent {
         end: new FormControl<Date | null>(null),
         date_heure: [''],
         service: new FormControl(null),
-        employe: [''], duree: [''], prixpaye: [''],
+        employe: [''],
+        duree: [''],
+        prixpaye: [''],
       });
     console.log(this.dataSource);
   }
@@ -125,13 +129,13 @@ export class ListeRendezVousComponent {
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 
   filterData(filterValue: any) {
-    const filteredData = ELEMENT_DATA.filter(item => {
+    const filteredData = this.ELEMENT_DATA1.filter(item => {
       const itemDate = new Date(item.date_heure);
       const startDate = filterValue.start ? new Date(filterValue.start) : null;
       let endDate = filterValue.end ? new Date(filterValue.end) : null;
 
       if (endDate) {
-        endDate.setDate(endDate.getDate() +   1);
+        endDate.setDate(endDate.getDate() + 1);
       }
 
       // Vérifie si la date de l'élément est dans l'intervalle spécifié
@@ -143,10 +147,12 @@ export class ListeRendezVousComponent {
       const searchEmploye = filterValue.employe ? filterValue.employe.toLowerCase() : '';
       const searchDuree = filterValue.duree.toLowerCase();
       const searchPrixpaye = filterValue.prixpaye.toLowerCase();
-      const itemService = item.service.toLowerCase();
-      const itemEmploye = item.employe.toLowerCase();
-      const itemDuree = item.duree.toLowerCase();
-      const itemPrixpaye = item.prixpaye.toLowerCase();
+
+      // Assure que item.service est une chaîne de caractères avant d'appeler toLowerCase()
+      const itemService = typeof item.service === 'string' ? item.service.toLowerCase() : '';
+      const itemEmploye = typeof item.employe === 'string' ? item.employe.toLowerCase() : '';
+      const itemDuree = typeof item.duree === 'string' ? item.duree.toLowerCase() : '';
+      const itemPrixpaye = typeof item.prixpaye === 'string' ? item.prixpaye.toLowerCase() : '';
 
       // Si aucun service ou employé n'est sélectionné, inclure tous les éléments dans les résultats filtrés
       const isServiceMatch = filterValue.service ? itemService.includes(searchService) : true;

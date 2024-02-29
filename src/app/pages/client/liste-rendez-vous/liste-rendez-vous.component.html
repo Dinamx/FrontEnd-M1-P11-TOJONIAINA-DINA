@@ -1,4 +1,11 @@
 <div class="col-lg-12">
+
+  <div *ngIf="isLoading"
+       style="position: fixed; width: 100%; height: 100%; display: flex ; justify-content: center; align-items: center; background: white; top: 0; left: 0 ; z-index:  9999;  margin-top: 7%; border-radius: 5%; ">
+    <mat-spinner></mat-spinner>
+  </div>
+
+
   <mat-card class="mat-card cardWithShadow">
     <form [formGroup]="searchForm" (submit)="filterData(searchForm.value)">
       <mat-card-content class="mat-mdc-card-content">
@@ -34,11 +41,10 @@
             <mat-label class="mat-label-class">Service</mat-label>
             <mat-select formControlName="service" class="mat-input-class" matInput>
               <mat-option class="mat-input-element">None</mat-option>
-              <mat-option *ngFor="let serv of services" [value]="serv.value">{{serv.value}}</mat-option>
+              <mat-option *ngFor="let service of servicesDeroulante" [value]="service.description">{{ service.description }}</mat-option>
             </mat-select>
           </mat-form-field>
           </div>
-
 <!--          <div class="col-3 m-0 p-0">-->
 <!--            <mat-form-field appearance="outline" class="form-field-class col-12">-->
 <!--              <mat-label class="mat-label-class">service</mat-label>-->

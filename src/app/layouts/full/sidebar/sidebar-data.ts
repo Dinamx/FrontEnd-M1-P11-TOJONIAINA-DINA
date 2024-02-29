@@ -171,7 +171,7 @@ export const navItemsAdmin: NavItem[] = [
     navCap: 'MANAGER',
   },
   {
-    displayName: 'form employe',
+    displayName: 'Nouvel employe',
     iconName: 'user-plus',
     route: '/dashboard/formemploye',
   },
@@ -181,7 +181,7 @@ export const navItemsAdmin: NavItem[] = [
     route: '/dashboard/listeemploye',
   },
   {
-    displayName: 'form service',
+    displayName: 'nouveau Service',
     iconName: 'playlist-add',
     route: '/dashboard/formservice',
   },
@@ -197,7 +197,7 @@ export const navItemsAdmin: NavItem[] = [
     route: '/dashboard/listeOffrespeciale',
   },
   {
-    displayName: 'form Offre speciale',
+    displayName: 'Nouvelle Offre speciale',
     iconName: 'discount',
     route: '/dashboard/formOffrespeciale',
   },
@@ -208,12 +208,12 @@ export const navItemsAdmin: NavItem[] = [
     route: '/dashboard/statistiqueNombreReservation',
   },
   {
-    displayName: 'Temps travail Moyen',
+    displayName: 'Temps de travail Moyen',
     iconName: 'clock-play',
     route: '/dashboard/statistiqueTempsTravailMoyen',
   },
   {
-    displayName: 'Bénéfices mensuels',
+    displayName: 'Bénéfices',
     iconName: 'coins',
     route: '/dashboard/statistiqueBeneficeMensuel',
   },
