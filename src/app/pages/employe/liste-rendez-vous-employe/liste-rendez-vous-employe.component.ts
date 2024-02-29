@@ -85,7 +85,7 @@ export class ListeRendezVousEmployeComponent {
     }
   }
   formatDateEnFrancais(date: Date): string {
-    return <string>this.datePipe.transform(date, 'dd MMMM yyyy hh:mm', 'fr-FR');
+    return <string>this.datePipe.transform(date, 'dd MMMM yyyy hh:mm', '+0000');
   }
   constructor(private fb: FormBuilder, private dialog: MatDialog , private rendezvousService: RendezVousServiceService , public datePipe: DatePipe) {
     this.searchForm = this.fb.group({
