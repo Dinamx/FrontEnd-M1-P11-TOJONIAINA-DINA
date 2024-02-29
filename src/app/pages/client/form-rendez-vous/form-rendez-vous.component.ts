@@ -62,7 +62,7 @@ export class FormRendezVousComponent {
     idservice: new FormControl('', [Validators.required]),
     idclient: new FormControl(localStorage.getItem("userId")),
     idemploye: new FormControl('', [Validators.required]),
-    prixpaye: new FormControl('', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]),
+    prixpaye: new FormControl(''),
     rappel: new FormControl('', [Validators.required]),
   });
 
@@ -107,7 +107,7 @@ export class FormRendezVousComponent {
     if (selectedService) {
       this.dure = selectedService.duree;
       this.prix = getPrice;
-
+      this.form.get('prixpaye')?.setValue(this.prix);
     }
   }
 
