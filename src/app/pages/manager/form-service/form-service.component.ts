@@ -43,7 +43,7 @@ import {ServicesService} from "../../../services/controllers/services.service";
 export class FormServiceComponent {
   constructor(private router: Router , private cd: ChangeDetectorRef , private servicesService: ServicesService) {}
 
-  imageToShow : string = '/assets/images/profile/user-1.jpg';
+  imageToShow : string = '/assets/jolie.png';
 
 
 

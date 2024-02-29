@@ -141,8 +141,14 @@ export class ListeServiceComponent {
   update(element: any) {
     this.ismodif = true;
     const dialogRef = this.dialog.open(UpdateComponent, {width: '400px', data: element});
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+    dialogRef.afterClosed().subscribe(async result => {
+      try {
+        const servicesList = await this.servicesService.getServicesList();
+        this.ismodif = false;
+      } catch (e) {
+        console.error(e);
+      } finally {
+        this.isLoading = false;
       }
     });
   }

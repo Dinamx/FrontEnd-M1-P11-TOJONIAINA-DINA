@@ -22,7 +22,7 @@ export class UpdateComponent {
 
   constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<UpdateComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private webService: WebservicesService) {
     this.updateForm = this.fb.group({
-      service: [data.description, Validators.required],
+      description: [data.description, Validators.required],
       prix: [data.prix, Validators.required],
       duree: [data.duree, Validators.required],
       comission: [data.comission, Validators.required],
@@ -41,11 +41,14 @@ export class UpdateComponent {
 
 
     if (this.updateForm.valid) {
+      console.log('this.updateForm.valid');
       // Préparation des données pour la requête PUT
       const updateData = this.updateForm.value;
+      console.log(updateData);
       // Envoi de la requête PUT
-      axios.put(`${url}/service/update/${this.data._id}`, updateData)
+      axios.put(`${url}/services/update/${this.data._id}`, updateData)
         .then(() => {
+          console.log('axios Put' +  updateData );
           alert('Update effectué')
           this.dialogRef.close(updateData); // Fermer la boîte de dialogue après la mise à jour et passer les données mises à jour
         })
