@@ -8,6 +8,8 @@ export class RendezvousServiceService {
 
   constructor(private webservicesService :  WebservicesService) { }
 
+  
+
   async getHistoriqueRdv(idClient: string) {
     try {
       const response = await this.webservicesService.getDataById('/client/rendezvous/historique', idClient);

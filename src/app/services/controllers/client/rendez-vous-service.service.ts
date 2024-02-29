@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {WebservicesService} from "../../webservice/webservices.service";
+import axios from "axios";
+import {url} from "../../../app.component";
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +9,33 @@ import {WebservicesService} from "../../webservice/webservices.service";
 export class RendezVousServiceService {
 
   constructor(private webservicesService: WebservicesService) { }
+
+
+  async TerminerRdv(idrdv:string)
+  {
+    try {
+      const response = await axios.get(`${url}/employes/terminer_rendez_vous/${idrdv}`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      alert('Erreur : ' + error);
+      console.error('Erreur lors de la recherche :', error);
+      throw error;
+    }
+  }
+
+  
+  async ValiderRdv(idrdv:string)
+  {
+    try {
+      const response = await axios.get(`${url}/employes/validate_rdv/${idrdv}`);
+      return response.data;
+    } catch (error) {
+      alert('Erreur : ' + error);
+      console.error('Erreur lors de la recherche :', error);
+      throw error;
+    }
+  }
 
   async getRendezVousList(idClient: string) {
     try {

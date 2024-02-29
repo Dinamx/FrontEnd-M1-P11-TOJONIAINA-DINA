@@ -234,6 +234,16 @@ export class ListeRendezVousEmployeComponent {
     });
   }
 
+  TerminerRdv(elementId: string) {
+    const response = this.rendezvousService.TerminerRdv(elementId);
+    this.updateList();
+  }
+
+  ValiderRdv(elementId: string) {
+    const response = this.rendezvousService.ValiderRdv(elementId);
+    this.updateList();
+  }
+
 
   delete(element: any) {
     this.isdelete = true;
