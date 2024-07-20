@@ -52,21 +52,21 @@ export class FormStudentComponent {
 
   form = new FormGroup({
     id: new FormControl(''),
-    firstName: new FormControl('string28'),
-    lastName: new FormControl('string28'),
-    address: new FormControl('string'),
-    gender: new FormControl('M'),
-    dateOfBirth: new FormControl('2024-06-29T17:23:13.916Z'),
-    placeOfBirth: new FormControl('string'),
-    nationalIdentity: new FormControl('uniqueNationalIdentity341'),
-    phoneNumber1: new FormControl('string'),
-    phoneNumber2: new FormControl('string'),
-    isSpecialStudent: new FormControl(true),
+    firstName: new FormControl(''),
+    lastName: new FormControl(''),
+    address: new FormControl(''),
+    gender: new FormControl(''),
+    dateOfBirth: new FormControl(''),
+    placeOfBirth: new FormControl(''),
+    nationalIdentity: new FormControl(''),
+    phoneNumber1: new FormControl(''),
+    phoneNumber2: new FormControl(''),
+    isSpecialStudent: new FormControl(),
     payments: new FormArray([
       new FormGroup({
         id: new FormControl(''),
         date: new FormControl(new Date().toISOString()),
-        amount: new FormControl(100.5),
+        amount: new FormControl(),
         packageCategory: new FormControl('A'),
         packageName: new FormControl('Pack moto scooter')
       })
