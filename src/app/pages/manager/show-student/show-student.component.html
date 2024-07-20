@@ -1,0 +1,21 @@
+<div class="col-lg-12">
+  <!-- Afficher le spinner de chargement si isLoading est true -->
+ 
+  <!-- Afficher les détails de l'étudiant s'il est défini -->
+  <div class="student-details d-flex justify-content-center align-items-center">
+    <div class="card">
+      <div class="card-header">
+
+        <div class="card-title text-center extra-space">{{ student?.firstName }} {{ student?.lastName }}</div>
+        <div class="card-subtitle extra-space"><span class="key-text">Adresse:</span> {{ student?.address }}</div>
+  
+        <div class="card-subtitle extra-space"><span class="key-text">Date et Lieu de naissance:</span> Le {{ formatDate(student?.dateOfBirth) }} à {{ student?.placeOfBirth }}</div>
+        <div class="card-subtitle extra-space"><span class="key-text">Numéro CIN:</span> {{ student?.nationalIdentity }}</div>
+        <div class="card-subtitle extra-space"><span class="key-text">Téléphones:</span> {{ student?.phoneNumber1 }} | {{ student?.phoneNumber2 }}</div>
+
+      </div>
+
+    
+    </div>
+  </div>
+</div>

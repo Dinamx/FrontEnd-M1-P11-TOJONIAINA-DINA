@@ -5,11 +5,13 @@ import { FullComponent } from './layouts/full/full.component';
 import {AppSideLoginComponent} from "./pages/authentication/login/login.component";
 import {CreateComponentComponent} from "./pages/utils/create-component/create-component.component";
 import {LandingPagesComponent} from "./pages/client/landing-pages/landing-pages.component";
+import { ShowStudentComponent } from './pages/manager/show-student/show-student.component'; 
+
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/authentication/login',
+    redirectTo: '/dashboard/listStudent',
     pathMatch: 'full',
   },
   {
@@ -17,6 +19,7 @@ const routes: Routes = [
     component : AppSideLoginComponent,
     pathMatch: 'full',
   },
+  { path: 'show-student/:id', component: ShowStudentComponent },
   //Client
   {
     path: '',

@@ -1,0 +1,108 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Etudiant</mat-card-title>
+    <mat-card-subtitle class="mat-body-1">Ajouter un nouveau Etudiant</mat-card-subtitle>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="grid-form">
+      <div class="grid-row">
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>ID</mat-label>
+          <input type="text" matInput formControlName="id"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>Prénom</mat-label>
+          <input type="text" matInput formControlName="firstName"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>Nom</mat-label>
+          <input type="text" matInput formControlName="lastName"/>
+        </mat-form-field>
+
+      </div>
+
+      <div class="grid-row">
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>Adresse</mat-label>
+          <input type="text" matInput formControlName="address"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>Date de naissance</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>Lieu de naissance</mat-label>
+          <input type="text" matInput formControlName="placeOfBirth"/>
+        </mat-form-field>
+      </div>
+
+      <div class="grid-row">
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>Gendre</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option [value]="'M'">M</mat-option>
+            <mat-option [value]="'F'">F</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>Numéro de la carte d'identité</mat-label>
+          <input type="text" matInput formControlName="nationalIdentity"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>Numéro de Téléphone (1)</mat-label>
+          <input type="text" matInput formControlName="phoneNumber1"/>
+        </mat-form-field>
+
+      </div>
+
+      <div class="grid-row">
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>Numéro de Téléphone (2)</mat-label>
+          <input type="text" matInput formControlName="phoneNumber2"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>Est-ce un spécial étudiant?</mat-label>
+          <mat-select formControlName="isSpecialStudent">
+            <mat-option [value]="true">Oui</mat-option>
+            <mat-option [value]="false">Non</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" color="primary" class="grid-item">
+          <mat-label>Montant du paiement</mat-label>
+          <input type="number" matInput [formControl]="getPaymentControl('amount')"/>
+        </mat-form-field>
+
+
+        <div class="grid-item" style="grid-column: span 3; text-align: center; margin-top: 5px;">
+          <button type="submit" mat-flat-button color="primary" class="w-50">Enregistrer</button>
+        </div>
+      </div>
+
+
+      <div class="alert alert-danger grid-item" *ngIf="successMessage" style="
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #0dbd39;
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 1rem;
+      border-radius: 0.25rem;
+      margin-top: 20px;
+      grid-column: span 3;
+      ">
+        {{ successMessage }}
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

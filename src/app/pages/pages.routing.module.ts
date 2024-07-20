@@ -15,6 +15,8 @@ import {StatistiqueTempsTravailMoyenComponent} from "./manager/statistique-temps
 import {StatistiqueBeneficeMensuelComponent} from "./manager/statistique-benefice-mensuel/statistique-benefice-mensuel.component";
 import {FormOffrespecialeComponent} from "./manager/form-offrespeciale/form-offrespeciale.component";
 import {ListeOffrespecialeComponent} from "./manager/liste-offrespeciale/liste-offrespeciale.component";
+import {ListStudentComponent} from "./manager/list-student/list-student.component";
+import {FormStudentComponent} from "./manager/form-student/form-student.component";
 import {MonProfilComponent} from "./mon-profil/mon-profil.component";
 import {LandingPagesComponent} from "./client/landing-pages/landing-pages.component";
 
@@ -131,10 +133,24 @@ export const PagesRoutes: Routes = [
       title: 'Form Offre speciale',
     },
   },
+  {
+    path: 'listStudent',
+    component: ListStudentComponent,
+    data: {
+      title: 'Liste des Etudiants',
+    },
+  },
+  {
+    path: 'formstudent',
+    component: FormStudentComponent,
+    data: {
+      title: 'Ajout d\'un Etudiant',
+    },
+  },
   //OK
   {
     path: 'formcompte',
-    component: FormCompteComponent,
+    component: FormStudentComponent,
     data: {
       title: 'Nouveau rechargement de solde ',
     },

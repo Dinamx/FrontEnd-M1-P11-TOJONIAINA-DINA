@@ -73,5 +73,28 @@ export interface RendezvousEmploye {
   __v: number;
 }
 
+// student 
+
+export interface Student {
+  id: string;
+  firstName: string;
+  lastName: string;
+  address: string;
+  gender: string;
+  dateOfBirth: string;
+  placeOfBirth: string;
+  nationalIdentity: string;
+  phoneNumber1: string;
+  phoneNumber2: string;
+  isSpecialStudent: boolean;
+  payments: {
+    id: string;
+    date: string;
+    amount: number;
+    packageCategory: string;
+    packageName: string;
+  };
+  remaining: number;
+}
 
 

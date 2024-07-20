@@ -40,7 +40,6 @@ export class WebservicesService {
       // Gérer les données de la réponse ici
       console.log(response.data);
       console.log(response);
-      console.log('Fonction login');
       return response;
     } catch (error) {
       // Gérer les erreurs ici

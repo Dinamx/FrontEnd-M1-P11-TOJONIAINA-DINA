@@ -28,8 +28,13 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatNativeDateModule, MatOptionModule} from "@angular/material/core";
 import {FormRendezVousComponent} from "./pages/client/form-rendez-vous/form-rendez-vous.component";
 import {FooterComponent} from "./layouts/full/footer/footer.component";
-import {MatPaginatorModule} from "@angular/material/paginator";
 import {NgApexchartsModule} from "ng-apexcharts";
+
+// Importer les modules de Material Design nécessaires
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 @NgModule({
     declarations: [
@@ -59,6 +64,10 @@ import {NgApexchartsModule} from "ng-apexcharts";
     MatFormFieldModule,
     MatPaginatorModule,
     NgApexchartsModule,
+    MatInputModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatPaginatorModule,
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

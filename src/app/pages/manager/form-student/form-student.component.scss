@@ -1,0 +1,10 @@
+.grid-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Trois colonnes par ligne */
+    gap: 16px; /* Espacement entre les colonnes */
+  }
+  
+  .grid-item {
+    margin-bottom: 16px; /* Espacement entre les éléments sur la même ligne */
+  }
+  

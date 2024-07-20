@@ -20,20 +20,21 @@ export class AppSideLoginComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router  : Router  ,private  loginService : LoginServiceService) {}
 
   ngOnInit(): void {
-    localStorage.clear();
-    this.route.queryParams.subscribe(params => {
-      this.errorMessage = params['error'];
-    });
+    this.initializeForm();
+    // localStorage.clear();
+    // this.route.queryParams.subscribe(params => {
+    //   this.errorMessage = params['error'];
+    // });
 
-    this.route.params.subscribe(params => {
-      this.userType = params['userType'] || '1';
-      this.initializeForm(); // Assure-toi que le formulaire est initialisé après avoir défini le type d'utilisateur
-    });
+    // this.route.params.subscribe(params => {
+    //   this.userType = params['userType'] || '1';
+    //   this.initializeForm();
+    // });
   }
 
   initializeForm() {
-    let userEmail = 'tojohajarisoa@gmail.com';
-    let userPsswd = 'password';
+    let userEmail = 'admin';
+    let userPsswd = 'admin';
 
     if (this.userType == '2') {
       userEmail = 'employe@employe.com';
@@ -59,7 +60,7 @@ export class AppSideLoginComponent implements OnInit {
   getLoginHeaderText(): string {
     switch (this.userType) {
       case '1':
-        return 'Log in as a Client';
+        return 'Log In';
       case '2':
         return 'Log in as Employe';
       case '3':
@@ -67,26 +68,6 @@ export class AppSideLoginComponent implements OnInit {
       default:
         return 'Log in';
     }
-  }
-
-
-
-  redirect(typeUser: string) {
-    let route: string;
-    switch (typeUser) {
-      case 'client':
-        route = '/dashboard/rendezVous';
-        break;
-      case 'employe':
-        route = '/dashboard/listeRendezVousEmp';
-        break;
-      case 'admin':
-        route = '/dashboard/listeservice';
-        break;
-      default:
-        route = '/'; // Route par défaut si le type d'utilisateur n'est pas reconnu
-    }
-    this.router.navigateByUrl(route);
   }
 
   getLink() {
@@ -105,45 +86,10 @@ export class AppSideLoginComponent implements OnInit {
   isLoading = false;
 
   async logIn() {
-    this.isLoading = true; // Active le spinner
+    this.isLoading = true; 
 
-    try {
-      // console.log(this.form.value);
-      // console.log('user + ' + this.userEmail);
-      // console.log('psswd + ' + this.userPsswd);
-
-      // Attendre la résolution de la promesse
-      const response = await this.loginService.logIn(this.form.value);
-      if (response.status ===  200) {
-        // Stocker les informations de l'utilisateur dans le localStorage
-        localStorage.setItem('userId', response.data.userId);
-        localStorage.setItem('typeUser', response.data.type_user);
-        localStorage.setItem('email', response.data.email);
-        localStorage.setItem('nom', response.data.nom);
-        localStorage.setItem('image', response.data.image);
-
-        // console.log('typeUser' + localStorage.getItem('typeUser'));
-
-        // Vérifier si localStorage.getItem('typeUser') n'est pas nul
-        const typeUser = localStorage.getItem('typeUser');
-        if (typeUser) {
-          this.redirect(typeUser);
-        } else {
-          alert('Type d\'utilisateur incorrect.');
-        }
-      }
-    } catch (error) {
-
-      console.log('Erreur complète :', error);
-      // Gérer les erreurs
-      if (axios.isAxiosError(error) && error.response) {
-        alert(error.response.data.message);
-      } else {
-        alert('Une erreur inattendue est survenue.');
-      }
-    }
+    this.router.navigateByUrl('/dashboard/formservice');
   }
-
 
 
 }

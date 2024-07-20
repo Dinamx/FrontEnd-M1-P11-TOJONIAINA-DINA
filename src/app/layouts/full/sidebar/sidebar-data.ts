@@ -171,53 +171,15 @@ export const navItemsAdmin: NavItem[] = [
     navCap: 'MANAGER',
   },
   {
-    displayName: 'Nouvel employe',
-    iconName: 'user-plus',
-    route: '/dashboard/formemploye',
-  },
-  {
-    displayName: 'liste employe',
-    iconName: 'users',
-    route: '/dashboard/listeemploye',
-  },
-  {
-    displayName: 'nouveau Service',
-    iconName: 'playlist-add',
-    route: '/dashboard/formservice',
-  },
-  {
-    displayName: 'Liste service',
+    displayName: 'liste des Etudiants',
     iconName: 'list',
-    route: '/dashboard/listeservice',
-  },
-
-  {
-    displayName: 'liste Offre speciale',
-    iconName: 'list',
-    route: '/dashboard/listeOffrespeciale',
+    route: '/dashboard/listStudent',
   },
   {
-    displayName: 'Nouvelle Offre speciale',
+    displayName: 'Ajouter un Etudiant',
     iconName: 'discount',
-    route: '/dashboard/formOffrespeciale',
+    route: '/dashboard/formcompte',
   },
-  {
-    displayName: 'Nombre de réservation',
-    // iconName: 'layout-dashboard',
-    iconName: 'bookmarks',
-    route: '/dashboard/statistiqueNombreReservation',
-  },
-  {
-    displayName: 'Temps de travail Moyen',
-    iconName: 'clock-play',
-    route: '/dashboard/statistiqueTempsTravailMoyen',
-  },
-  {
-    displayName: 'Bénéfices',
-    iconName: 'coins',
-    route: '/dashboard/statistiqueBeneficeMensuel',
-  },
-
 ];
 
 export const navItemsEmploye: NavItem[] = [

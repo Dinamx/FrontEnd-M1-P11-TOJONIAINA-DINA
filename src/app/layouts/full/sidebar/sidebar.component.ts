@@ -16,26 +16,7 @@ export class SidebarComponent implements OnInit {
   constructor(public navService: NavService ,  private router: Router , private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.checkUserTypeAndRedirect();
-  }
-
-  checkUserTypeAndRedirect() {
-    const userType = localStorage.getItem('typeUser');
-    if (!userType || userType === '') {
-      alert('Please Log In Before');
-      this.redirectWithError('Please Log In');
-    } else if (userType === 'client') {
-      // alert('Client');
-      this.navItems = navItemsClient;
-      // this.navItems = navItemsNo;
-    }else if (userType === 'employe') {
-      // this.navItems = navItemsEmploye;
-      this.navItems =  navItemsEmploye;
-    }else if (userType === 'admin') {
-      // alert('Admin');
-
-      this.navItems = navItemsAdmin;
-    }
+    this.navItems = navItemsAdmin;
   }
 
   redirectWithError(errorMessage: string): void {

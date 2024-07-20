@@ -1,0 +1,54 @@
+/* CSS personnalisé pour show-student.component.scss */
+
+.student-details {
+    height: 100%; /* Ajustement de la hauteur pour occuper toute la hauteur de la colonne */
+    display: flex;
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+  }
+  
+  .card {
+    border: 1px solid #ddd; /* Couleur de bordure légèrement plus claire */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Augmentation de l'espace intérieur pour une meilleure lisibilité */
+    background-color: #fff;
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Animation lors du hover */
+    width: 100%; /* Occuper toute la largeur disponible */
+    max-width: 600px; /* Largeur maximale de la carte */
+    margin-top: 20px; /* Marge en haut pour descendre la carte */
+  }
+  
+  .card-header {
+    border-bottom: 1px solid #eee; /* Bordure inférieure légèrement plus claire */
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+  
+  .card-title {
+    font-size: 1.5rem; /* Titre plus grand */
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333; /* Couleur de texte plus sombre */
+  }
+  
+  .card-subtitle {
+    font-size: 1.1rem; /* Taille de police légèrement augmentée */
+    color: #666;
+    margin-bottom: 4px;
+  }
+  
+  /* Effet de survol */
+  .card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée */
+    transform: translateY(-4px); /* Légère élévation au survol */
+  }
+
+  .extra-space {
+    margin-bottom: 2rem; /* Ajustez cette valeur selon vos besoins */
+  }
+  
+  .key-text {
+    font-size: 0.9rem; /* Ajustez cette valeur pour diminuer la taille du texte */
+    color: black; /* Mettre le texte en noir */
+  }
